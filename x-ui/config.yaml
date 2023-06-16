@@ -1,0 +1,27 @@
+arch:
+- amd64
+- armhf
+- armv7
+- i386
+description: stilleshan/x-ui
+host_network: true
+image: stilleshan/x-ui
+ingress: true
+ingress_port: 54321
+ingress_stream: true
+init: false
+map:
+- ssl
+name: x-ui
+options:
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  ssl: true
+panel_icon: mdi:alpha-x
+ports:
+  54321/tcp: 54321
+  9666/tcp: 96667
+  9666/udp: 96667  
+slug: x-ui
+startup: services
+version: latest
