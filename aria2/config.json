@@ -1,0 +1,13 @@
+{
+    "name": "Aria2",
+    "version": "2022.09.06.0423",
+    "slug": "aria2",
+    "description": "Aria2 download manager",
+    "startup": "system",
+    "arch": ["amd64"],
+    "boot": "auto",
+    "image": "p3terx/aria2-pro",
+    "options": {"options":[]},
+    "schema": {"downloads": "str?", "secret": "str?", "options":[{"name": "str", "value": "str"}]},
+    "ports": {"6800/tcp": 6800},
+}
