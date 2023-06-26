@@ -1,0 +1,35 @@
+https://github.com/alexbelgium/hassio-addons
+https://github.com/devova/hassio-frp-addons
+https://github.com/zigbee2mqtt/hassio-zigbee2mqtt
+https://github.com/esphome/home-assistant-addon/
+https://hub.nuaa.cf/bestlibre/hassio-addons
+https://hub.nuaa.cf/
+1、官方库
+https://github.com/home-assistant/addons
+
+2、社区库
+https://github.com/hassio-addons/repository
+
+3、Zigbee2MQTT
+https://github.com/zigbee2mqtt/hassio-zigbee2mqtt
+
+4、媒体影音服务插件
+发现了两个大神分享的和影音管理及下载工具相关的插件库，也备忘一下：
+
+这个应该需要自动编译，但是我没有成功：
+
+https://github.com/alexbelgium/hassio-addons
+
+图2、容器截图
+另外一个类似的，有现成的容器可以直接安装：https://github.com/petersendev/hassio-addons
+
+图3、容器截图
+
+5、视频检测 Frigate
+https://github.com/blakeblackshear/frigate-hass-addons
+
+6、蓝牙检测 presence-monitor
+https://github.com/Limych/hassio-addons
+
+7、房间综合检测 room_assistant
+https://github.com/mKeRix/hassio-repo
