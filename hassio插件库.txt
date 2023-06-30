@@ -33,3 +33,13 @@ https://github.com/Limych/hassio-addons
 
 7、房间综合检测 room_assistant
 https://github.com/mKeRix/hassio-repo
+
+加速仓库
+https://hub.nuaa.cf/alexbelgium/hassio-addons
+https://hub.nuaa.cf/devova/hassio-frp-addons
+https://hub.nuaa.cf/zigbee2mqtt/hassio-zigbee2mqtt
+https://hub.nuaa.cf/esphome/home-assistant-addon/
+https://hub.nuaa.cf/bestlibre/hassio-addons
+https://hub.nuaa.cf/Limych/hassio-addons
+https://hub.nuaa.cf/mKeRix/hassio-repo
+https://hub.nuaa.cf/dscao/npc-hass-addons
