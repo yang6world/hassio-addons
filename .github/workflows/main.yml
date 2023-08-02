@@ -31,9 +31,12 @@ jobs:
       - name: pull
         run : |
           git clone https://github.com/alexbelgium/hassio-addons.git
-          rm ./.github
-          rm ./.templates
-          rm ./.vscode
+          ls 
+          cd ./hassio-addons
+          ls
+          rm -r ./.github
+          rm -r ./.templates
+          rm -r ./.vscode
           rm ./.gitconfig
           rm ./.gitignore
           rm ./.hadolint.yaml
@@ -47,6 +50,8 @@ jobs:
           rm ./Stats
           rm ./repository.json
           rm ./Stats2
+          cd -
+          ls
           mv -r ./hassio-addons/* ./
           git config --global user.email yzr@yserver.top
           git config --global user.name y
