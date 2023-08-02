@@ -1,4 +1,4 @@
-## &#9888; Open Request : [✨ [REQUEST] Transmission add Tailmission Web UI (opened 2023-02-19)](https://github.com/alexbelgium/hassio-addons/issues/719) by [@DarkoMir](https://github.com/DarkoMir)
+## &#9888; Open Request : [✨ [REQUEST] Transmission - set config directory from configuration page (opened 2023-07-28)](https://github.com/alexbelgium/hassio-addons/issues/922) by [@akslow](https://github.com/akslow)
 
 # Home assistant add-on: Transmission
 

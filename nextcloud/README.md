@@ -1,5 +1,4 @@
-
-
+## &#9888; Open Request : [✨ [REQUEST] Nextcloud (opened 2023-07-30)](https://github.com/alexbelgium/hassio-addons/issues/925) by [@zuldero](https://github.com/zuldero)
 # Home assistant add-on: Nextcloud
 
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
@@ -37,13 +36,13 @@ Scripts with .sh ending located in /config/addons_config/nextcloud will be execu
 ### Addon options
 
 ```yaml
-disable_updates : prevent automatic apps updating along addon
+disable_updates: prevent automatic apps updating along addon
 additional_apps: vim,nextcloud #specify additional apk files to install ; separated by commas
 PGID/PUID: 1000 #allows setting user.
 trusted_domains: your-domain.com #allows to select the trusted domains. Domains not in this lis will be removed, except for the first one used in the initial configuration.
 OCR: false #set to true to install tesseract-ocr capability.
 OCRLANG: fra,eng #Any language can be set from this page (always three letters) [here](https://tesseract-ocr.github.io/tessdoc/Data-Files#data-files-for-version-400-november-29-2016).
-data_directory: path for the main data directory. Defaults to `/share/nextcloud`.
+data_directory: path for the main data directory. Defaults to `/share/nextcloud`. Only used to set permissions and prefill the initial installation template. Once initial  installation is done it can't be changed
 use_own_certs: true/false #if true, use the certfile and keyfile specified
 certfile: fullchain.pem #ssl certificate, must be located in /ssl
 keyfile: privkey.pem #sslkeyfile, must be located in /ssl

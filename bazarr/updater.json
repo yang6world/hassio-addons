@@ -1,0 +1,8 @@
+{
+  "last_update": "22-07-2023",
+  "repository": "alexbelgium/hassio-addons",
+  "slug": "bazarr",
+  "source": "github",
+  "upstream_repo": "linuxserver/docker-bazarr",
+  "upstream_version": "1.2.4"
+}

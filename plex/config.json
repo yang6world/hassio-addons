@@ -94,7 +94,7 @@
     "8324/tcp": 8324
   },
   "ports_description": {
-    "1900/udp": "Plex DLNA Server",
+    "1900/udp": "Plex DLNA server",
     "3005/tcp": "Plex Home Theater via Plex Companion",
     "32400/tcp": "Plex Media Server Interface",
     "32410/udp": "GDM network discovery",
@@ -124,7 +124,7 @@
   },
   "slug": "plex_nas",
   "url": "https://github.com/alexbelgium/hassio-addons/tree/master/plex",
-  "version": "1.32.4.7195-7c8f9d3b6-ls174",
+  "version": "1.32.5.7349-8f4248874-ls177",
   "video": true,
   "webui": "[PROTO:ssl]://[HOST]:[PORT:32400]/web"
 }

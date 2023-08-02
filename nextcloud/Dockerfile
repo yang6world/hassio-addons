@@ -40,22 +40,26 @@ RUN \
     sed -i \
     -e 's/upload_max_filesize=1024M/upload_max_filesize=8192M/g' \
     -e 's/post_max_size=1024M/post_max_size=8192M/g' \
+    -e 's/max_execution_time=120/max_execution_time=3600/g' \
     /etc/php*/php.ini || true && \
     \
     # modify nginx limits file
     sed -i "s|client_max_body_size 512M;|client_max_body_size 8192M;|g" /defaults/nginx/site-confs/default.conf.sample && \
-    \
-    # Change location of executable
-    sed -i "s|/config|/data/config|g" /usr/bin/occ && \
-    sed -i "s|/config|/data/config|g" /usr/bin/updater.phar && \
+    sed -i "s|client_body_timeout 300s;|client_body_timeout 900s;|g" /defaults/nginx/site-confs/default.conf.sample && \
     \
     # Change location of log
     sed -i "s|s6-setuidgid abc php -f /config/www/nextcloud/cron.php|(s6-setuidgid abc php -f /config/www/nextcloud/cron.php) \&>/proc/1/fd/1|g" /etc/crontabs/root && \
     \
-    # Check bundled version and store it in /nextcloudversion
-    mkdir -p /tmp2 && tar xf /app/nextcloud.tar.bz2 -C /tmp2 --strip-components=1 && \
-    sed -n "s|.*\OC_VersionString = '*\(.*[^ ]\) *';.*|\1|p" /tmp2/version.php > /nextcloudversion && \
-    rm -r /tmp2
+    # Run custom scripts after installation
+    echo "touch /runfile" >> /etc/s6-overlay/s6-rc.d/init-nextcloud-config/run && \
+    echo "/./etc/entrypoint.sh" >> /etc/s6-overlay/s6-rc.d/init-nextcloud-config/run && \
+    \
+    # Ensure correct data mount first
+    sed -i "1a /./scripts2/00-banner.sh" /etc/s6-overlay/s6-rc.d/init-adduser/run && \
+    sed -i "2a /./defaults/nextcloud-perms.sh" /etc/s6-overlay/s6-rc.d/init-adduser/run && \
+    echo "/./scripts2/01-custom_script.sh" >> /etc/s6-overlay/s6-rc.d/init-adduser/run && \
+    echo "/./scripts2/00-smb_mounts.sh" >> /etc/s6-overlay/s6-rc.d/init-adduser/run && \
+    echo "/./scripts2/00-local_mounts.sh" >> /etc/s6-overlay/s6-rc.d/init-adduser/run
 
 # Global LSIO modifications
 ARG CONFIGLOCATION="/data/config"
@@ -75,9 +79,6 @@ RUN \
     \
     # Avoid chmod /config
     && for file in /etc/services.d/*/* /etc/cont-init.d/* /etc/s6-overlay/s6-rc.d/*/*;do if [ -f $file ] && [[ ! -z $(awk '/chown.*abc:abc.*\\/,/.*\/config( |$)/{print FILENAME}' $file) ]] ; then sed -i "s|/config$|/data|g" $file; fi ;done \
-    \
-    # Docker mods addition
-    #&& if [ -f /docker-mods ]; then sed -i 's|bash|bashio|g' /docker-mods && sed -i "1a if bashio::config.has_value \"DOCKER_MODS\"; then DOCKER_MODS=\$(bashio::config \"DOCKER_MODS\"); fi" /docker-mods; fi \
     \
     # Replace lsiown if not found
     && if [ ! -f /usr/bin/lsiown ]; then for file in $(grep -sril "lsiown" /etc); do sed -i "s|lsiown|chown|g" $file; done; fi
@@ -127,7 +128,17 @@ VOLUME ["/share", "/ssl", "/data", "/media"]
 ARG CONFIGLOCATION="/www/nextcloud/config"
 # hadolint ignore=SC2015, SC2013, SC2086, SC2016
 RUN \
+    # Avoid using legacy cont-init.d
+    mkdir -p /scripts && mv /etc/cont-init.d/* /scripts && \
+    for file in 00-local_mounts.sh 00-smb_mounts.sh 00-banner.sh 01-custom_script.sh; do mkdir -p /scripts2 && mv /scripts/"$file" /scripts2; done && \
+    sed -i "s|/etc/cont-init.d|/scripts|g" /etc/entrypoint.sh && \
+    \
+    # Give permissions
+    chmod 777 /etc/entrypoint.sh /defaults/nextcloud-perms.sh /scripts/* /scripts2/* && \
+    \
+    # Correct erroneous modifications
     for file in $(grep -Esril "/www/nextcloud/data/config" /etc /defaults); do sed -Ei "s=(/www/nextcloud/data/config)+(/| |$|\"|\')=$CONFIGLOCATION\2=g" $file; done && \
+    for file in $(grep -Esril "/data/data" /etc /defaults); do sed -Ei "s=(/data/data)+(/| |$|\"|\')=/data\2=g" $file; done && \
     \
     # Correct nginx files
     sed -i "/Strict-Transport-Security/d" /defaults/nginx/site-confs/default.conf.sample && \
