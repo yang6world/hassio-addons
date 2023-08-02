@@ -63,24 +63,15 @@ jobs:
           cd ./hassio-zigbee2mqtt
           ls
           rm -r ./.github
-          rm -r ./.templates
-          rm -r ./.vscode
-          rm ./.gitconfig
+          rm -r ./common
           rm ./.gitignore
-          rm ./.hadolint.yaml
-          rm ./.jscpd.json
-          rm ./.markdownlint.yaml
-          rm ./.shellcheckrc
-          rm ./CODE_OF_CONDUCT.md
           rm ./CONTRIBUTING.md
           rm ./README.md
-          rm ./SECURITY.md
-          rm ./Stats
           rm ./repository.json
-          rm ./Stats2
           cd -
           ls
-          cp -r ./hassio-addons/* ./
+          cp -r ./hassio-zigbee2mqtt/* ./
+          rm -r ./hassio-zigbee2mqtt
           git config --global user.email yzr@yserver.top
           git config --global user.name y
           git add .
