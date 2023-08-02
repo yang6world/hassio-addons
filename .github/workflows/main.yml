@@ -60,7 +60,7 @@ jobs:
         run : |
           git clone https://github.com/zigbee2mqtt/hassio-zigbee2mqtt.git
           ls 
-          cd ./hassio-addons
+          cd ./hassio-zigbee2mqtt
           ls
           rm -r ./.github
           rm -r ./.templates
