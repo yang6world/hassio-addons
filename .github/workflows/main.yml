@@ -31,9 +31,7 @@ jobs:
       - name: pull
         run : |
           git clone https://github.com/alexbelgium/hassio-addons.git
-          ls 
           cd ./hassio-addons
-          ls
           rm -r ./.github
           rm -r ./.templates
           rm -r ./.vscode
@@ -51,12 +49,11 @@ jobs:
           rm ./repository.json
           rm ./Stats2
           cd -
-          ls
           cp -r ./hassio-addons/* ./
           git config --global user.email yzr@yserver.top
           git config --global user.name y
           git add .
-          git commit -m "From alexbelgium/hassio-addons" -a
+          git commit -m "From alexbelgium/hassio-addons" 
           
       - name: pull2
         run : |
