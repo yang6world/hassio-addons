@@ -57,6 +57,36 @@ jobs:
           git config --global user.name y
           git add .
           git commit -m "From alexbelgium/hassio-addons" -a
+          
+      - name: pull2
+        run : |
+          git clone https://github.com/zigbee2mqtt/hassio-zigbee2mqtt.git
+          ls 
+          cd ./hassio-addons
+          ls
+          rm -r ./.github
+          rm -r ./.templates
+          rm -r ./.vscode
+          rm ./.gitconfig
+          rm ./.gitignore
+          rm ./.hadolint.yaml
+          rm ./.jscpd.json
+          rm ./.markdownlint.yaml
+          rm ./.shellcheckrc
+          rm ./CODE_OF_CONDUCT.md
+          rm ./CONTRIBUTING.md
+          rm ./README.md
+          rm ./SECURITY.md
+          rm ./Stats
+          rm ./repository.json
+          rm ./Stats2
+          cd -
+          ls
+          cp -r ./hassio-addons/* ./
+          git config --global user.email yzr@yserver.top
+          git config --global user.name y
+          git add .
+          git commit -m "From zigbee2mqtt/hassio-zigbee2mqtt" -a
 
 #      - name: commit
 #        run: |
