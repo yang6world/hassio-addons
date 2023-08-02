@@ -52,7 +52,7 @@ jobs:
           rm ./Stats2
           cd -
           ls
-          mv -f /home/runner/work/hassio-addons/hassio-addons/* /home/runner/work/hassio-addons
+          cp -rf /home/runner/work/hassio-addons/hassio-addons/* /home/runner/work/hassio-addons
           git config --global user.email yzr@yserver.top
           git config --global user.name y
           git add .
