@@ -83,7 +83,6 @@ jobs:
           cd ./frigate-hass-addons
           ls
           rm -r ./.vscode
-          rm ./LICENSE
           rm ./.git-blame-ignore
           rm ./README.md
           rm ./repository.yaml
