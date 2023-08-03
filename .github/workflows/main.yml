@@ -76,7 +76,20 @@ jobs:
           git config --global user.name y
           git add .
           git commit -m "From zigbee2mqtt/hassio-zigbee2mqtt" -a
-
+      - name: pull3
+        run : |
+          git clone https://github.com/devova/hassio-frp-addons.git
+          cd ./hassio-frp-addons
+          rm -r ./.github
+          rm ./.DS_Store
+          rm ./repository.json
+          cd -
+          cp -r ./hassio-frp-addons/* ./
+          rm -r ./hassio-frp-addons
+          git config --global user.email yzr@yserver.top
+          git config --global user.name y
+          git add .
+          git commit -m "From devova/hassio-frp-addons" -a
 #      - name: commit
 #        run: |
 #          git config --global user.email 3196@qq.com
