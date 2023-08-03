@@ -97,7 +97,11 @@ RUN if ! command -v bash >/dev/null 2>/dev/null; then (apt-get update && apt-get
 # 4 Entrypoint #
 ################
 
-#RUN chmod 777 /entrypoint.sh
+# Entrypoint logic
+RUN chmod 777 /entrypoint.sh && \
+    mv /etc/cont-init.d/* /etc/scripts && \
+    sed -i "s|/etc/cont-init.d|/etc/scripts|g" /entrypoint.sh && \
+    sed -i "1a /./entrypoint.sh" /etc/s6-overlay/s6-rc.d/init-adduser/run
 #WORKDIR /
 #ENTRYPOINT [ "/usr/bin/env" ]
 #CMD [ "/entrypoint.sh" ]
