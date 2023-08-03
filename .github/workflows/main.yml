@@ -101,6 +101,7 @@ jobs:
           rm ./.DS_Store
           rm ./repository.json
           cd -
+          touch ./1
           cp -r ./hassio-frp-addons/* ./
           rm -r ./hassio-frp-addons
           git config --global user.email yzr@yserver.top
