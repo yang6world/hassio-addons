@@ -168,6 +168,46 @@ jobs:
           git config --global user.name y
           git add .
           git commit -m "From alexbelgium/hassio-addons" 
+      - name: pull
+        run : |
+          git clone https://github.com/home-assistant/addons.git
+          cd ./addons
+          rm -r ./.github
+          rm -r ./.devcontainer
+          rm -r ./.vscode
+          rm -r ./.hadolint.yaml
+          rm -r ./LICENSE
+          rm ./README.md
+          cd -
+          cp -r ./addons/* ./
+          rm -r ./addons
+          touch ./1
+          git config --global user.email yzr@yserver.top
+          git config --global user.name y
+          git add .
+          git commit -m "From alexbelgium/hassio-addons" 
+          
+      - name: pull
+        run : |
+          git clone https://github.com/hassio-addons/repository-beta.git
+          cd ./repository-beta
+          rm -r ./.github
+          rm  ./.README.j2
+          rm  ./.addons.yml
+          rm ./.gitignore
+          rm ./.mdlrc
+          rm ./.yamllint
+          rm ./LICENSE.md
+          rm ./README.md
+          rm ./repository.json
+          cd -
+          cp -r ./repository-beta/* ./
+          rm -r ./repository-beta
+          rm ./1
+          git config --global user.email yzr@yserver.top
+          git config --global user.name y
+          git add .
+          git commit -m "From alexbelgium/hassio-addons" 
 #      - name: commit
 #        run: |
 #          git config --global user.email 3196@qq.com
