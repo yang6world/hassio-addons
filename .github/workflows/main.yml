@@ -76,7 +76,7 @@ jobs:
           git config --global user.name y
           git add .
           git commit -m "From zigbee2mqtt/hassio-zigbee2mqtt" -a
-      - name: pull blakeblackshear/frigate-hass-addons
+      - name: pull3
         run : |
           git clone https://github.com/blakeblackshear/frigate-hass-addons.git
           ls 
@@ -95,7 +95,7 @@ jobs:
           git config --global user.name y
           git add .
           git commit -m "From blakeblackshear/frigate-hass-addons" -a
-      - name: pull3
+      - name: pull
         run : |
           git clone https://github.com/devova/hassio-frp-addons.git
           cd ./hassio-frp-addons
