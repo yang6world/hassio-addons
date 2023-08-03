@@ -86,7 +86,7 @@ jobs:
           rm ./LICENSE
           rm ./.git-blame-ignore
           rm ./README.md
-          rm ./repository.json
+          rm ./repository.yaml
           cd -
           ls
           cp -r ./frigate-hass-addons/* ./
