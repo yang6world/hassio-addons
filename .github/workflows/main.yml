@@ -108,6 +108,18 @@ jobs:
           git config --global user.name y
           git add .
           git commit -m "From devova/hassio-frp-addons" -a
+      - name: pull3
+        run : |
+          git clone https://github.com/Limych/hassio-addons.git
+          cd ./hassio-addons
+          find ./ -type f -delete
+          cd -
+          cp -r ./hassio-addons/* ./
+          rm -r ./hassio-addons
+          git config --global user.email yzr@yserver.top
+          git config --global user.name y
+          git add .
+          git commit -m "From Limych/hassio-addons" -a
 #      - name: commit
 #        run: |
 #          git config --global user.email 3196@qq.com
