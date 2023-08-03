@@ -55,7 +55,10 @@ jobs:
           git config --global user.name y
           git add .
           git commit -m "From alexbelgium/hassio-addons" 
-          
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: pull2
         run : |
           git clone https://github.com/zigbee2mqtt/hassio-zigbee2mqtt.git
@@ -76,6 +79,10 @@ jobs:
           git config --global user.name y
           git add .
           git commit -m "From zigbee2mqtt/hassio-zigbee2mqtt" -a
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: pull blakeblackshear/frigate-hass-addons
         run : |
           git clone https://github.com/blakeblackshear/frigate-hass-addons.git
@@ -95,6 +102,10 @@ jobs:
           git config --global user.name y
           git add .
           git commit -m "From blakeblackshear/frigate-hass-addons" -a
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: pull3
         run : |
           git clone https://github.com/devova/hassio-frp-addons.git
@@ -108,6 +119,10 @@ jobs:
           git config --global user.name y
           git add .
           git commit -m "From devova/hassio-frp-addons" -a
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: pull3
         run : |
           git clone https://github.com/Limych/hassio-addons.git
