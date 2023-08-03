@@ -108,6 +108,66 @@ jobs:
           git config --global user.name y
           git add .
           git commit -m "From devova/hassio-frp-addons" -a
+      - name: pull
+        run : |
+          git clone https://github.com/Limych/hassio-addons.git
+          cd ./hassio-addons
+          rm -r ./.github
+          rm ./.gitconfig
+          rm ./.README.j2
+          rm ./.editorconfig
+          rm ./.hassio-addons.yml
+          rm ./LICENSE
+          rm ./editorconfig.txt
+          rm ./README.md
+          rm ./repository.json
+          cd -
+          cp -r ./hassio-addons/* ./
+          rm -r ./hassio-addons
+          rm ./1
+          git config --global user.email yzr@yserver.top
+          git config --global user.name y
+          git add .
+          git commit -m "From alexbelgium/hassio-addons" 
+      - name: pull
+        run : |
+          git clone https://github.com/mKeRix/hassio-repo.git
+          cd ./hassio-repo
+          rm -r ./.github
+          rm -r ./.devcontainer
+          rm -r ./.vscode
+          rm ./.editorconfig
+          rm ./.gitignore
+          rm ./README.md
+          rm ./repository.json
+          cd -
+          cp -r ./hassio-repo/* ./
+          rm -r ./hassio-repo
+          touch ./1
+          git config --global user.email yzr@yserver.top
+          git config --global user.name y
+          git add .
+          git commit -m "From alexbelgium/hassio-addons" 
+      - name: pull
+        run : |
+          git clone https://github.com/esphome/home-assistant-addon.git
+          cd ./home-assistant-addon
+          rm -r ./.github
+          rm -r ./.devcontainer
+          rm -r ./.vscode
+          rm -r ./script
+          rm -r ./template
+          rm ./repository.json
+          rm ./README.md
+          rm ./.gitignore
+          cd -
+          cp -r ./home-assistant-addon/* ./
+          rm -r ./home-assistant-addon
+          rm ./1
+          git config --global user.email yzr@yserver.top
+          git config --global user.name y
+          git add .
+          git commit -m "From alexbelgium/hassio-addons" 
 #      - name: commit
 #        run: |
 #          git config --global user.email 3196@qq.com
