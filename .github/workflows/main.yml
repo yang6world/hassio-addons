@@ -113,7 +113,7 @@ jobs:
           git clone https://github.com/Limych/hassio-addons.git
           cd ./hassio-addons
           rm -r ./.github
-          rm ./.gitconfig
+          rm ./.gitignore
           rm ./.README.j2
           rm ./.editorconfig
           rm ./.hassio-addons.yml
