@@ -16,20 +16,25 @@ jobs:
 
       - name: Clone and copy repos
         run: |
-          # Function to sync repositories
-          sync_repo() {
-            repo_name=$1
-            git clone "https://github.com/$repo_name.git" source_repo
-            rsync -av --delete ./source_repo/ ./
-            rm -r ./source_repo
-          }
+          git clone https://github.com/alexbelgium/hassio-addons.git
+          rsync -av ./hassio-addons/ ./
+          rm -r ./hassio-addons
 
-          # Clone and sync repositories
-          sync_repo "alexbelgium/hassio-addons"
-          sync_repo "zigbee2mqtt/hassio-zigbee2mqtt"
-          sync_repo "blakeblackshear/frigate-hass-addons"
-          sync_repo "devova/hassio-frp-addons"
-          sync_repo "Limych/hassio-addons"
+          git clone https://github.com/zigbee2mqtt/hassio-zigbee2mqtt.git
+          rsync -av ./hassio-zigbee2mqtt/ ./
+          rm -r ./hassio-zigbee2mqtt
+
+          git clone https://github.com/blakeblackshear/frigate-hass-addons.git
+          rsync -av ./frigate-hass-addons/ ./
+          rm -r ./frigate-hass-addons
+
+          git clone https://github.com/devova/hassio-frp-addons.git
+          rsync -av ./hassio-frp-addons/ ./
+          rm -r ./hassio-frp-addons
+
+          git clone https://github.com/Limych/hassio-addons.git
+          rsync -av ./hassio-addons/ ./
+          rm -r ./hassio-addons
 
       - name: Configure Git
         run: |
