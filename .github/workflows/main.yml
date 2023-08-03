@@ -128,7 +128,7 @@ jobs:
           git config --global user.email yzr@yserver.top
           git config --global user.name y
           git add .
-          git commit -m "From alexbelgium/hassio-addons" 
+          git commit -m "From Limych/hassio-addons" 
       - name: pull
         run : |
           git clone https://github.com/mKeRix/hassio-repo.git
@@ -147,7 +147,7 @@ jobs:
           git config --global user.email yzr@yserver.top
           git config --global user.name y
           git add .
-          git commit -m "From alexbelgium/hassio-addons" 
+          git commit -m "From mKeRix/hassio-repo" 
       - name: pull
         run : |
           git clone https://github.com/esphome/home-assistant-addon.git
@@ -167,7 +167,7 @@ jobs:
           git config --global user.email yzr@yserver.top
           git config --global user.name y
           git add .
-          git commit -m "From alexbelgium/hassio-addons" 
+          git commit -m "From esphome/home-assistant-addon" 
       - name: pull
         run : |
           git clone https://github.com/home-assistant/addons.git
@@ -185,7 +185,7 @@ jobs:
           git config --global user.email yzr@yserver.top
           git config --global user.name y
           git add .
-          git commit -m "From alexbelgium/hassio-addons" 
+          git commit -m "From home-assistant/addons" 
           
       - name: pull
         run : |
@@ -207,7 +207,50 @@ jobs:
           git config --global user.email yzr@yserver.top
           git config --global user.name y
           git add .
-          git commit -m "From alexbelgium/hassio-addons" 
+          git commit -m "hassio-addons/repository-beta" 
+          
+      - name: pull
+        run : |
+          git clone https://github.com/dscao/npc-hass-addons.git
+          cd ./npc-hass-addons
+          rm -r ./ocr_api_server
+          rm ./README.md
+          rm ./repository.json
+          cd -
+          cp -r ./npc-hass-addons/* ./
+          rm -r ./npc-hass-addons
+          touch ./1
+          git config --global user.email yzr@yserver.top
+          git config --global user.name y
+          git add .
+          git commit -m "From dscao/npc-hass-addons" 
+
+      - name: pull
+        run : |
+          git clone https://github.com/hassio-addons/repository.git
+          cd ./repository
+          rm -r ./.github
+          rm  ./.README.j2
+          rm  ./.addons.yml
+          rm ./.gitignore
+          rm ./.mdlrc
+          rm ./.yamllint
+          rm ./LICENSE.md
+          rm ./README.md
+          rm ./repository.json
+          rm ./build-site.sh
+          rm ./mkdocs.yml
+          rm ./netlify.toml
+          rm ./requirements.txt
+          rm ./runtime.txt
+          cd -
+          cp -r ./repository/* ./
+          rm -r ./repository
+          rm ./1
+          git config --global user.email yzr@yserver.top
+          git config --global user.name y
+          git add .
+          git commit -m "hassio-addons/repository" 
 #      - name: commit
 #        run: |
 #          git config --global user.email 3196@qq.com
