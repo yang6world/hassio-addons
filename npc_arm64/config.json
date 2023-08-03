@@ -1,0 +1,22 @@
+{
+  "name": "npc(aarch64)",
+  "version": "0.26.10",
+  "slug": "npc_arm64",
+  "description": "NPS is a lightweight, high-performance, powerful intranet penetration proxy server, with a powerful web management terminal.",
+  "url": "https://github.com/dscao/npc-hass-addons/tree/main/npc_arm64",
+  "arch": ["aarch64"],
+  "startup": "application",
+  "boot": "auto",
+  "init": false,
+  "options": {
+    "nps_host": "",
+    "nps_vkey": "",
+    "nps_type": "tcp"
+
+  },
+  "schema": {
+    "nps_host": "str?",
+    "nps_vkey": "str?",
+    "nps_type": "str?"
+  }
+}
