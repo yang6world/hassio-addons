@@ -69,7 +69,7 @@ jobs:
           rm ./README.md
           rm ./repository.json
           cd -
-          ls
+          touch ./1
           cp -r ./hassio-zigbee2mqtt/* ./
           rm -r ./hassio-zigbee2mqtt
           git config --global user.email yzr@yserver.top
@@ -87,7 +87,7 @@ jobs:
           rm ./README.md
           rm ./repository.yaml
           cd -
-          ls
+          rm ./1
           cp -r ./frigate-hass-addons/* ./
           rm -r ./frigate-hass-addons
           git config --global user.email yzr@yserver.top
