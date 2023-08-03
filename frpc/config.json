@@ -1,0 +1,82 @@
+{
+    "name": "FRP Client",
+    "version": "0.35.1",
+    "slug": "frpc",
+    "description": "A FRP client for Hass.io (self-hosted ngrok alternative)",
+    "arch": [
+      "aarch64",
+      "amd64",
+      "armhf",
+      "armv7",
+      "i386"
+    ],
+    "init": false,
+    "startup": "services",
+    "ports": {
+      "53/udp": null,
+      "53/tcp": null,
+      "8123/tcp": null
+    },
+    "ports_description": {
+      "8123/tcp": "Remote Home Assistant Instance",
+      "53/udp": "To owerride DNS",
+      "53/tcp": "To owerride DNS"
+    },
+    "options": {
+      "log_level": "info",
+      "token": "",
+      "server_addr": "",
+      "server_port": 7000,
+      "admin_user": "admin",
+      "admin_pwd": "admin",
+      "tunnels": [
+        {
+          "name": "ngnix_proxy",
+          "type": "https",
+          "local_ip": "core-nginx-proxy",
+          "local_port": 443,
+          "subdomain": "home"
+        },
+        {
+          "name": "p2p_home_assistant",
+          "type": "xtcp",
+          "local_ip": "homeassistant",
+          "local_port": 8123,
+          "sk": "some-random-key"
+        },
+        {
+          "name": "p2p_home_assistant_visitor",
+          "type": "xtcp",
+          "role": "visitor",
+          "server_name": "p2p_home_assistant",
+          "sk": "some-random-key",
+          "bind_addr":  "127.0.0.1",
+          "bind_port": 8123
+        }
+
+      ]
+    },
+    "schema": {
+      "log_level": "list(crit|warn|error|info|debug)",
+      "token": "str?",
+      "server_addr": "str",
+      "server_port": "int",
+      "admin_user": "str",
+      "admin_pwd": "str",
+      "tunnels": [
+        {
+          "name": "str",
+          "type": "list(https|http|tcp|udp|xtcp|stcp|sudp)",
+          "local_ip": "str?",
+          "local_port": "int?",
+          "remote_port": "int?",
+          "subdomain": "str?",
+          "sk": "str?",
+          "role": "str?",
+          "server_name": "str?",
+          "bind_addr": "str?",
+          "bind_port": "int?"
+        }
+      ]
+    }
+  }
