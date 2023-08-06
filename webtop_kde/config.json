@@ -67,9 +67,11 @@
     "/dev/nvme2"
   ],
   "environment": {
+    "FM_HOME": "/share/webtop_kde",
+    "HOME": "/share/webtop_kde",
     "PGID": "0",
     "PUID": "0",
-    "TITLE": "Alpine webtop",
+    "TITLE": "Alpine KDE webtop",
     "shm_size": "1gb"
   },
   "host_dbus": true,
@@ -77,27 +79,24 @@
   "ingress": true,
   "init": false,
   "map": [
-    "config:rw",
     "media:rw",
     "share:rw",
     "ssl"
   ],
-  "name": "Webtop XFCE",
+  "name": "Webtop Alpine KDE",
   "options": {
     "DNS_server": "8.8.8.8",
     "PGID": 0,
     "PUID": 0,
-    "additional_apps": "engrampa",
+    "additional_apps": "engrampa,libreoffice",
     "rpi_video_drivers": true
   },
   "panel_icon": "mdi:monitor",
   "ports": {
-    "3000/tcp": null,
-    "3001/tcp": null
+    "3000/tcp": null
   },
   "ports_description": {
-    "3000/tcp": "Web interface",
-    "3001/tcp": "https web interface"
+    "3000/tcp": "web interface"
   },
   "privileged": [
     "SYS_ADMIN",
@@ -126,6 +125,6 @@
   "slug": "webtop-kde",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "5.24.5-test4",
+  "version": "4.16-r0-ls95",
   "video": true
 }

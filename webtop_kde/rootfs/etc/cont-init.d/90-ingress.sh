@@ -1,20 +1,36 @@
 #!/usr/bin/with-contenv bashio
 # shellcheck shell=bash
-# shellcheck disable=SC2046
 
 #################
 # NGINX SETTING #
 #################
+declare port
+declare certfile
+declare ingress_interface
+declare ingress_port
+declare keyfile
 
-cp /defaults/default.conf /etc/nginx/http.d/ingress.conf
+port=$(bashio::addon.port 80)
+if bashio::var.has_value "${port}"; then
+    bashio::config.require.ssl
+
+    if bashio::config.true 'ssl'; then
+        certfile=$(bashio::config 'certfile')
+        keyfile=$(bashio::config 'keyfile')
+
+        mv /etc/nginx/servers/direct-ssl.disabled /etc/nginx/servers/direct.conf
+        sed -i "s/%%certfile%%/${certfile}/g" /etc/nginx/servers/direct.conf
+        sed -i "s/%%keyfile%%/${keyfile}/g" /etc/nginx/servers/direct.conf
+
+    else
+        mv /etc/nginx/servers/direct.disabled /etc/nginx/servers/direct.conf
+    fi
+fi
 
 ingress_port=$(bashio::addon.ingress_port)
-#ingress_interface=$(bashio::addon.ip_address)
-sed -i "s/3001/0001/g" /etc/nginx/http.d/ingress.conf
-sed -i "s/3000/${ingress_port}/g" /etc/nginx/http.d/ingress.conf
-#sed -i "s/%%interface%%/${ingress_interface}/g" /etc/nginx/sites-available/ingress.conf
-
-nginx -s reload &>/dev/null || true
+ingress_interface=$(bashio::addon.ip_address)
+sed -i "s/%%port%%/${ingress_port}/g" /etc/nginx/servers/ingress.conf
+sed -i "s/%%interface%%/${ingress_interface}/g" /etc/nginx/servers/ingress.conf
 
 # Implement SUBFOLDER value
-sed -i "1a SUBFOLDER=$(bashio::addon.ingress_url)" $(find /etc/s6-overlay/s6-rc.d -name "run" -type f)
+sed -i "1a SUBFOLDER=$(bashio::addon.ingress_url)" /etc/s6-overlay/s6-rc.d/svc-autostart/run

@@ -16,7 +16,7 @@
 
 ARG BUILD_FROM
 ARG BUILD_VERSION
-FROM ${BUILD_FROM}
+FROM ${BUILD_FROM}alpine-kde
 
 ##################
 # 2 Modify Image #
@@ -31,7 +31,14 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 # hadolint ignore=SC2015,DL4006,SC2013,SC2086
 RUN \
     # Change home folder location
-    usermod --home /share/webtop_kde abc
+    usermod --home /share/webtop_kde abc \
+    \
+    # Correct error in upstream image
+    && for file in $(grep -srl "startwm " /etc); do sed -i 's/startwm /startwm.sh /g' $file; done \
+    \
+    # Update distribution
+    # hadolint ignore=DL3017
+    && apk upgrade --no-cache
 
 # Global LSIO modifications
 ARG CONFIGLOCATION="/share/webtop_kde"
@@ -97,11 +104,7 @@ RUN if ! command -v bash >/dev/null 2>/dev/null; then (apt-get update && apt-get
 # 4 Entrypoint #
 ################
 
-# Entrypoint logic
-RUN chmod 777 /entrypoint.sh && \
-    mv /etc/cont-init.d/* /etc/scripts && \
-    sed -i "s|/etc/cont-init.d|/etc/scripts|g" /entrypoint.sh && \
-    sed -i "1a /./entrypoint.sh" /etc/s6-overlay/s6-rc.d/init-adduser/run
+#RUN chmod 777 /entrypoint.sh
 #WORKDIR /
 #ENTRYPOINT [ "/usr/bin/env" ]
 #CMD [ "/entrypoint.sh" ]
