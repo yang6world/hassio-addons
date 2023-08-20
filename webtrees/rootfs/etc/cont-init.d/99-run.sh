@@ -20,7 +20,7 @@ case $(bashio::config 'DB_TYPE') in
 
         # Use sqlite
     sqlite)
-        bashio::log.info "Using a local sqlite database $WEBTREES_HOME/$DB_NAME please wait then login. Default credentials : $WT_USER : $WT_PASS"
+        bashio::log.info "Using a local sqlite database $WEBTREES_HOME/$DB_NAME"
         ;;
 
     mariadb_addon)
@@ -43,10 +43,13 @@ case $(bashio::config 'DB_TYPE') in
         bashio::log.warning "Webtrees is using the Maria DB addon"
         bashio::log.warning "Please ensure this is included in your backups"
         bashio::log.warning "Uninstalling the MariaDB addon will remove any data"
+
+        # Create database
+        mysql --host="$(bashio::services 'mysql' 'host')" --port="$(bashio::services 'mysql' 'port')" --user="$(bashio::services "mysql" "username")" --password="$(bashio::services "mysql" "password")" -e"CREATE DATABASE IF NOT EXISTS webtrees;"
         ;;
 
     external)
-        bashio::log.info "Using an external database, please populate all required fields in the config.yaml according to dovumentation"
+        bashio::log.info "Using an external database, please populate all required fields in the config.yaml according to documentation"
         ;;
 
 esac
@@ -152,6 +155,7 @@ DB_NAME=$(echo "$DB_NAME" | tr -d '"')
 
 bashio::log.info "Data is stored in $WEBTREES_HOME"
 bashio::log.info "Webui can be accessed at : $BASE_URL"
+bashio::log.info "If it is your first boot, the start-up wizard will open"
 
 # Execute main script
 echo "python3 /docker-entrypoint.py"
