@@ -1,0 +1,14 @@
+{
+  "name": "NeteaseCloudMusicApi",
+  "version": "4.10.1",
+  "slug": "neteasecloudmusicapi",
+  "description": "NeteaseCloudMusicApi",
+  "url": "https://github.com/dscao/npc-hass-addons/blob/main/neteasecloudmusicapi",
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "startup": "application",
+  "boot": "auto",
+  "init": false,  
+  "ports": {
+    "3000/tcp": "3000"
+  }
+}
