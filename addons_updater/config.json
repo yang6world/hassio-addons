@@ -12,6 +12,9 @@
   },
   "image": "ghcr.io/alexbelgium/addons_updater-{arch}",
   "init": false,
+  "map": [
+    "config:rw"
+  ],
   "name": "Repository Updater",
   "options": {
     "gitapi": "gitapi",
@@ -27,7 +30,6 @@
     "verbose": "bool?"
   },
   "slug": "updater",
-  "startup": "once",
   "url": "https://github.com/alexbelgium/hassio-addons/tree/master/addons_updater",
-  "version": "3.16.1"
+  "version": "3.18.1"
 }

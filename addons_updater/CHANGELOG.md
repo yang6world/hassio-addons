@@ -1,3 +1,11 @@
+
+## 3.18
+- github_exclude: exclude a text in the release name
+- Correct github_tagfilter usage in dockerhub
+
+## 3.17
+- Clean cache
+
 ## 3.16
 - Removed git password option as it is no longer usable
 
