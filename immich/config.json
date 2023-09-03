@@ -54,8 +54,10 @@
     "/dev/nvme2"
   ],
   "environment": {
+    "MACHINE_LEARNING_CACHE_FOLDER": "/data/machine-learning",
     "REDIS_HOSTNAME": "localhost",
-    "REDIS_PORT": "6379"
+    "REDIS_PORT": "6379",
+    "TYPESENSE_DATA_DIR": "/data/typesense"
   },
   "image": "ghcr.io/alexbelgium/immich-{arch}",
   "init": false,
@@ -69,6 +71,11 @@
   ],
   "name": "Immich",
   "options": {
+    "DB_DATABASE_NAME": "immich",
+    "DB_HOSTNAME": "homeassistant.local",
+    "DB_PASSWORD": "homeassistant",
+    "DB_PORT": "5432",
+    "DB_USERNAME": "postgres",
     "JWT_SECRET": "jt+OVWY6WqKJXw3xF5qOxN5L5/f4u2jlIlCQgWS3E4w=",
     "PGID": 1000,
     "PUID": 1000,
@@ -88,11 +95,11 @@
     "DAC_READ_SEARCH"
   ],
   "schema": {
-    "DB_DATABASE_NAME": "str?",
-    "DB_HOSTNAME": "str?",
-    "DB_PASSWORD": "str?",
-    "DB_PORT": "int?",
-    "DB_USERNAME": "str?",
+    "DB_DATABASE_NAME": "str",
+    "DB_HOSTNAME": "str",
+    "DB_PASSWORD": "str",
+    "DB_PORT": "int",
+    "DB_USERNAME": "str",
     "DISABLE_MACHINE_LEARNING": "bool?",
     "JWT_SECRET": "str",
     "PGID": "int",
@@ -103,7 +110,6 @@
     "cifspassword": "str?",
     "cifsusername": "str?",
     "data_location": "str",
-    "database": "list(internal|external_postgresql)?",
     "localdisks": "str?",
     "networkdisks": "str?"
   },
@@ -112,6 +118,6 @@
   ],
   "slug": "immich",
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "1.75.0",
+  "version": "1.76.1",
   "webui": "http://[HOST]:[PORT:8080]"
 }

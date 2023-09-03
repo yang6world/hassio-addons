@@ -2,26 +2,14 @@
 # shellcheck shell=bash
 # shellcheck disable=SC2015
 
-# Add Edge repositories
-if bashio::config.true 'edge_repositories'; then
-    bashio::log.info "Changing app repositories to edge"
-    { echo "https://dl-cdn.alpinelinux.org/alpine/edge/community";
-        echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing";
-    echo "https://dl-cdn.alpinelinux.org/alpine/edge/main"; } > /etc/apk/repositories
-fi
-
 # Install rpi video drivers
 if bashio::config.true 'rpi_video_drivers'; then
     bashio::log.info "Installing Rpi graphic drivers"
-    apk add --no-cache mesa-dri-vc4 mesa-dri-swrast mesa-gbm xf86-video-fbdev >/dev/null && bashio::log.green "... done" ||
-    bashio::log.red "... not successful. Are you on a rpi?"
-fi
-
-# Fix mate software center
-if [ -f /usr/lib/dbus-1.0/dbus-daemon-launch-helper ]; then
-    echo "Allow software center"
-    chmod u+s /usr/lib/dbus-1.0/dbus-daemon-launch-helper
-    service dbus restart
+    if [ "$PACKMANAGER" = "apk" ]; then
+        apk add --no-cache "mesa-dri-vc4 mesa-dri-swrast mesa-gbm xf86-video-fbdev" &>/dev/null || (bashio::log.fatal "Error : $packagestoinstall not found")
+    elif [ "$PACKMANAGER" = "apt" ]; then
+        apt-get install -yqq --no-install-recommends "mesa*" &>/dev/null || (bashio::log.fatal "Error : $packagestoinstall not found")
+    fi
 fi
 
 # Install specific apps
@@ -29,10 +17,15 @@ if bashio::config.has_value 'additional_apps'; then
     bashio::log.info "Installing additional apps :"
     # hadolint ignore=SC2005
     NEWAPPS=$(bashio::config 'additional_apps')
-    for APP in ${NEWAPPS//,/ }; do
+    for packagestoinstall in ${NEWAPPS//,/ }; do
         bashio::log.green "... $APP"
-        # shellcheck disable=SC2015
-        apk add --no-cache "$APP" >/dev/null || bashio::log.red "... not successful, please check package name"
+        if [ "$PACKMANAGER" = "apk" ]; then
+            apk add --no-cache "$packagestoinstall" &>/dev/null || (bashio::log.fatal "Error : $packagestoinstall not found")
+        elif [ "$PACKMANAGER" = "apt" ]; then
+            apt-get install -yqq --no-install-recommends "$packagestoinstall" &>/dev/null || (bashio::log.fatal "Error : $packagestoinstall not found")
+        elif [ "$PACKMANAGER" = "pacman" ]; then
+            pacman --noconfirm -S "$packagestoinstall" &>/dev/null || (bashio::log.fatal "Error : $packagestoinstall not found")
+        fi
     done
 fi
 
@@ -40,8 +33,9 @@ fi
 if bashio::config.has_value 'TZ'; then
     TIMEZONE=$(bashio::config 'TZ')
     bashio::log.info "Setting timezone to $TIMEZONE"
-    ln -snf /usr/share/zoneinfo/"$TIMEZONE" /etc/localtime && echo "$TIMEZONE" >/etc/timezone
-fi
+    ln -snf /usr/share/zoneinfo/"$TIMEZONE" /etc/localtime
+    echo "$TIMEZONE" >/etc/timezone
+fi || true
 
 # Set keyboard
 if bashio::config.has_value 'KEYBOARD'; then
@@ -50,7 +44,7 @@ if bashio::config.has_value 'KEYBOARD'; then
     sed -i "1a export KEYBOARD=$KEYBOARD" /etc/s6-overlay/s6-rc.d/svc-web/run
     if [ -d /var/run/s6/container_environment ]; then printf "%s" "$KEYBOARD" > /var/run/s6/container_environment/KEYBOARD; fi
     printf "%s" "KEYBOARD=\"$KEYBOARD\"" >> ~/.bashrc
-fi
+fi || true
 
 # Set password
 if bashio::config.has_value 'PASSWORD'; then
@@ -58,4 +52,4 @@ if bashio::config.has_value 'PASSWORD'; then
     PASSWORD=$(bashio::config 'PASSWORD')
     passwd -d abc
     echo -e "$PASSWORD\n$PASSWORD" | passwd abc
-fi
+fi || true

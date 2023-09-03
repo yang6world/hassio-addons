@@ -16,7 +16,7 @@
 
 ARG BUILD_FROM
 ARG BUILD_VERSION
-FROM ${BUILD_FROM}alpine-kde
+FROM ${BUILD_FROM}
 
 ##################
 # 2 Modify Image #
@@ -27,18 +27,14 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
     S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0 \
     S6_SERVICES_GRACETIME=0
 
+# load volume
+VOLUME [ "/sys/fs/cgroup" ]
+
 # Allow UID and GID setting
 # hadolint ignore=SC2015,DL4006,SC2013,SC2086
 RUN \
     # Change home folder location
-    usermod --home /share/webtop_kde abc \
-    \
-    # Correct error in upstream image
-    && for file in $(grep -srl "startwm " /etc); do sed -i 's/startwm /startwm.sh /g' $file; done \
-    \
-    # Update distribution
-    # hadolint ignore=DL3017
-    && apk upgrade --no-cache
+    usermod --home /share/webtop_kde abc
 
 # Global LSIO modifications
 ARG CONFIGLOCATION="/share/webtop_kde"
@@ -75,7 +71,8 @@ COPY rootfs/ /
 # Corrects permissions for s6 v3
 RUN if [ -d /etc/cont-init.d ]; then chmod -R 755 /etc/cont-init.d; fi && \
     if [ -d /etc/services.d ]; then chmod -R 755 /etc/services.d; fi && \
-    if [ -f /entrypoint.sh ]; then chmod 755 /entrypoint.sh; fi
+    if [ -f /entrypoint.sh ]; then chmod 755 /entrypoint.sh; fi && \
+    if [ -f /docker-mods/entrypoint.sh ]; then chmod 755 /docker-mods/entrypoint.sh; fi
 
 # Modules
 ARG MODULES="00-banner.sh 01-custom_script.sh 00-local_mounts.sh 00-smb_mounts.sh 90-dns_set.sh"
