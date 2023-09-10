@@ -24,10 +24,11 @@ FROM wger/devel:latest
 
 # Set S6 wait time
 ENV S6_CMD_WAIT_FOR_SERVICES=1 \
-    S6_CMD_WAIT_FOR_SERVICES_MAXTIME=300000 \
-    S6_SERVICES_GRACETIME=300000 \
-    \
-    SYNC_EXERCISES_ON_STARTUP=True \
+    S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0 \
+    S6_SERVICES_GRACETIME=0
+
+
+ENV SYNC_EXERCISES_ON_STARTUP=True \
     DOWNLOAD_EXERCISE_IMAGES_ON_STARTUP=True \
     FROM_EMAIL='wger Workout Manager <wger@example.com>' \
     DJANGO_MEDIA_ROOT="/data/media" \
@@ -36,7 +37,7 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 USER root
 
 RUN echo "wger ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
-    sed -i "1a sudo -E '/./entrypoint.sh' || true" /home/wger/entrypoint.sh
+    sed -i "1a sudo -E '/./ha_entrypoint.sh' || true" /home/wger/entrypoint.sh
 
 ##################
 # 3 Install apps #
@@ -49,31 +50,36 @@ COPY rootfs/ /
 ARG MODULES="00-banner.sh 01-custom_script.sh 90-config_yaml.sh"
 
 # Automatic modules download
-RUN if ! command -v bash >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends bash || apk add --no-cache bash) >/dev/null; fi \
-    && if ! command -v curl >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends curl || apk add --no-cache curl) >/dev/null; fi \
-    && apt-get update && apt-get install -yqq --no-install-recommends ca-certificates || apk add --no-cache ca-certificates >/dev/null || true \
-    && mkdir -p /etc/cont-init.d \
-    && for scripts in $MODULES; do echo "$scripts" && curl -f -L -s -S "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/$scripts" -o /etc/cont-init.d/"$scripts" && [ "$(sed -n '/\/bin/p;q' /etc/cont-init.d/"$scripts")" != "" ] || (echo "script failed to install $scripts" && exit 1); done \
-    && chmod -R 755 /etc/cont-init.d || printf '%s\n' "${MODULES}" >/MODULESFILE
+ADD --chmod=744 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_automodules.sh" "/ha_automodules.sh"
+RUN /ha_automodules.sh "$MODULES" && rm /ha_automodules.sh
 
 # Manual apps
 ENV PACKAGES="sudo nginx"
 
 # Automatic apps & bashio
-RUN if ! command -v bash >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends bash || apk add --no-cache bash) >/dev/null; fi \
-    && if ! command -v curl >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends curl || apk add --no-cache curl) >/dev/null; fi \
-    && curl -f -L -s -S "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/automatic_packages.sh" --output /automatic_packages.sh \
-    && chmod 777 /automatic_packages.sh \
-    && eval /./automatic_packages.sh "${PACKAGES:-}" \
-    && rm /automatic_packages.sh || printf '%s\n' "${PACKAGES:-}" > /ENVFILE
+ADD --chmod=744 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_autoapps.sh" "/ha_autoapps.sh"
+RUN /ha_autoapps.sh "$PACKAGES" && rm /ha_autoapps.sh
 
 ################
 # 4 Entrypoint #
 ################
 
-RUN chmod 777 /entrypoint.sh
+# Add entrypoint
+ENV S6_STAGE2_HOOK=/ha_entrypoint.sh
+ADD --chmod=777 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint.sh" "/ha_entrypoint.sh"
+
+# Entrypoint modifications
+RUN \
+    # Corrects permissions for s6 v3
+    if [ -d /etc/cont-init.d ]; then chmod -R 755 /etc/cont-init.d; fi && \
+    if [ -d /etc/services.d ]; then chmod -R 755 /etc/services.d; fi && \
+    #Correct shebang in entrypoint
+    mkdir -p /run/s6/container_environment && \
+    for shebang in "/command/with-contenv bashio" "/usr/bin/env bashio" "/usr/bin/bashio" "/bin/bash" "/bin/sh"; do if [ -f "${shebang%% *}" ]; then break; fi; done; sed -i "s|/command/with-contenv bashio|$shebang|g" /ha_entrypoint.sh
+
+
 USER wger
-#CMD [ "/entrypoint.sh" ]
+#CMD [ "/ha_entrypoint.sh" ]
 
 ############
 # 5 Labels #

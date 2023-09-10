@@ -3,6 +3,7 @@
     "aarch64",
     "amd64"
   ],
+  "audio": true,
   "codenotary": "alexandrep.github@gmail.com",
   "description": "Full linux desktop environment accessible via any modern web browser",
   "devices": [
@@ -19,18 +20,6 @@
     "/dev/video15",
     "/dev/video16",
     "/dev/ttyUSB0",
-    "/dev/dri",
-    "/dev/dri/card0",
-    "/dev/dri/card1",
-    "/dev/dri/renderD128",
-    "/dev/vchiq",
-    "/dev/video10",
-    "/dev/video11",
-    "/dev/video12",
-    "/dev/video13",
-    "/dev/video14",
-    "/dev/video15",
-    "/dev/video16",
     "/dev/sda",
     "/dev/sdb",
     "/dev/sdc",
@@ -70,7 +59,8 @@
     "HOME": "/share/webtop_kde",
     "PGID": "0",
     "PUID": "0",
-    "TITLE": "Alpine KDE webtop",
+    "START_DOCKER": "false",
+    "TITLE": "Ubuntu XFCE webtop",
     "shm_size": "1gb"
   },
   "host_dbus": true,
@@ -83,40 +73,43 @@
     "share:rw",
     "ssl"
   ],
-  "name": "Webtop Alpine KDE",
+  "name": "Webtop LSIO",
   "options": {
     "DNS_server": "8.8.8.8",
     "PGID": 0,
     "PUID": 0,
-    "additional_apps": "engrampa,libreoffice",
-    "rpi_video_drivers": true
+    "additional_apps": "engrampa,libreoffice"
   },
   "panel_icon": "mdi:monitor",
   "ports": {
-    "3000/tcp": null
+    "3000/tcp": 3000
   },
   "ports_description": {
     "3000/tcp": "web interface"
   },
+  "privileged": [
+    "SYS_ADMIN",
+    "DAC_READ_SEARCH"
+  ],
   "schema": {
     "DNS_server": "str?",
+    "DRINODE": "list(/dev/dri/card0|/dev/dri/card1|/dev/dri/card2|/dev/dri/renderD128|/dev/dri/renderD129|)?",
     "KEYBOARD": "list(da-dk-qwerty|de-de-qwertz|en-gb-qwerty|en-us-qwerty|es-es-qwerty|fr-ch-qwertz|fr-fr-azerty|it-it-qwerty|ja-jp-qwerty|pt-br-qwerty|sv-se-qwerty|tr-tr-qwerty)?",
     "PASSWORD": "str?",
     "PGID": "int",
     "PUID": "int",
-    "TZ": "str?",
+    "TZ": "match([A-Z][a-z]*./[A-Z][a-z]*.)?",
     "additional_apps": "str?",
     "cifsdomain": "str?",
     "cifspassword": "str?",
     "cifsusername": "str?",
     "data_location": "str?",
-    "edge_repositories": "bool?",
     "localdisks": "str?",
-    "networkdisks": "str?",
-    "rpi_video_drivers": "bool?"
+    "networkdisks": "str?"
   },
   "slug": "webtop-kde",
+  "tmpfs": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "4.16-r0-ls89-test21",
+  "version": "4.16-r0-ls89-xfce12test",
   "video": true
 }

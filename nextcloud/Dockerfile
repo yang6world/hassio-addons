@@ -49,40 +49,12 @@ RUN \
     sed -i "s|client_body_timeout 300s;|client_body_timeout 900s;|g" /defaults/nginx/site-confs/default.conf.sample && \
     \
     # Change location of log
-    sed -i "s|s6-setuidgid abc php -f /config/www/nextcloud/cron.php|(s6-setuidgid abc php -f /config/www/nextcloud/cron.php) \&>/proc/1/fd/1|g" /etc/crontabs/root && \
-    \
-    # Run custom scripts after installation
-    echo "touch /runfile" >> /etc/s6-overlay/s6-rc.d/init-nextcloud-config/run && \
-    echo "/./etc/entrypoint.sh" >> /etc/s6-overlay/s6-rc.d/init-nextcloud-config/run && \
-    \
-    # Ensure correct data mount first
-    sed -i "1a /./scripts2/00-banner.sh" /etc/s6-overlay/s6-rc.d/init-adduser/run && \
-    sed -i "2a /./defaults/nextcloud-perms.sh" /etc/s6-overlay/s6-rc.d/init-adduser/run && \
-    echo "/./scripts2/01-custom_script.sh" >> /etc/s6-overlay/s6-rc.d/init-adduser/run && \
-    echo "/./scripts2/00-smb_mounts.sh" >> /etc/s6-overlay/s6-rc.d/init-adduser/run && \
-    echo "/./scripts2/00-local_mounts.sh" >> /etc/s6-overlay/s6-rc.d/init-adduser/run
+    sed -i "s|s6-setuidgid abc php -f /config/www/nextcloud/cron.php|(s6-setuidgid abc php -f /config/www/nextcloud/cron.php) \&>/proc/1/fd/1|g" /etc/crontabs/root
 
 # Global LSIO modifications
+ADD --chmod=744 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_lsio.sh" "/ha_lsio.sh"
 ARG CONFIGLOCATION="/data/config"
-# hadolint ignore=SC2015, SC2013, SC2086
-RUN \
-    # Avoid custom-init.d duplications
-    for file in $(grep -sril 'Potential tampering with custom' /etc/cont-init.d /etc/services.d /etc/s6-overlay/s6-rc.d); do rm -f $file; done \
-    \
-    # Create new config folder if needed
-    && for file in $(grep -srl "PUID" /etc/cont-init.d /etc/s6-overlay/s6-rc.d); do sed -i "1a mkdir -p $CONFIGLOCATION" $file; done \
-    \
-    # Allow UID and GID setting
-    && for file in $(grep -srl "PUID" /etc/cont-init.d /etc/s6-overlay/s6-rc.d); do sed -i 's/bash/bashio/g' $file && sed -i '1a PUID="$(if bashio::config.has_value "PUID"; then bashio::config "PUID"; else echo "0"; fi)"' $file && sed -i '1a PGID="$(if bashio::config.has_value "PGID"; then bashio::config "PGID"; else echo "0"; fi)"' $file; done \
-    \
-    # Search occurences of /config and change it to the expected new config
-    && for file in $(grep -Esril "/config" /etc /defaults); do sed -Ei "s=(/config)+(/| |$|\"|\')=$CONFIGLOCATION\2=g" $file; done \
-    \
-    # Avoid chmod /config
-    && for file in /etc/services.d/*/* /etc/cont-init.d/* /etc/s6-overlay/s6-rc.d/*/*;do if [ -f $file ] && [[ ! -z $(awk '/chown.*abc:abc.*\\/,/.*\/config( |$)/{print FILENAME}' $file) ]] ; then sed -i "s|/config$|/data|g" $file; fi ;done \
-    \
-    # Replace lsiown if not found
-    && if [ ! -f /usr/bin/lsiown ]; then for file in $(grep -sril "lsiown" /etc); do sed -i "s|lsiown|chown|g" $file; done; fi
+RUN if grep -qr "lsio" /etc; then /ha_lsio.sh "$CONFIGLOCATION"; fi && rm /ha_lsio.sh
 
 ##################
 # 3 Install apps #
@@ -91,33 +63,19 @@ RUN \
 # Add rootfs
 COPY rootfs/ /
 
-# Corrects permissions for s6 v3
-RUN if [ -d /etc/cont-init.d ]; then chmod -R 755 /etc/cont-init.d; fi && \
-    if [ -d /etc/services.d ]; then chmod -R 755 /etc/services.d; fi && \
-    if [ -f /entrypoint.sh ]; then chmod 755 /entrypoint.sh; fi
-
 # Modules
 ARG MODULES="00-banner.sh 01-custom_script.sh 00-local_mounts.sh 00-smb_mounts.sh"
 
 # Automatic modules download
-RUN if ! command -v bash >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends bash || apk add --no-cache bash) >/dev/null; fi \
-    && if ! command -v curl >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends curl || apk add --no-cache curl) >/dev/null; fi \
-    && apt-get update && apt-get install -yqq --no-install-recommends ca-certificates || apk add --no-cache ca-certificates >/dev/null || true \
-    && mkdir -p /etc/cont-init.d \
-    && for scripts in $MODULES; do echo "$scripts" && curl -f -L -s -S "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/$scripts" -o /etc/cont-init.d/"$scripts" && [ "$(sed -n '/\/bin/p;q' /etc/cont-init.d/"$scripts")" != "" ] || (echo "script failed to install $scripts" && exit 1); done \
-    && chmod -R 755 /etc/cont-init.d
+ADD --chmod=744 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_automodules.sh" "/ha_automodules.sh"
+RUN /ha_automodules.sh "$MODULES" && rm /ha_automodules.sh
 
 # Manual apps
 ENV PACKAGES="gcompat"
 
 # Automatic apps & bashio
-# hadolint ignore=SC2015
-RUN if ! command -v bash >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends bash || apk add --no-cache bash) >/dev/null; fi \
-    && if ! command -v curl >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends curl || apk add --no-cache curl) >/dev/null; fi \
-    && curl -f -L -s -S "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/automatic_packages.sh" --output /automatic_packages.sh \
-    && chmod 777 /automatic_packages.sh \
-    && eval /./automatic_packages.sh "${PACKAGES:-}" \
-    && rm /automatic_packages.sh
+ADD --chmod=744 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_autoapps.sh" "/ha_autoapps.sh"
+RUN /ha_autoapps.sh "$PACKAGES" && rm /ha_autoapps.sh
 
 VOLUME ["/share", "/ssl", "/data", "/media"]
 
@@ -125,18 +83,23 @@ VOLUME ["/share", "/ssl", "/data", "/media"]
 # 4 Entrypoint #
 ################
 
+# Add entrypoint
+ENV S6_STAGE2_HOOK=/ha_entrypoint.sh
+ADD --chmod=777 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint.sh" "/ha_entrypoint.sh"
+
+# Entrypoint modifications
+RUN \
+    # Corrects permissions for s6 v3
+    if [ -d /etc/cont-init.d ]; then chmod -R 755 /etc/cont-init.d; fi && \
+    if [ -d /etc/services.d ]; then chmod -R 755 /etc/services.d; fi && \
+    #Correct shebang in entrypoint
+    mkdir -p /run/s6/container_environment && \
+    for shebang in "/command/with-contenv bashio" "/usr/bin/env bashio" "/usr/bin/bashio" "/bin/bash" "/bin/sh"; do if [ -f "${shebang%% *}" ]; then break; fi; done; sed -i "s|/command/with-contenv bashio|$shebang|g" /ha_entrypoint.sh
+
 # Correct modifications
 ARG CONFIGLOCATION="/www/nextcloud/config"
 # hadolint ignore=SC2015, SC2013, SC2086, SC2016
 RUN \
-    # Avoid using legacy cont-init.d
-    mkdir -p /scripts && mv /etc/cont-init.d/* /scripts && \
-    for file in 00-local_mounts.sh 00-smb_mounts.sh 00-banner.sh 01-custom_script.sh; do mkdir -p /scripts2 && mv /scripts/"$file" /scripts2; done && \
-    sed -i "s|/etc/cont-init.d|/scripts|g" /etc/entrypoint.sh && \
-    \
-    # Give permissions
-    chmod 777 /etc/entrypoint.sh /defaults/nextcloud-perms.sh /scripts/* /scripts2/* && \
-    \
     # Correct erroneous modifications
     for file in $(grep -Esril "/www/nextcloud/data/config" /etc /defaults); do sed -Ei "s=(/www/nextcloud/data/config)+(/| |$|\"|\')=$CONFIGLOCATION\2=g" $file; done && \
     for file in $(grep -Esril "/data/data" /etc /defaults); do sed -Ei "s=(/data/data)+(/| |$|\"|\')=/data\2=g" $file; done && \
@@ -144,7 +107,10 @@ RUN \
     # Correct nginx files
     sed -i "/Strict-Transport-Security/d" /defaults/nginx/site-confs/default.conf.sample && \
     sed -i '1h;1!H;$!d;g;s/\(.*\)}/\1/' /defaults/nginx/site-confs/default.conf.sample && \
-    cat /defaults/nginx_addition >> /defaults/nginx/site-confs/default.conf.sample
+    cat /defaults/nginx_addition >> /defaults/nginx/site-confs/default.conf.sample && \
+    \
+    # Run custom scripts after installation
+    echo "mv /scripts/* /etc/cont-init.d/ && /./ha_entrypoint.sh" >> /etc/s6-overlay/s6-rc.d/init-nextcloud-config/run
 
 ############
 # 5 Labels #
