@@ -22,6 +22,22 @@ and the real Chromecast player.
 
 The AirCast add-on is based on the excellent [AirConnect][airconnect] project.
 
+## WARNING! THIS IS A BETA VERSION!
+
+This Home Assistant Add-ons repository contains beta releases of add-ons.
+
+- They might stop working at any time.
+- They could have a negative impact on your system.
+
+This repository was created for:
+
+- Anybody willing to test.
+- Anybody interested in trying out upcoming add-ons or add-on features.
+
+If you are more interested in stable releases of our add-ons:
+
+<https://github.com/hassio-addons/repository>
+
 [airconnect]: https://github.com/philippe44/AirConnect
 [discord-shield]: https://img.shields.io/discord/478094546522079232.svg
 [discord]: https://discord.me/hassioaddons
@@ -33,5 +49,5 @@ The AirCast add-on is based on the excellent [AirConnect][airconnect] project.
 [patreon-shield]: https://frenck.dev/wp-content/uploads/2019/12/patreon.png
 [patreon]: https://www.patreon.com/frenck
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-production%20ready-brightgreen.svg
-[release-shield]: https://img.shields.io/badge/version-v3.5.3-blue.svg
-[release]: https://github.com/hassio-addons/addon-aircast/tree/v3.5.3
+[release-shield]: https://img.shields.io/badge/version-v3.6.0-blue.svg
+[release]: https://github.com/hassio-addons/addon-aircast/tree/v3.6.0
