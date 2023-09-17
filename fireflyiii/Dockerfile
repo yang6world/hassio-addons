@@ -34,7 +34,7 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 #    # Change data location
 #    grep -rl "/var/www/html" /etc/ | xargs sed -i 's|/var/www/html|/data/firefly|g'
 
-ARG BUILD_UPSTREAM="6.0.23"
+ARG BUILD_UPSTREAM="6.0.24"
 RUN \
     # Change upload folder to "ha_upload" since the default one is binded to a volume (see base image)
     sed -i "s/'root'   => storage_path('upload'),/'root'   => storage_path('ha_upload'),/g" /var/www/html/config/filesystems.php
@@ -69,13 +69,8 @@ ENV S6_STAGE2_HOOK=/ha_entrypoint.sh
 ADD --chmod=777 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint.sh" "/ha_entrypoint.sh"
 
 # Entrypoint modifications
-RUN \
-    # Corrects permissions for s6 v3
-    if [ -d /etc/cont-init.d ]; then chmod -R 755 /etc/cont-init.d; fi && \
-    if [ -d /etc/services.d ]; then chmod -R 755 /etc/services.d; fi && \
-    #Correct shebang in entrypoint
-    mkdir -p /run/s6/container_environment && \
-    for shebang in "/command/with-contenv bashio" "/usr/bin/env bashio" "/usr/bin/bashio" "/bin/bash" "/bin/sh"; do if [ -f "${shebang%% *}" ]; then break; fi; done; sed -i "s|/command/with-contenv bashio|$shebang|g" /ha_entrypoint.sh
+ADD --chmod=777 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint_modif.sh" "/ha_entrypoint_modif.sh"
+RUN /ha_entrypoint_modif.sh && rm /ha_entrypoint_modif.sh
 
 
 ENTRYPOINT [ "/usr/bin/env" ]
