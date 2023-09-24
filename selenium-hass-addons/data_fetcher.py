@@ -139,7 +139,7 @@ class DataFetcher:
             
             # swtich to next userid
             if(i != len(user_id_list)):
-                self._click_button(driver, By.CLASS_NAME, "el-input__inner")
+                self._click_button(driver, By.CLASS_NAME, "el-input.el-input--suffix")
                 self._click_button(driver, By.XPATH, f"//ul[@class='el-scrollbar__view el-select-dropdown__list']/li[{i + 1}]")
 
         return balance_list, balance_list_pay, balance_list_need_pay
