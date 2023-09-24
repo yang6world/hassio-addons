@@ -2,11 +2,11 @@
 #  ALEXBELGIUM'S DOCKERFILE  #
 #============================#
 #           _.------.
-#       _.-`    ('>.-`"1.57.1""-.
+#       _.-`    ('>.-`"""-.
 # '.--'`       _'`   _ .--.)
 #    -'         '-.-';`   `
 #    ' -      _.'  ``'--.
-#      d  '---`    .-'"1.57.1"`
+#      d  '---`    .-'""`
 #               /`
 #=== Home Assistant Addon ===#
 
@@ -27,29 +27,21 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
     S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0 \
     S6_SERVICES_GRACETIME=0
 
+USER root
+
 # Global LSIO modifications
 ADD --chmod=744 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_lsio.sh" "/ha_lsio.sh"
 ARG CONFIGLOCATION="/config/addons_config/immich"
 RUN if grep -qr "lsio" /etc; then /ha_lsio.sh "$CONFIGLOCATION"; fi && rm /ha_lsio.sh
 
-USER root
-
-# Install PostgreSQL
-ENV DEBIAN_FRONTEND=noninteractive
-
-# Set shell
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
-# hadolint ignore=SC2013,DL3015
-RUN \
-    apt-get update && \
-    apt-get install -y gnupg gnupg2 gnupg1 wget lsb-core && \
-    sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' && \
-    curl -s -S https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
-    printf '#!/bin/sh\nexit 0' > /usr/sbin/policy-rc.d && \
-    apt-get update -y && \
-    apt-get install postgresql-14 libpq-dev postgresql-common -y && \
-    for file in $(grep -sril '/var/lib/postgresql/14/main' /etc); do sed -i "s=/var/lib/postgresql/14/main=/data/postgresql=g" "$file"; done
+# Install REDIS
+#ENV DOCKER_MODS="imagegenius/mods:universal-redis"
+#RUN \
+#    echo "Installing REDIS" \
+#    && chmod 777 -R /docker-mods \
+#        && /./docker-mods/* || ls / \
+#    && if [ !-f /defaults/redis.conf ]; then echo "Not installed" && exit 1; fi
+#ENV DOCKER_MODS=""
 
 ##################
 # 3 Install apps #
@@ -65,8 +57,9 @@ ARG MODULES="00-banner.sh 01-custom_script.sh 00-global_var.sh 00-local_mounts.s
 ADD --chmod=744 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_automodules.sh" "/ha_automodules.sh"
 RUN /ha_automodules.sh "$MODULES" && rm /ha_automodules.sh
 
+
 # Manual apps
-ENV PACKAGES="sudo redis-server yamllint pip libxml2-dev libxslt-dev libjpeg-dev zlib1g-dev build-essential"
+ENV PACKAGES="sudo yamllint pip postgresql-client"
 
 # Automatic apps & bashio
 ADD --chmod=744 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_autoapps.sh" "/ha_autoapps.sh"
@@ -84,7 +77,6 @@ ADD --chmod=777 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/mas
 ADD --chmod=777 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint_modif.sh" "/ha_entrypoint_modif.sh"
 RUN /ha_entrypoint_modif.sh && rm /ha_entrypoint_modif.sh
 
-#
 #ENTRYPOINT [ "/usr/bin/env" ]
 #CMD [ "/ha_entrypoint.sh" ]
 

@@ -54,9 +54,11 @@
     "/dev/nvme2"
   ],
   "environment": {
+    "DOCKER_MODS": "imagegenius/mods:universal-redis",
     "MACHINE_LEARNING_CACHE_FOLDER": "/data/machine-learning",
     "REDIS_HOSTNAME": "localhost",
     "REDIS_PORT": "6379",
+    "TRANSFORMERS_CACHE": "/data/machine-learning",
     "TYPESENSE_DATA_DIR": "/data/typesense"
   },
   "image": "ghcr.io/alexbelgium/immich-{arch}",
@@ -118,6 +120,6 @@
   ],
   "slug": "immich",
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "1.78.1",
+  "version": "1.79.1",
   "webui": "http://[HOST]:[PORT:8080]"
 }
