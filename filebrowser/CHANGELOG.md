@@ -1,3 +1,6 @@
+### 2.23.0_reverted (29-09-2023)
+- Minor bugs fixed
+- Revert to 2.23.0 to avoid tus interference with ingress
 
 ## 2.25.0 (16-09-2023)
 - Update to latest version from filebrowser/filebrowser
