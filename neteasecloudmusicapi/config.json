@@ -1,6 +1,6 @@
 {
   "name": "NeteaseCloudMusicApi",
-  "version": "2023.9.23",
+  "version": "v4.13.2",
   "slug": "neteasecloudmusicapi",
   "description": "NeteaseCloudMusicApi",
   "url": "https://github.com/dscao/npc-hass-addons/blob/main/neteasecloudmusicapi",
