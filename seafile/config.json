@@ -50,6 +50,10 @@
     "/dev/sdb3",
     "/dev/sda4",
     "/dev/sdb4",
+    "/dev/sda5",
+    "/dev/sda6",
+    "/dev/sda7",
+    "/dev/sda8",
     "/dev/nvme0",
     "/dev/nvme1",
     "/dev/nvme2"
@@ -76,9 +80,9 @@
     "SEAFILE_ADMIN_PASSWORD": "a_very_secret_password",
     "SERVER_IP": "homeassistant.local",
     "TZ": "Europe/Paris",
-    "URL": "seafile.example.com",
     "data_location": "/share/seafile",
-    "database": "sqlite"
+    "database": "sqlite",
+    "url": "seafile.example.com"
   },
   "panel_icon": "mdi:library",
   "ports": {
@@ -104,19 +108,20 @@
     "SEAFILE_ADMIN_PASSWORD": "password",
     "SERVER_IP": "str?",
     "TZ": "str?",
-    "URL": "str",
     "cifsdomain": "str?",
     "cifspassword": "str?",
     "cifsusername": "str?",
     "data_location": "str",
     "database": "list(sqlite|mariadb_addon)",
     "localdisks": "str?",
-    "networkdisks": "str?"
+    "networkdisks": "str?",
+    "url": "str"
   },
   "services": [
     "mysql:want"
   ],
   "slug": "seafile",
+  "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons/tree/master/seafile",
   "version": "testing",
   "webui": "http://[HOST]:[PORT:8000]"

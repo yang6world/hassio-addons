@@ -1,3 +1,17 @@
+### 4.8.0.49-6 (05-10-2023)
+- Minor bugs fixed
+### 4.8.0.49-5 (05-10-2023)
+- Minor bugs fixed
+### 4.8.0.49-4 (05-10-2023)
+- Minor bugs fixed
+### 4.8.0.49-3 (05-10-2023)
+- Minor bugs fixed
+### 4.8.0.49-2 (04-10-2023)
+- Minor bugs fixed
+- Robust SMB & local mounts code
+
+## 4.8.0.49 (03-10-2023)
+- Update to latest version from linuxserver/docker-emby
 
 ## 4.8.0.48 (30-09-2023)
 - Update to latest version from linuxserver/docker-emby

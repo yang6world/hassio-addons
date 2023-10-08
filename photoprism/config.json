@@ -49,6 +49,10 @@
     "/dev/sdb3",
     "/dev/sda4",
     "/dev/sdb4",
+    "/dev/sda5",
+    "/dev/sda6",
+    "/dev/sda7",
+    "/dev/sda8",
     "/dev/nvme0",
     "/dev/nvme1",
     "/dev/nvme2"
@@ -118,6 +122,7 @@
     "mysql:want"
   ],
   "slug": "photoprism",
+  "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons-test",
   "version": "ubuntu-230719-73fa7bbe8",
   "video": true

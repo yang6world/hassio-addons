@@ -50,6 +50,10 @@
     "/dev/sdb3",
     "/dev/sda4",
     "/dev/sdb4",
+    "/dev/sda5",
+    "/dev/sda6",
+    "/dev/sda7",
+    "/dev/sda8",
     "/dev/nvme0",
     "/dev/nvme1",
     "/dev/nvme2"
@@ -99,6 +103,7 @@
     "storage_dir": "str"
   },
   "slug": "papermerge",
+  "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
   "version": "v2.0.1-ls60-bugfix",
   "webui": "[PROTO:ssl]://[HOST]:[PORT:8000]"

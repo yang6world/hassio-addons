@@ -1,6 +1,7 @@
 #!/usr/bin/env bashio
 # shellcheck shell=bash
 # shellcheck disable=SC2155,SC2015
+set -e
 
 ###########
 # SCRIPTS #

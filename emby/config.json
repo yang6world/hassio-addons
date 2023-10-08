@@ -6,12 +6,12 @@
   ],
   "backup_exclude": [
     "*/cache/",
-    "*/logs/",
     "*/transcoding-temp/",
+    "*/logs/*",
     "*/metadata/"
   ],
   "codenotary": "alexandrep.github@gmail.com",
-  "description": "A Free Software Media System that puts you in control of managing and streaming your media",
+  "description": "A free Software Media System that puts you in control of managing and streaming your media",
   "devices": [
     "/dev/dri",
     "/dev/dri/card0",
@@ -56,6 +56,10 @@
     "/dev/sdb3",
     "/dev/sda4",
     "/dev/sdb4",
+    "/dev/sda5",
+    "/dev/sda6",
+    "/dev/sda7",
+    "/dev/sda8",
     "/dev/nvme0",
     "/dev/nvme1",
     "/dev/nvme2"
@@ -108,7 +112,8 @@
     "smbv1": "bool?"
   },
   "slug": "emby_nas",
+  "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons/tree/master/emby",
-  "version": "4.8.0.48",
+  "version": "4.8.0.49-6",
   "video": true
 }

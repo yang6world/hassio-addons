@@ -1,8 +1,7 @@
 {
   "arch": [
     "aarch64",
-    "amd64",
-    "armv7"
+    "amd64"
   ],
   "codenotary": "alexandrep.github@gmail.com",
   "description": "Fast, Simple, and Flexible, file-based Web-platform",
@@ -50,6 +49,10 @@
     "/dev/sdb3",
     "/dev/sda4",
     "/dev/sdb4",
+    "/dev/sda5",
+    "/dev/sda6",
+    "/dev/sda7",
+    "/dev/sda8",
     "/dev/nvme0",
     "/dev/nvme1",
     "/dev/nvme2"
@@ -78,7 +81,8 @@
     "TZ": "str?"
   },
   "slug": "grav",
+  "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "1.7.42.3",
+  "version": "1.7.43",
   "webui": "[PROTO:ssl]://[HOST]:[PORT:80]"
 }

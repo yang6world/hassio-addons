@@ -49,6 +49,10 @@
     "/dev/sdb3",
     "/dev/sda4",
     "/dev/sdb4",
+    "/dev/sda5",
+    "/dev/sda6",
+    "/dev/sda7",
+    "/dev/sda8",
     "/dev/nvme0",
     "/dev/nvme1",
     "/dev/nvme2"
@@ -79,6 +83,7 @@
     "CONFIG_LOCATION": "str"
   },
   "slug": "free_games_claimer",
+  "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
   "version": "1.4-test22",
   "webui": "[PROTO:ssl]://[HOST]:[PORT:6080]"

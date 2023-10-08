@@ -1,3 +1,9 @@
+### 27.1.2-2 (07-10-2023)
+- Minor bugs fixed
+- Fix : cannot write in data folder
+
+## 27.1.2 (07-10-2023)
+- Update to latest version from linuxserver/docker-nextcloud
 - Increase start timer
 
 ### 27.1.1-3 (24-09-2023)

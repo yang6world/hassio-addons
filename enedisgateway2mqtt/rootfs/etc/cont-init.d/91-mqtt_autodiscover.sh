@@ -1,6 +1,7 @@
 #!/usr/bin/with-contenv bashio
 # shellcheck shell=bash
 # shellcheck disable=SC2155
+set -e
 
 #####################
 # Autodiscover mqtt #

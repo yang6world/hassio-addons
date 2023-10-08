@@ -49,6 +49,10 @@
     "/dev/sdb3",
     "/dev/sda4",
     "/dev/sdb4",
+    "/dev/sda5",
+    "/dev/sda6",
+    "/dev/sda7",
+    "/dev/sda8",
     "/dev/nvme0",
     "/dev/nvme1",
     "/dev/nvme2"
@@ -89,6 +93,7 @@
     "networkdisks": "str?"
   },
   "slug": "booksonic-air_nas",
+  "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons/tree/master/booksonic_air",
   "version": "2201.1.0",
   "webui": "http://[HOST]:[PORT:4040]"

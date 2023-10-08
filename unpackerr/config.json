@@ -49,6 +49,10 @@
     "/dev/sdb3",
     "/dev/sda4",
     "/dev/sdb4",
+    "/dev/sda5",
+    "/dev/sda6",
+    "/dev/sda7",
+    "/dev/sda8",
     "/dev/nvme0",
     "/dev/nvme1",
     "/dev/nvme2"
@@ -84,6 +88,7 @@
     "watch_path": "str?"
   },
   "slug": "unpackerr",
+  "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
   "version": "testing-e916f00-9-linux-arm64-2023-09-17"
 }

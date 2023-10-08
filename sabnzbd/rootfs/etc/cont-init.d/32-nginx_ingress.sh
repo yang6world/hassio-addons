@@ -1,6 +1,7 @@
 #!/usr/bin/with-contenv bashio
 # shellcheck shell=bash
 # shellcheck disable=SC2317
+set -e
 
 #################
 # NGINX SETTING #

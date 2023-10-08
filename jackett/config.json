@@ -5,7 +5,7 @@
     "armv7"
   ],
   "codenotary": "alexandrep.github@gmail.com",
-  "description": "translates queries from apps (Sonarr, SickRage, CouchPotato, Mylar, etc) into tracker-site-specific http queries, parses the html response, then sends results back to the requesting software",
+  "description": "Translates queries from apps (Sonarr, Sickrage, CouchPotato, Mylar, etc) into tracker-site-specific http queries, parses the html response, then sends results back to the requesting software",
   "devices": [
     "/dev/dri",
     "/dev/dri/card0",
@@ -50,6 +50,10 @@
     "/dev/sdb3",
     "/dev/sda4",
     "/dev/sdb4",
+    "/dev/sda5",
+    "/dev/sda6",
+    "/dev/sda7",
+    "/dev/sda8",
     "/dev/nvme0",
     "/dev/nvme1",
     "/dev/nvme2"
@@ -92,7 +96,8 @@
     "networkdisks": "str?"
   },
   "slug": "jackett_nas",
+  "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons/tree/master/jackett",
-  "version": "0.21.938",
+  "version": "0.21.976",
   "webui": "http://[HOST]:[PORT:9117]"
 }

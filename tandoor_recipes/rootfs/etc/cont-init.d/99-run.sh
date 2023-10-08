@@ -1,6 +1,7 @@
 #!/usr/bin/bashio
 # shellcheck shell=bash
 # shellcheck disable=SC2155
+set -e
 
 #####################
 # Export env values #

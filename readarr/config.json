@@ -4,7 +4,7 @@
     "amd64"
   ],
   "codenotary": "alexandrep.github@gmail.com",
-  "description": "Book Manager and Automation",
+  "description": "Book manager and automation",
   "devices": [
     "/dev/dri",
     "/dev/dri/card0",
@@ -49,6 +49,10 @@
     "/dev/sdb3",
     "/dev/sda4",
     "/dev/sdb4",
+    "/dev/sda5",
+    "/dev/sda6",
+    "/dev/sda7",
+    "/dev/sda8",
     "/dev/nvme0",
     "/dev/nvme1",
     "/dev/nvme2"
@@ -96,6 +100,7 @@
     "networkdisks": "str?"
   },
   "slug": "readarr_nas",
+  "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons/tree/master/readarr",
-  "version": "0.3.6.2232"
+  "version": "0.3.7.2257"
 }

@@ -1,6 +1,7 @@
 #!/usr/bin/with-contenv bashio
 # shellcheck shell=bash
 # shellcheck disable=SC2015
+set -e
 
 if bashio::config.has_value 'graphic_drivers'; then
     GRAPHIC_DRIVERS="$(bashio::config 'graphic_drivers')"
