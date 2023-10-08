@@ -6,6 +6,9 @@ Fork from https://github.com/louisslee/sgcc_electricity (感谢作者）
 ha的加载项仓库(Repo)添加：https://github.com/dscao/npc-hass-addons \
 稍后直接安装，编译即可。时间较长，需要ha系统剩余空间大于4.5G。编译完成镜像占用1.17G。
 
+##  v1.5.2 更新日志
+修复8月份后数据抓取数据出错的问题
+
 ##  v1.5 更新日志
 1. 修复1月份无年度用电数据抓取数据出错的问题
 2. 增加电量数据的最后日期
