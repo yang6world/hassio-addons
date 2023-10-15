@@ -1,0 +1,38 @@
+{
+  "name": "chatgpt-web",
+  "version": "v2.11.1",
+  "slug": "chatgpt-web",
+  "description": "chatgpt-web",
+  "url": "https://github.com/dscao/npc-hass-addons/blob/main/chatgpt-web",
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "startup": "application",
+  "boot": "auto",
+  "init": false,
+  "webui": "http://[HOST]:[PORT:3002]",
+  "panel_icon": "mdi:chat",
+  "panel_title": "ChatGPT",
+  "ports": {
+    "3002/tcp": "3002"
+  },
+  "ports_description": {
+    "3002/tcp": "Web interface"
+  },
+  "options": {
+    "openai_api_key": ""
+  },
+  "schema": {
+    "openai_api_key": "str?",
+    "openai_access_token": "str?",
+    "openai_api_base_url": "url?",
+    "openai_api_model": "str?",
+    "openai_api_disable_debug": "bool?",
+    "api_reverse_proxy": "url?",
+    "max_request_per_hour": "int?",
+    "auth_secret_key": "str?",
+    "socks_proxy_host": "str?",
+    "socks_proxy_port": "port?",
+    "socks_proxy_username": "str?",
+    "socks_proxy_password": "str?",
+    "https_proxy": "url?"
+  }
+}

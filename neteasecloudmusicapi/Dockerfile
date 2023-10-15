@@ -12,7 +12,7 @@ RUN apk add --no-cache --virtual .buildDeps \
 WORKDIR /build
 RUN git clone https://github.com/Binaryify/NeteaseCloudMusicApi.git
 WORKDIR ./NeteaseCloudMusicApi
-RUN git checkout e439a537fa951bc487c2badcee925139d2ddb939
+RUN git checkout aa2e832ea33c45e91b0af6160ec589d12e8996eb
 RUN npm i --omit=dev --ignore-scripts
 
 ENV NODE_ENV production
