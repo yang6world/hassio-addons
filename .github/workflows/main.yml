@@ -231,7 +231,7 @@ jobs:
           cd -
           cp -r ./repository/* ./
           rm -r ./repository
-          rm ./1
+       #   rm ./1
           git config --global user.email yzr@yserver.top
           git config --global user.name y
           git add .
