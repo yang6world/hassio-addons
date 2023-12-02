@@ -25,16 +25,16 @@ if bashio::config.has_value 'customUI' && [ ! "$CUSTOMUI" = default ] && [ ! "$C
             ;;
 
         "transmission-web-control")
-            mkdir -p /tmp/twctemp && \
-                TWCVERSION=$(curl -s "https://api.github.com/repos/ronggang/transmission-web-control/releases/latest" | jq -r .tag_name)
-            curl -o /tmp/twc.tar.gz -L "https://github.com/ronggang/transmission-web-control/archive/${TWCVERSION}.tar.gz"
-            tar xf /tmp/twc.tar.gz -C /tmp/twctemp --strip-components=1
-            mv /tmp/twctemp/src /transmission-web-control
+            curl -f -s -S -J -L -o /release.zip "$(curl -f -s https://api.github.com/repos/transmission-web-control/transmission-web-control/releases/latest | grep -o "http.*dist.zip" | head -1)" >/dev/null
+            ### Install WebUI
+            mkdir -p /transmission-web-control
+            unzip -q /release.zip -d /transmission-web-control
+            mv /transmission-web-control/dist/* /transmission-web-control
+            rm -r /transmission-web-control/dist
+            rm /release.zip
             # Enables the original UI button in transmission-web-control
-            ln -s /usr/share/transmission/web/style /transmission-web-control && \
-                ln -s /usr/share/transmission/web/images /transmission-web-control && \
-                ln -s /usr/share/transmission/web/javascript /transmission-web-control && \
-                ln -s /usr/share/transmission/web/index.html /transmission-web-control/index.original.html
+            ln -s /usr/share/transmission/public_html/* /transmission-web-control/ 2>/dev/null || true
+            ln -s /usr/share/transmission/public_html/index.html /transmission-web-control/index.original.html
             ;;
 
         "kettu")

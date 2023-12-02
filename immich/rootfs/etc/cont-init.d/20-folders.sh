@@ -30,6 +30,18 @@ if [ -f /photos ]; then rm -r /photos; fi
 ln -sf "$DATA_LOCATION" /photos
 chown -R "$PUID":"$PGID" /photos
 
-mkdir -p "$MACHINE_LEARNING_CACHE_FOLDER" "$TYPESENSE_DATA_DIR"
+mkdir -p "$MACHINE_LEARNING_CACHE_FOLDER" "$TYPESENSE_DATA_DIR" "$REVERSE_GEOCODING_DUMP_DIRECTORY"
 chown -R "$PUID":"$PGID" "$MACHINE_LEARNING_CACHE_FOLDER"
 chown -R "$PUID":"$PGID" "$TYPESENSE_DATA_DIR"
+chown -R "$PUID":"$PGID" "$REVERSE_GEOCODING_DUMP_DIRECTORY"
+
+##################
+# REDIS LOCATION #
+##################
+
+echo "sed -i \"s=/config/redis=/data/redis=g\" /etc/s6*/s6*/*/run" >> /docker-mods
+echo "sed -i \"s=/config/log/redis=/data/log=g\" /etc/s6*/s6*/*/run" >> /docker-mods
+mkdir -p /data/redis
+mkdir -p /data/log
+chmod 777 /data/redis
+chmod 777 /data/log

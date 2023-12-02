@@ -1,3 +1,4 @@
+## &#9888; Open Issue : [🐛 [readarr] First install, config directory is created in wrong location (opened 2023-11-22)](https://github.com/alexbelgium/hassio-addons/issues/1089) by [@airtonix](https://github.com/airtonix)
 # Home assistant add-on: readarr
 
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
@@ -40,13 +41,18 @@ The installation of this add-on is pretty straightforward and not different in c
 1. Check the logs of the add-on to see if everything went well.
 1. Open the webUI and adapt the software options
 
+## Usage
+
+Webui can be found at <http://homeassistant:8787/readarr> or with ingress ☝️ by clicking the `Open Web UI` button.
+
+
+The default username/password : described in the startup log.
+
 ## Configuration
 
----
+Options can be configured through three ways :
 
-Webui can be found at <http://your-ip:PORT>.
-The default username/password : described in the startup log.
-Configurations can be done through the app webUI, except for the following options
+### Addon options
 
 ```yaml
 PGID: user
@@ -57,6 +63,20 @@ networkdisks: "//SERVER/SHARE" # optional, list of smb servers to mount, separat
 cifsusername: "username" # optional, smb username, same for all smb shares
 cifspassword: "password" # optional, smb password
 ```
+
+### Within readarr itself
+
+All normal configuration from within the app
+
+### The ENV override file: `/config/addons_config/readarr_nas.yml`
+
+For more control, you can add enviroment variables by defining them as keys in a valid `.yaml` file.
+
+```yaml
+TZ: Europe/Paris
+```
+
+more info : https://github.com/alexbelgium/hassio-addons/wiki/Add%E2%80%90ons-feature-:-add-env-variables
 
 ## Support
 

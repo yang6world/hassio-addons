@@ -76,9 +76,11 @@
     "PUID": 0
   },
   "ports": {
+    "8889/tcp": 8889,
     "9117/tcp": 9117
   },
   "ports_description": {
+    "8889/tcp": "Alternative port",
     "9117/tcp": "Web interface"
   },
   "privileged": [
@@ -98,6 +100,6 @@
   "slug": "jackett_nas",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons/tree/master/jackett",
-  "version": "0.21.1017",
+  "version": "0.21.1289",
   "webui": "http://[HOST]:[PORT:9117]"
 }

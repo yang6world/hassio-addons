@@ -1,4 +1,44 @@
 
+## 5.12-2023-12-01 (2023-12-01)
+- Update to latest version from mbentley/omada-controller
+### DONOTUPDATE_TEST3 (30-11-2023)
+- Minor bugs fixed
+### DONOTUPDATE_TEST2 (30-11-2023)
+- Minor bugs fixed
+### 5.12-2023-11-22-DONOTUPDATE6 (30-11-2023)
+- Minor bugs fixed
+### 5.12-2023-11-22-DONOTUPDATE5 (30-11-2023)
+- Minor bugs fixed
+### 5.12-2023-11-22-DONOTUPDATE4 (30-11-2023)
+- Minor bugs fixed
+### 5.12-2023-11-22-DONOTUPDATE (30-11-2023)
+- Minor bugs fixed
+TEST, DO NOT UPDATE
+
+## 5.12-2023-11-22 (2023-11-22)
+- Update to latest version from mbentley/omada-controller
+- Recommendation : please backup your database and migrated to this addon https://github.com/jkunczik/home-assistant-omada
+- It is dedicated and seems in active development ; it should be more stable
+
+### 5.12-2023-11-21-2 (22-11-2023)
+- Minor bugs fixed
+- Restored functionality of data retention
+
+## 5.12-2023-11-15 (2023-11-15)
+- Update to latest version from mbentley/omada-controller
+
+## 5.12-2023-11-11 (2023-11-11)
+- Update to latest version from mbentley/omada-controller
+
+## 5.12-2023-11-09 (2023-11-09)
+- Update to latest version from mbentley/omada-controller
+
+## 5.12-2023-11-03 (2023-11-03)
+- Update to latest version from mbentley/omada-controller
+
+## 5.12-2023-10-26 (2023-10-26)
+- Update to latest version from mbentley/omada-controller
+
 ## 5.12-2023-10-13 (2023-10-13)
 - Update to latest version from mbentley/omada-controller
 ### 5.12-2023-10-06-3 (08-10-2023)

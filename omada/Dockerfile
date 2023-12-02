@@ -28,13 +28,8 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
     S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0 \
     S6_SERVICES_GRACETIME=0
 
-
-RUN echo "Adding symlinks to entrypoint" \
-    && sed -i \
-    -e '1a chmod a+x /etc/cont-init.d/*' \
-    -e '1a sed -i "s|/usr/bin/with-contenv bashio|/usr/bin/env bashio|g" /etc/cont-init.d/*' \
-    -e '1a for i in /etc/cont-init.d/*; do /."$i"; done' \
-    /entrypoint.sh
+# Adding symlinks to entrypoint
+RUN sed -i '1a /./ha_entrypoint.sh' /entrypoint.sh
 
 ##################
 # 3 Install apps #
@@ -47,15 +42,15 @@ COPY rootfs/ /
 ARG MODULES="00-banner.sh 01-custom_script.sh"
 
 # Automatic modules download
-ADD --chmod=744 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_automodules.sh" "/ha_automodules.sh"
-RUN /ha_automodules.sh "$MODULES" && rm /ha_automodules.sh
+ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_automodules.sh" "/ha_automodules.sh"
+RUN chmod 744 /ha_automodules.sh && /ha_automodules.sh "$MODULES" && rm /ha_automodules.sh
 
 # Manual apps
 ENV PACKAGES=""
 
 # Automatic apps & bashio
-ADD --chmod=744 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_autoapps.sh" "/ha_autoapps.sh"
-RUN /ha_autoapps.sh "$PACKAGES" && rm /ha_autoapps.sh
+ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_autoapps.sh" "/ha_autoapps.sh"
+RUN chmod 744 /ha_autoapps.sh && /ha_autoapps.sh "$PACKAGES" && rm /ha_autoapps.sh
 
 ################
 # 4 Entrypoint #
@@ -63,14 +58,13 @@ RUN /ha_autoapps.sh "$PACKAGES" && rm /ha_autoapps.sh
 
 # Add entrypoint
 ENV S6_STAGE2_HOOK=/ha_entrypoint.sh
-ADD --chmod=777 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint.sh" "/ha_entrypoint.sh"
+ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint.sh" "/ha_entrypoint.sh"
 
 # Entrypoint modifications
-ADD --chmod=777 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint_modif.sh" "/ha_entrypoint_modif.sh"
-RUN /ha_entrypoint_modif.sh && rm /ha_entrypoint_modif.sh
+ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint_modif.sh" "/ha_entrypoint_modif.sh"
+RUN chmod 777 /ha_entrypoint.sh /ha_entrypoint_modif.sh && /ha_entrypoint_modif.sh && rm /ha_entrypoint_modif.sh
 
-#
-#ENTRYPOINT [ "/usr/bin/env" ]
+#ENTRYPOINT [ "/ha_entrypoint.sh" ]
 #CMD [ "/ha_entrypoint.sh" ]
 
 ############

@@ -43,6 +43,7 @@ trusted_domains: your-domain.com #allows to select the trusted domains. Domains 
 OCR: false #set to true to install tesseract-ocr capability.
 OCRLANG: fra,eng #Any language can be set from this page (always three letters) [here](https://tesseract-ocr.github.io/tessdoc/Data-Files#data-files-for-version-400-november-29-2016).
 data_directory: path for the main data directory. Defaults to `/share/nextcloud`. Only used to set permissions and prefill the initial installation template. Once initial  installation is done it can't be changed
+enable_thumbnails: true/false # enable generations of thumbnails for media file (to disable for older systems)
 use_own_certs: true/false #if true, use the certfile and keyfile specified
 certfile: fullchain.pem #ssl certificate, must be located in /ssl
 keyfile: privkey.pem #sslkeyfile, must be located in /ssl
@@ -50,6 +51,9 @@ localdisks: sda1 #put the hardware name of your drive to mount separated by comm
 networkdisks: "//SERVER/SHARE" # optional, list of smbv2/3 servers to mount, separated by commas
 cifsusername: "username" # optional, smb username, same for all smb shares
 cifspassword: "password" # optional, smb password, same for all smb shares)
+env_memory_limit: nextcloud usable memory limit (default is 512M)
+env_post_max_size: nextcloud post size (default is 512M)
+env_upload_max_filesize; nextcloud upload size (default is 512M)
 ```
 
 Webui can be found at `<your-ip>:port`.

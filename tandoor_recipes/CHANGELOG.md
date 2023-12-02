@@ -1,5 +1,8 @@
-## 1.5.6-test_ssl (14-10-2023)
-- Test if ssl is working
+
+## 1.5.9 (02-12-2023)
+- Update to latest version from TandoorRecipes/recipes
+### 1.5.6-reverted (17-10-2023)
+- Minor bugs fixed
 
 ## 1.5.6 (02-09-2023)
 - Update to latest version from TandoorRecipes/recipes

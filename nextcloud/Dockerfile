@@ -39,22 +39,30 @@ RUN \
     \
     # modify data limits file
     sed -i \
-    -e 's/upload_max_filesize=1024M/upload_max_filesize=8192M/g' \
-    -e 's/post_max_size=1024M/post_max_size=8192M/g' \
-    -e 's/max_execution_time=120/max_execution_time=3600/g' \
-    /etc/php*/php.ini || true && \
+    -e '/upload_max_filesize/c upload_max_filesize=8192M' \
+    -e '/post_max_size/c post_max_size=8192M' \
+    -e '/max_execution_time/c max_execution_time=3600' \
+    /etc/php*/php.ini && \
+    \
+    sed -i \
+    -e '/upload_max_filesize/c upload_max_filesize=8192M' \
+    -e '/post_max_size/c post_max_size=8192M' \
+    -e '/max_execution_time/c max_execution_time=3600' \
+    /etc/php*/conf.d/nextcloud.ini && \
     \
     # modify nginx limits file
-    sed -i "s|client_max_body_size 512M;|client_max_body_size 8192M;|g" /defaults/nginx/site-confs/default.conf.sample && \
-    sed -i "s|client_body_timeout 300s;|client_body_timeout 900s;|g" /defaults/nginx/site-confs/default.conf.sample && \
+    sed -i \
+    -e '/client_max_body_size/c client_max_body_size 8192M;' \
+    -e '/post_max_size/c client_body_timeout 900s;' \
+    /defaults/nginx/site-confs/default.conf.sample && \
     \
     # Change location of log
     sed -i "s|s6-setuidgid abc php -f /config/www/nextcloud/cron.php|(s6-setuidgid abc php -f /config/www/nextcloud/cron.php) \&>/proc/1/fd/1|g" /etc/crontabs/root
 
 # Global LSIO modifications
-ADD --chmod=744 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_lsio.sh" "/ha_lsio.sh"
+ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_lsio.sh" "/ha_lsio.sh"
 ARG CONFIGLOCATION="/data/config"
-RUN if grep -qr "lsio" /etc; then /ha_lsio.sh "$CONFIGLOCATION"; fi && rm /ha_lsio.sh
+RUN chmod 744 /ha_lsio.sh && if grep -qr "lsio" /etc; then /ha_lsio.sh "$CONFIGLOCATION"; fi && rm /ha_lsio.sh
 
 ##################
 # 3 Install apps #
@@ -67,15 +75,15 @@ COPY rootfs/ /
 ARG MODULES="00-banner.sh 01-custom_script.sh 00-local_mounts.sh 00-smb_mounts.sh"
 
 # Automatic modules download
-ADD --chmod=744 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_automodules.sh" "/ha_automodules.sh"
-RUN /ha_automodules.sh "$MODULES" && rm /ha_automodules.sh
+ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_automodules.sh" "/ha_automodules.sh"
+RUN chmod 744 /ha_automodules.sh && /ha_automodules.sh "$MODULES" && rm /ha_automodules.sh
 
 # Manual apps
-ENV PACKAGES="gcompat"
+ENV PACKAGES="inotify-tools gcompat ffmpeg imagemagick"
 
 # Automatic apps & bashio
-ADD --chmod=744 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_autoapps.sh" "/ha_autoapps.sh"
-RUN /ha_autoapps.sh "$PACKAGES" && rm /ha_autoapps.sh
+ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_autoapps.sh" "/ha_autoapps.sh"
+RUN chmod 744 /ha_autoapps.sh && /ha_autoapps.sh "$PACKAGES" && rm /ha_autoapps.sh
 
 VOLUME ["/share", "/ssl", "/data", "/media"]
 
@@ -85,11 +93,11 @@ VOLUME ["/share", "/ssl", "/data", "/media"]
 
 # Add entrypoint
 ENV S6_STAGE2_HOOK=/ha_entrypoint.sh
-ADD --chmod=777 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint.sh" "/ha_entrypoint.sh"
+ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint.sh" "/ha_entrypoint.sh"
 
 # Entrypoint modifications
-ADD --chmod=777 "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint_modif.sh" "/ha_entrypoint_modif.sh"
-RUN /ha_entrypoint_modif.sh && rm /ha_entrypoint_modif.sh
+ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint_modif.sh" "/ha_entrypoint_modif.sh"
+RUN chmod 777 /ha_entrypoint.sh /ha_entrypoint_modif.sh && /ha_entrypoint_modif.sh && rm /ha_entrypoint_modif.sh
 
 # Correct modifications
 ARG CONFIGLOCATION="/www/nextcloud/config"

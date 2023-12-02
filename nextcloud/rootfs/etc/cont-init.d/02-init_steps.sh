@@ -90,7 +90,7 @@ sudo -u abc -s /bin/bash -c "php /app/www/public/occ maintenance:mode --off" || 
 # CLEAN OCDE #
 ##############
 
-echo "... Remove OCDE if installed as not compatible"
+echo "... Remove CODE if installed as not compatible"
 sudo -u abc php /app/www/public/occ app:remove --no-interaction "richdocumentscode" &>/dev/null || true
 sudo -u abc php /app/www/public/occ app:remove --no-interaction "richdocumentscode_arm64" &>/dev/null || true
 sudo -u abc php /app/www/public/occ app:remove --no-interaction "richdocumentscode_amd64" &>/dev/null || true
@@ -112,7 +112,40 @@ echo "... Disabling check_data_directory_permissions"
 for files in /defaults/config.php /data/config/www/nextcloud/config/config.php; do
     if [ -f "$files" ]; then
         sed -i "/check_data_directory_permissions/d" "$files"
-        sed -i "/datadirectory/a 'check_data_directory_permissions' => false," "$files"
+        sed -i "/datadirectory/a\ \ 'check_data_directory_permissions' => false," "$files"
     fi
 done
 timeout 10 sudo -u abc php /app/www/public/occ config:system:set check_data_directory_permissions --value=false --type=bool || echo "Please install nextcloud first"
+
+##################
+# Modify php.ini #
+##################
+
+for variable in env_memory_limit env_upload_max_filesize env_post_max_size; do
+    if bashio::config.has_value "$variable"; then
+        variable="${variable#env_}"
+        sed -i "/$variable/c $variable = $(bashio::config "env_$variable")" /etc/php*/conf.d/nextcloud.ini
+        sed -i "/$variable/c $variable = $(bashio::config "env_$variable")" /etc/php*/php.ini
+        bashio::log.blue "$variable set to $(bashio::config "env_$variable")"
+    fi
+done
+
+#####################
+# Enable thumbnails #
+#####################
+
+if bashio::config.true "enable_thumbnails"; then
+    echo "... enabling thumbnails"
+    # Add variables
+    sudo -u abc php /app/www/public/occ config:system:set preview_ffmpeg_path --value='/usr/bin/ffmpeg'
+    sudo -u abc php /app/www/public/occ config:system:set enable_previews --value=true
+    i=0
+    for element in TXT MarkDown OpenDocument PDF Image TIFF SVG Font MP3 Movie MKV MP4 AVI; do # Comma separated values
+        sudo -u abc php /app/www/public/occ config:system:set enabledPreviewProviders "$i" --value="OC\\Preview\\${element}"
+        i=$((i + 1))
+    done
+else
+    # Remove variables
+    echo "... disabling thumbnails"
+    sudo -u abc php /app/www/public/occ config:system:set enable_previews --value=false
+fi

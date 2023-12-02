@@ -22,7 +22,7 @@ _Thanks to everyone having starred my repo! To star it click on the image below,
 
 ---
 
-[Booksonic-air](http://booksonic.org/) is a platform for accessing the audibooks you own wherever you are. At the moment the platform consists of Booksonic Air - A server for streaming your audiobooks, successor to the original Booksonic server and based on Airsonic. Booksonic App - An DSub based Android app for connection to Booksonic-Air servers.
+[Booksonic-air](http://booksonic.org/) is a platform for accessing the audiobooks you own wherever you are. At the moment the platform consists of Booksonic Air - A server for streaming your audiobooks, successor to the original Booksonic server and based on Airsonic. Booksonic App - An DSub based Android app for connection to Booksonic-Air servers.
 This addon is based on the docker image https://github.com/linuxserver/docker-booksonic-air
 
 ## Installation
@@ -44,7 +44,7 @@ The installation of this add-on is pretty straightforward and not different in c
 
 ---
 
-Webui can be found at <http://your-ip:PORT>.
+Webui can be found at <http://homeassistant:PORT>.
 The default username/password : described in the startup log.
 Configurations can be done through the app webUI, except for the following options
 

@@ -1,11 +1,10 @@
 {
   "arch": [
     "aarch64",
-    "amd64",
-    "armv7"
+    "amd64"
   ],
   "codenotary": "alexandrep.github@gmail.com",
-  "description": "scan, index and archive all your physical documents",
+  "description": "Scan, index and archive all your physical documents",
   "devices": [
     "/dev/dri",
     "/dev/dri/card0",
@@ -61,22 +60,26 @@
   "environment": {
     "PAPERLESS_ADMIN_PASSWORD": "admin",
     "PAPERLESS_ADMIN_USER": "admin",
+    "PAPERLESS_CONSUMPTION_DIR": "/config/consume",
+    "PAPERLESS_DATA_DIR": "/config/data",
+    "PAPERLESS_EXPORT_DIR": "/config/export",
+    "PAPERLESS_MEDIA_ROOT": "/config/media",
     "PGID": "0",
     "PUID": "0"
   },
-  "homeassistant": "0.92.0b2",
   "image": "ghcr.io/alexbelgium/paperless_ng-{arch}",
   "init": false,
   "map": [
-    "config:rw",
+    "addon_config:rw",
+    "homeassistant_config:rw",
     "share:rw",
     "media:rw",
     "ssl"
   ],
   "name": "Paperless NGX",
   "options": {
-    "CONFIG_LOCATION": "/config/addons_config/paperless_ng/config.yaml",
-    "OCRLANG": "ENG FRA GER",
+    "CONFIG_LOCATION": "/config/config.yaml",
+    "OCRLANG": "ENG FRA DEU",
     "PAPERLESS_OCR_MODE": "skip",
     "PGID": 0,
     "PUID": 0,
@@ -89,8 +92,8 @@
     "8443/tcp": null
   },
   "ports_description": {
-    "8000/tcp": "Http web interface",
-    "8443/tcp": "Https web interface"
+    "8000/tcp": "http web interface",
+    "8443/tcp": "https web interface"
   },
   "privileged": [
     "SYS_ADMIN",
@@ -123,6 +126,6 @@
   "slug": "paperless_ng",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "1.15.1",
+  "version": "2.0.1-2",
   "webui": "http://[HOST]:[PORT:8000]"
 }

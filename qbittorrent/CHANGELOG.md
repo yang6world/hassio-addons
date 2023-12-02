@@ -1,3 +1,37 @@
+
+## 4.6.2 (02-12-2023)
+- Update to latest version from linuxserver/docker-qbittorrent
+
+### 4.6.1-6 (22-11-2023)
+- Minor bugs fixed
+
+### 4.6.1-5 (22-11-2023)
+- Minor bugs fixed
+- Selecting qbit webui also applies it to ingress. Otherwise, default is vuetorrent
+
+### 4.6.1-3 (22-11-2023)
+- Minor bugs fixed
+- Restart the addon after setting the default password
+
+### 4.6.1-2 (22-11-2023)
+- Minor bugs fixed
+- Re-add default username (admin) and password (homeassistant)
+
+## 4.6.1 (21-11-2023)
+- Update to latest version from linuxserver/docker-qbittorrent
+
+### 4.6.0-3 (06-11-2023)
+- Minor bugs fixed
+- Ingress webui update at start
+
+### 4.6.0-2 (30-10-2023)
+- Minor bugs fixed
+
+### 4.6.0-WITHOUT_VPN (30-10-2023)
+- Minor bugs fixed
+
+## 4.6.0 (28-10-2023)
+- Update to latest version from linuxserver/docker-qbittorrent
 ### 4.5.5-4 (30-09-2023)
 - Minor bugs fixed
 - Avoid crash when using smbv1

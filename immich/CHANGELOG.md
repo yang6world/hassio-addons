@@ -1,4 +1,38 @@
 
+## 1.89.0 (02-12-2023)
+- Update to latest version from imagegenius/docker-immich
+### 1.88.2-3 (27-11-2023)
+- Minor bugs fixed
+- Fix : add REVERSE_GEOCODING_DUMP_DIRECTORY in config environment
+
+## 1.88.2 (25-11-2023)
+- Update to latest version from imagegenius/docker-immich
+### 1.88.1-7 (24-11-2023)
+- Minor bugs fixed
+### 1.88.1-6 (23-11-2023)
+- Minor bugs fixed
+### 1.88.1-5 (23-11-2023)
+- Minor bugs fixed
+- Fixed REDIS error
+
+## 1.88.1 (21-11-2023)
+- Update to latest version from imagegenius/docker-immich
+
+## 1.87.0 (19-11-2023)
+- Update to latest version from imagegenius/docker-immich
+
+## 1.86.0 (18-11-2023)
+- Update to latest version from imagegenius/docker-immich
+
+## 1.85.0 (11-11-2023)
+- Update to latest version from imagegenius/docker-immich
+
+## 1.84.0 (04-11-2023)
+- Update to latest version from imagegenius/docker-immich
+
+## 1.82.1 (20-10-2023)
+- Update to latest version from imagegenius/docker-immich
+
 ## 1.81.1 (07-10-2023)
 - Update to latest version from imagegenius/docker-immich
 ### 1.79.1-2 (24-09-2023)

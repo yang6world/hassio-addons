@@ -1,4 +1,4 @@
-## &#9888; Open Request : [✨ [REQUEST] Transmission - set config directory from configuration page (opened 2023-07-28)](https://github.com/alexbelgium/hassio-addons/issues/922) by [@akslow](https://github.com/akslow)
+## &#9888; Open Issue : [🐛 [transmission_openvpn] Cannot set INCOMPLETE_DIR_ENABLED environment variable (opened 2023-11-30)](https://github.com/alexbelgium/hassio-addons/issues/1107) by [@schmittx](https://github.com/schmittx)
 
 # Home assistant add-on: Transmission
 

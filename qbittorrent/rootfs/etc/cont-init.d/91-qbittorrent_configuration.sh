@@ -133,8 +133,18 @@ if bashio::config.has_value 'Username'; then
     #clean data
     sed -i '/WebUI\\\Username/d' qBittorrent.conf
     #add data
-    sed -i "$LINE i\WebUI\\\Username=$USERNAME" qBittorrent.conf
+    sed -i "/\[Preferences\]/a\WebUI\\\Username=$USERNAME" qBittorrent.conf
     bashio::log.info "WEBUI username set to $USERNAME"
+else
+    if ! grep -q Username qBittorrent.conf; then
+        sed -i "/\[Preferences\]/a\WebUI\\\Username=admin" qBittorrent.conf
+    fi
+fi
+LINE2="$(sed -n '/Password_PBKDF2/=' qBittorrent.conf)"
+if [[ "$LINE" -gt "$LINE2" ]]; then sed -i '/Password_PBKDF2/d' qBittorrent.conf; fi 
+if ! grep -q Password_PBKDF2 qBittorrent.conf; then
+    sed -i "/\[Preferences\]/a\WebUI\\\Password_PBKDF2=\"@ByteArray(cps93Gf8ma8EM3QRon+spg==:wYFoMNVmdiqzWYQ6mFrvET+RRbBSIPVfXFFeEy0ZEagxvNuEF7uGVnG5iq8oeu38kGLtmJqCM2w8cTdtORDP2A==)\"" qBittorrent.conf
+    bashio::addon.restart
 fi
 
 ################
@@ -152,6 +162,19 @@ if [ ! "$CUSTOMUI" = custom ]; then
     chown "$PUID:$PGID" /webui
 fi
 
+# Clean data if not custom
+if [ "$CUSTOMUI" = default ]; then
+    echo ""
+    bashio::log.warning "Default Webui selected ! It will not work for ingress, which will stay with vuetorrent"
+    echo ""
+    sed -i '/AlternativeUIEnabled/d' qBittorrent.conf
+    sed -i '/RootFolder/d' qBittorrent.conf
+    # Update ingress webui
+    curl -f -s -S -O -J -L "$(curl -f -s https://api.github.com/repos/WDaan/VueTorrent/releases | grep -o "http.*vuetorrent.zip" | head -1)" >/dev/null
+    unzip -o vuetorrent.zip -d / >/dev/null
+    rm vuetorrent.zip
+fi
+
 # Install webui
 if bashio::config.has_value 'customUI' && [ ! "$CUSTOMUI" = default ] && [ ! "$CUSTOMUI" = custom ]; then
     ### Variables
@@ -165,6 +188,9 @@ if bashio::config.has_value 'customUI' && [ ! "$CUSTOMUI" = default ] && [ ! "$C
 
         "qbit-matUI")
             curl -f -s -S -J -L -o /webui/release.zip "$(curl -f -s https://api.github.com/repos/bill-ahmed/qbit-matUI/releases/latest | grep -o "http.*Unix.*.zip" | head -1)" >/dev/null
+            echo ""
+            bashio::log.warning "qbit-matUI selected ! It will not work for ingress, which will stay with vuetorrent"
+            echo ""
             ;;
 
         "qb-web")
@@ -178,18 +204,18 @@ if bashio::config.has_value 'customUI' && [ ! "$CUSTOMUI" = default ] && [ ! "$C
     unzip -q /webui/release.zip -d /webui/"$CUSTOMUI"
     rm /webui/*.zip
     CUSTOMUIDIR="$(dirname "$(find /webui/"$CUSTOMUI" -iname "public" -type d)")"
-    # Set qbittorrent
     sed -i "$LINE i\WebUI\\\AlternativeUIEnabled=true" "$CONFIG_LOCATION"/qBittorrent.conf
     sed -i "$LINE i\WebUI\\\RootFolder=$CUSTOMUIDIR" "$CONFIG_LOCATION"/qBittorrent.conf
-    # Set nginx
-    #sed -i "s=/vuetorrent/public/=$CUSTOMUIDIR/public/=g" /etc/nginx/servers/ingress.conf
-    #sed -i "s=vue.torrent=$CUSTOMUI.torrent=g" /etc/nginx/servers/ingress.conf
-
+    # Set ingress ui
+    if [[ "$CUSTOMUI" != qbit-matUI ]]; then
+      sed -i "s=/vuetorrent/public/=$CUSTOMUIDIR/public/=g" /etc/nginx/servers/ingress.conf || true
+      sed -i "s=vue.torrent=$CUSTOMUI.torrent=g" /etc/nginx/servers/ingress.conf || true
+    fi
 fi
 
 ##########
 # CLOSE  #
 ##########
 
-bashio::log.info "Default username/password : admin/adminadmin"
+bashio::log.info "Default username/password : $USERNAME/homeassistant"
 bashio::log.info "Configuration can be found in $CONFIG_LOCATION"

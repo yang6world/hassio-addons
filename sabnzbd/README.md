@@ -1,4 +1,3 @@
-## &#9888; Open Issue : [🐛 [SABnzbd+Plex NAS] Ingress Support (opened 2023-10-08)](https://github.com/alexbelgium/hassio-addons/issues/1022) by [@dm82m](https://github.com/dm82m)
 # Home assistant add-on: sabnzbd
 
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
@@ -26,7 +25,7 @@ This addon is based on the docker image https://github.com/linuxserver/docker-sa
 
 ## Configuration
 
-Webui can be found at <http://your-ip:PORT>.
+Webui can be found at <http://homeassistant:PORT>.
 The default username/password : login:sabnzbd, password:tegbzn6789
 Configurations can be done through the app webUI, except for the following options
 

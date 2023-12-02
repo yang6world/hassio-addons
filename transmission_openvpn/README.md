@@ -1,3 +1,4 @@
+## &#9888; Open Issue : [🐛 [transmission_openvpn] Cannot set INCOMPLETE_DIR_ENABLED environment variable (opened 2023-11-30)](https://github.com/alexbelgium/hassio-addons/issues/1107) by [@schmittx](https://github.com/schmittx)
 # Home assistant add-on: Transmission Openvpn
 
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
@@ -44,6 +45,8 @@ TRANSMISSION_V3_UPDATE: updates to v3. Remove and add all torrents due to transm
 For setting a custom openvpn file, you should flag the "OPENVPN_CUSTOM_PROVIDER" field and reference the path of the \*.ovpn file in the "OPENVPN_CUSTOM_PROVIDER_OVPN_LOCATION" field.
 
 Complete transmission options are in /config/addons_config/transmission (make sure addon is stopped before modifying it as Transmission writes its ongoing values when stopping and could erase your changes)
+
+WEBPROXY_ENABLED : the webproxy is enabled by default on port 8118 but can be disabled using the addon option "WEBPROXY_ENABLED". More informations : https://haugene.github.io/docker-transmission-openvpn/web-proxy/ (thanks @tutorempire)
 
 Webui can be found at `<your-ip>:9091`.
 

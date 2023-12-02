@@ -1,3 +1,7 @@
+### 4.0.4-2 (27-11-2023)
+- Minor bugs fixed
+- Feat : new transmission-web-control https://github.com/alexbelgium/hassio-addons/issues/1098
+- Feat : prevent caching in Ingress to allow for faster UI changes
 
 ## 4.0.4 (02-09-2023)
 - Update to latest version from linuxserver/docker-transmission

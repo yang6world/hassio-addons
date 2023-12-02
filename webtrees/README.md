@@ -1,4 +1,3 @@
-## &#9888; Open Issue : [🐛 [Webtrees] Default Password Not Valid (opened 2023-07-19)](https://github.com/alexbelgium/hassio-addons/issues/907) by [@RebbePod](https://github.com/RebbePod)
 # Home assistant add-on: Webtrees
 
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
@@ -27,7 +26,7 @@ This addon is based on the docker image https://github.com/NathanVaughn/webtrees
 
 ## Configuration
 
-Webui can be found at <http://your-ip:PORT>.
+Webui can be found at <http://homeassistant:PORT>.
 
 The name and password are defined through the startup wizard.
 

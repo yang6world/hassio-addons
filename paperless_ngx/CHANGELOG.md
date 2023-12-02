@@ -1,21 +1,34 @@
-
-## 1.17.1 (19-08-2023)
+### 2.0.1-2 (02-12-2023)
+- Minor bugs fixed
 - Update to latest version from paperless-ngx/paperless-ngx
 
-## 1.17.0 (05-08-2023)
-- Update to latest version from paperless-ngx/paperless-ngx
+### 2.0.0.1-12 (24-11-2023)
+- Minor bugs fixed
+- Switch tag latest to beta except for armv7
 
-## 1.16.5 (01-07-2023)
-- Update to latest version from paperless-ngx/paperless-ngx
+### 2.0.0.1-11 (24-11-2023)
+- Minor bugs fixed
+- Readd armv7 support
 
-## 1.16.3 (24-06-2023)
-- Update to latest version from paperless-ngx/paperless-ngx
+### 2.0.0.1-9 (23-11-2023)
+- Allow directories to be set from config.yaml (prevent forcing defaults)
 
-## 1.16.1 (17-06-2023)
-- Update to latest version from paperless-ngx/paperless-ngx
+### 2.0.0.1-8 (23-11-2023)
+- Minor bugs fixed
+- Finally all bugs solved !
 
-## 1.15.1 (10-06-2023)
+### 2.0.0.1-6 (22-11-2023)
+- Minor bugs fixed
+- Allow names with spaces in directory names
+
+### 2.0.0b1-5 (20-11-2023)
+- Correct passing of addon options to addon
+- Automatically changes config.yaml addon option to new location
+- Restore local and smb disks scripts
 - Update to latest version from paperless-ngx/paperless-ngx
+- MAJOR CHANGE : new HA config logic implemented. Files are now located in the addon config file, that can be accessed from the addon_configs folder from my filebrowser or cloudcommander addons. Migration of data, custom configs, and custom scripts should be automatic. Please be sure to update all your links however ! For more information, see here : https://developers.home-assistant.io/blog/2023/11/06/public-addon-config/
+- Update to new official image
+- Enable beta channel
 
 ## 1.14.5 (19-05-2023)
 - Update to latest version from paperless-ngx/paperless-ngx

@@ -1,4 +1,14 @@
 
+## 10.8.13 (02-12-2023)
+- Update to latest version from linuxserver/docker-jellyfin
+### 10.8.12-4 (21-11-2023)
+- Minor bugs fixed
+### 10.8.12-2 (12-11-2023)
+- Minor bugs fixed
+
+## 10.8.12 (11-11-2023)
+- Update to latest version from linuxserver/docker-jellyfin
+
 ## 10.8.11 (30-09-2023)
 - Update to latest version from linuxserver/docker-jellyfin
 - Arm32v7 discontinued by linuxserver, latest working version pinned

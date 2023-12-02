@@ -1,4 +1,28 @@
 
+## 4.0.0.733 (26-11-2023)
+- Update to latest version from linuxserver/docker-sonarr
+
+## 4.0.0.731 (21-11-2023)
+- Update to latest version from linuxserver/docker-sonarr
+
+## 4.0.0.725 (18-11-2023)
+- Update to latest version from linuxserver/docker-sonarr
+
+## 4.0.0.719 (11-11-2023)
+- Update to latest version from linuxserver/docker-sonarr
+
+## 4.0.0.710 (04-11-2023)
+- Update to latest version from linuxserver/docker-sonarr
+### 4.0.0.703-2 (01-11-2023)
+- Minor bugs fixed
+- Fix : disable authentification when using ingress
+
+## 4.0.0.703 (28-10-2023)
+- Update to latest version from linuxserver/docker-sonarr
+
+## 4.0.0.700 (20-10-2023)
+- Update to latest version from linuxserver/docker-sonarr
+
 ## 4.0.0.697 (14-10-2023)
 - Update to latest version from linuxserver/docker-sonarr
 - Breaking change : update to v4

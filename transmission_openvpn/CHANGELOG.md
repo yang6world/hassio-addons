@@ -1,6 +1,21 @@
+### v5.2.0-6 (30-11-2023)
+- Minor bugs fixed
+- Feat : activate incomplete dir by default if the addon option is activated https://github.com/alexbelgium/hassio-addons/issues/1107
+
+### v5.2.0-5 (29-11-2023)
+- Minor bugs fixed
+- Fix : WEBPROXY starting
+
+### v5.2.0-4 (28-11-2023)
+- Minor bugs fixed
+- Feat : addition of the WEBPROXY. It is enabled by default on port 8118 but can be disabled using the addon option "WEBPROXY_ENABLED". More informations : https://haugene.github.io/docker-transmission-openvpn/web-proxy/ (thanks @tutorempire)
+
+### v5.2.0-2 (28-11-2023)
+- Feat : addition of custom environement variable through the 01-config_yaml.sh logic. Further infos : https://github.com/alexbelgium/hassio-addons/wiki/Add%E2%80%90ons-feature-:-add-env-variables
 
 ## v5.2.0 (09-09-2023)
 - Update to latest version from haugene/docker-transmission-openvpn
+
 ### v5.1.0-3 (04-09-2023)
 - Minor bugs fixed
 - Fix https://github.com/alexbelgium/hassio-addons/issues/978

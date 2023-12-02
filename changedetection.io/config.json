@@ -19,7 +19,7 @@
     "5000/tcp": 5000
   },
   "ports_description": {
-    "5000/tcp": "webui"
+    "5000/tcp": "Webui"
   },
   "schema": {
     "BASE_URL": "str?",
@@ -30,6 +30,6 @@
   "slug": "changedetection.io",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons/tree/master/changedetection.io",
-  "version": "0.45.3",
+  "version": "0.45.8.1",
   "webui": "http://[HOST]:[PORT:5000]"
 }

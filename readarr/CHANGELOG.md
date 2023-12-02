@@ -1,3 +1,27 @@
+### 0.3.10.2287-13 (24-11-2023)
+- Minor bugs fixed
+- Add text message to clarify url for login (if disabled or not)
+- Fix error "Requested value \u0027external\u0027 was not found"
+
+### 0.3.10.2287-11 (23-11-2023)
+- Minor bugs fixed
+### 0.3.10.2287-10 (23-11-2023)
+- Minor bugs fixed
+### 0.3.10.2287-9 (23-11-2023)
+- Minor bugs fixed
+### 0.3.10.2287-8 (23-11-2023)
+- Minor bugs fixed
+- Fix : restore normal working
+
+### 0.3.10.2287-6 (21-11-2023)
+- Minor bugs fixed
+
+## 0.3.10.2287 (04-11-2023)
+- Update to latest version from linuxserver/docker-readarr
+- Fix : disable authentification when using ingress
+
+## 0.3.9.2272 (20-10-2023)
+- Update to latest version from linuxserver/docker-readarr
 
 ## 0.3.8.2267 (14-10-2023)
 - Update to latest version from linuxserver/docker-readarr
