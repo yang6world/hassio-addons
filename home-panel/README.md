@@ -20,6 +20,22 @@ A web frontend for controlling the home. Integrates with
 
 ![Showcase Purple Space][showcase-purple-space]
 
+## WARNING! THIS IS A BETA VERSION!
+
+This Home Assistant Add-ons repository contains beta releases of add-ons.
+
+- They might stop working at any time.
+- They could have a negative impact on your system.
+
+This repository was created for:
+
+- Anybody willing to test.
+- Anybody interested in trying out upcoming add-ons or add-on features.
+
+If you are more interested in stable releases of our add-ons:
+
+<https://github.com/hassio-addons/repository>
+
 
 [banner]: https://raw.githubusercontent.com/timmo001/home-panel/master/documentation/resources/banner.png
 [buymeacoffee-shield]: https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg
@@ -32,8 +48,8 @@ A web frontend for controlling the home. Integrates with
 [home-panel]: https://github.com/timmo001/home-panel
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2023.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-production%20ready-brightgreen.svg
-[release-shield]: https://img.shields.io/badge/version-v2.6.1-blue.svg
-[release]: https://github.com/hassio-addons/addon-home-panel/tree/v2.6.1
+[release-shield]: https://img.shields.io/badge/version-v2.7.0-blue.svg
+[release]: https://github.com/hassio-addons/addon-home-panel/tree/v2.7.0
 [screen-configuration-main]: https://raw.githubusercontent.com/timmo001/home-panel/master/documentation/resources/screen-configuration-main.png
 [screen-main]: https://raw.githubusercontent.com/timmo001/home-panel/master/documentation/resources/screen-main.png
 [showcase-purple-space]: https://raw.githubusercontent.com/timmo001/home-panel/master/documentation/docs/showcase/timmo/purple-space.png

@@ -1,6 +1,5 @@
 ## What’s changed
 
-## ⬆️ Dependency updates
+## 🐛 Bug fixes
 
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v14.1.0 @renovate ([#270](https://github.com/hassio-addons/addon-appdaemon/pull/270))
-- ⬆️ Update Python to v3.11.5-r0 @renovate ([#273](https://github.com/hassio-addons/addon-appdaemon/pull/273))
+- Fixed another incorrect check @frenck ([#290](https://github.com/hassio-addons/addon-appdaemon/pull/290))

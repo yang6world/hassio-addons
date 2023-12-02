@@ -1,43 +1,18 @@
 ## What’s changed
 
+## 🚨 Breaking changes
+
+- Drop support for armhf & i386 @frenck ([#428](https://github.com/hassio-addons/addon-glances/pull/428))
+
+## 🚀 Enhancements
+
+- 🔨 Update logging from file to console @sinclairpaul ([#431](https://github.com/hassio-addons/addon-glances/pull/431))
+
 ## ⬆️ Dependency updates
 
-- ⬆️ Update alpine_3_18/nginx to v1.24.0-r4 @renovate ([#366](https://github.com/hassio-addons/addon-glances/pull/366))
-- ⬆️ Update requests to v2.31.0 [SECURITY] @renovate ([#368](https://github.com/hassio-addons/addon-glances/pull/368))
-- ⬆️ Update alpine_3_18/nginx to v1.24.0-r5 @renovate ([#369](https://github.com/hassio-addons/addon-glances/pull/369))
-- ⬆️ Update zeroconf to v0.63.0 @renovate ([#371](https://github.com/hassio-addons/addon-glances/pull/371))
-- ⬆️ Update alpine_3_18/nginx to v1.24.0-r6 @renovate ([#372](https://github.com/hassio-addons/addon-glances/pull/372))
-- ⬆️ Update docker to v6.1.3 @renovate ([#373](https://github.com/hassio-addons/addon-glances/pull/373))
-- ⬆️ Update zeroconf to v0.64.0 @renovate ([#374](https://github.com/hassio-addons/addon-glances/pull/374))
-- ⬆️ Update zeroconf to v0.64.1 @renovate ([#375](https://github.com/hassio-addons/addon-glances/pull/375))
-- ⬆️ Update Python to v3.11.4-r0 @renovate ([#377](https://github.com/hassio-addons/addon-glances/pull/377))
-- ⬆️ Update zeroconf to v0.66.0 @renovate ([#379](https://github.com/hassio-addons/addon-glances/pull/379))
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v14.0.1 @renovate ([#378](https://github.com/hassio-addons/addon-glances/pull/378))
-- ⬆️ Update zeroconf to v0.68.0 @renovate ([#380](https://github.com/hassio-addons/addon-glances/pull/380))
-- ⬆️ Update zeroconf to v0.69.0 @renovate ([#381](https://github.com/hassio-addons/addon-glances/pull/381))
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v14.0.2 @renovate ([#382](https://github.com/hassio-addons/addon-glances/pull/382))
-- ⬆️ Update zeroconf to v0.70.0 @renovate ([#383](https://github.com/hassio-addons/addon-glances/pull/383))
-- ⬆️ Update zeroconf to v0.71.0 @renovate ([#384](https://github.com/hassio-addons/addon-glances/pull/384))
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v14.0.3 @renovate ([#386](https://github.com/hassio-addons/addon-glances/pull/386))
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v14.0.5 @renovate ([#387](https://github.com/hassio-addons/addon-glances/pull/387))
-- ⬆️ Update zeroconf to v0.71.3 @renovate ([#388](https://github.com/hassio-addons/addon-glances/pull/388))
-- ⬆️ Update zeroconf to v0.71.4 @renovate ([#389](https://github.com/hassio-addons/addon-glances/pull/389))
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v14.0.7 @renovate ([#390](https://github.com/hassio-addons/addon-glances/pull/390))
-- ⬆️ Update zeroconf to v0.71.5 @renovate ([#392](https://github.com/hassio-addons/addon-glances/pull/392))
-- ⬆️ Update zeroconf to v0.72.0 @renovate ([#393](https://github.com/hassio-addons/addon-glances/pull/393))
-- ⬆️ Update influxdb-client to v1.37.0 @renovate ([#391](https://github.com/hassio-addons/addon-glances/pull/391))
-- ⬆️ Update zeroconf to v0.72.3 @renovate ([#394](https://github.com/hassio-addons/addon-glances/pull/394))
-- ⬆️ Update zeroconf to v0.74.0 @renovate ([#395](https://github.com/hassio-addons/addon-glances/pull/395))
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v14.0.8 @renovate ([#396](https://github.com/hassio-addons/addon-glances/pull/396))
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v14.1.0 @renovate ([#397](https://github.com/hassio-addons/addon-glances/pull/397))
-- ⬆️ Update zeroconf to v0.76.0 @renovate ([#398](https://github.com/hassio-addons/addon-glances/pull/398))
-- ⬆️ Update zeroconf to v0.78.0 @renovate ([#399](https://github.com/hassio-addons/addon-glances/pull/399))
-- ⬆️ Update zeroconf to v0.79.0 @renovate ([#400](https://github.com/hassio-addons/addon-glances/pull/400))
-- ⬆️ Update zeroconf to v0.80.0 @renovate ([#401](https://github.com/hassio-addons/addon-glances/pull/401))
-- ⬆️ Update zeroconf to v0.81.0 @renovate ([#402](https://github.com/hassio-addons/addon-glances/pull/402))
-- ⬆️ Update zeroconf to v0.82.0 @renovate ([#403](https://github.com/hassio-addons/addon-glances/pull/403))
-- ⬆️ Update zeroconf to v0.82.1 @renovate ([#404](https://github.com/hassio-addons/addon-glances/pull/404))
-- ⬆️ Update Python to v3.11.5-r0 @renovate ([#405](https://github.com/hassio-addons/addon-glances/pull/405))
-- ⬆️ Update zeroconf to v0.104.0 @renovate ([#406](https://github.com/hassio-addons/addon-glances/pull/406))
-- ⬆️ Update zeroconf to v0.108.0 @renovate ([#408](https://github.com/hassio-addons/addon-glances/pull/408))
-- ⬆️ Update zeroconf to v0.111.0 @renovate ([#409](https://github.com/hassio-addons/addon-glances/pull/409)) 
+- ⬆️ Update alpine_3_18/nginx to v1.24.0-r7 @renovate ([#426](https://github.com/hassio-addons/addon-glances/pull/426))
+- ⬆️ Update zeroconf to v0.119.0 @renovate ([#427](https://github.com/hassio-addons/addon-glances/pull/427))
+- ⬆️ Update psutil to v5.9.6 @renovate ([#425](https://github.com/hassio-addons/addon-glances/pull/425))
+- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v14.3.0 @renovate ([#429](https://github.com/hassio-addons/addon-glances/pull/429))
+- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v14.3.1 @renovate ([#430](https://github.com/hassio-addons/addon-glances/pull/430))
+- ⬆️ Update zeroconf to v0.120.0 @renovate ([#432](https://github.com/hassio-addons/addon-glances/pull/432))

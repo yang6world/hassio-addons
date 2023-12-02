@@ -1,5 +1,5 @@
 ## What’s changed
 
-## 🐛 Bug fixes
+## ⬆️ Dependency updates
 
-- Fix typo "login_server: unbound variable" @Saoclyph ([#182](https://github.com/hassio-addons/addon-tailscale/pull/182))
+- ⬆️ Update Add-on base image to v14.3.1 @renovate ([#285](https://github.com/hassio-addons/addon-tailscale/pull/285))

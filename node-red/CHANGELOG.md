@@ -1,5 +1,5 @@
 ## What’s changed
 
-## ⬆️ Dependency updates
+## 🐛 Bug fixes
 
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v14.2.1 @renovate ([#1698](https://github.com/hassio-addons/addon-node-red/pull/1698))
+- Fix incorrect check for existing files @frenck ([#1738](https://github.com/hassio-addons/addon-node-red/pull/1738))
