@@ -13,6 +13,8 @@ declare log_level
 declare flush_to_disk
 declare host_chassis
 declare soft_reset
+declare presets_array
+declare presets
 
 readonly DOCS_EXAMPLE_KEY_1="2232666D100F795E5BB17F0A1BB7A146"
 readonly DOCS_EXAMPLE_KEY_2="A97D2A51A6D4022998BEFC7B5DAE8EA1"
@@ -84,7 +86,7 @@ done
 # flushed to disk
 if [[ ${flush_to_disk:+x} ]]; then
     bashio::log.info "Flushing config to disk due to creation of new key(s)..."
-    bashio::addon.options > "/data/options.json"
+    bashio::addon.options >"/data/options.json"
 fi
 
 s0_legacy=$(bashio::config "s0_legacy_key")
@@ -119,6 +121,33 @@ else
     bashio::log.info "Soft-reset disabled by user"
 fi
 
+# Create empty presets array
+presets_array=()
+
+if bashio::config.true 'safe_mode'; then
+    bashio::log.info "Safe mode enabled"
+    bashio::log.warning "WARNING: While in safe mode, the performance of your Z-Wave network will be in a reduced state. This is only meant for debugging purposes."
+    # Add SAFE_MODE to presets array
+    presets_array+=("SAFE_MODE")
+fi
+
+if bashio::config.true 'disable_controller_recovery'; then
+    bashio::log.info "Automatic controller recovery disabled"
+    bashio::log.warning "WARNING: If your controller becomes unresponsive, commands may start to fail and nodes may start to get marked as dead until the controller is able to recover on its own. If it doesn't recover on its own, you will need to restart the add-on manually to try to recover yourself."
+    # Add NO_CONTROLLER_RECOVERY to presets array
+    presets_array+=("NO_CONTROLLER_RECOVERY")
+fi
+
+# Convert presets array to JSON string and add to config
+if [[ ${#presets_array[@]} -eq 0 ]]; then
+    presets="[]"
+else
+    presets="$(printf '%s\n' "${presets_array[@]}" | jq -R . | jq -s .)"
+fi
+
+log_to_file=$(bashio::config "log_to_file")
+log_max_files=$(bashio::config "log_max_files")
+
 # Generate config
 bashio::var.json \
     s0_legacy "${s0_legacy}" \
@@ -126,7 +155,10 @@ bashio::var.json \
     s2_authenticated "${s2_authenticated}" \
     s2_unauthenticated "${s2_unauthenticated}" \
     log_level "${log_level}" \
-    soft_reset "^${soft_reset}" |
+    log_to_file "${log_to_file}" \
+    log_max_files "${log_max_files}" \
+    soft_reset "^${soft_reset}" \
+    presets "${presets}" |
     tempio \
         -template /usr/share/tempio/zwave_config.conf \
         -out /etc/zwave_config.json
