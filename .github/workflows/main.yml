@@ -209,21 +209,6 @@ jobs:
           git add .
           git commit -m "hassio-addons/repository-beta" 
           
-      - name: pull
-        run : |
-          git clone https://github.com/dscao/npc-hass-addons.git
-          cd ./npc-hass-addons
-          rm -r ./ocr_api_server
-          rm ./README.md
-          rm ./repository.json
-          cd -
-          cp -r ./npc-hass-addons/* ./
-          rm -r ./npc-hass-addons
-          touch ./1
-          git config --global user.email yzr@yserver.top
-          git config --global user.name y
-          git add .
-          git commit -m "From dscao/npc-hass-addons" 
 
       - name: pull
         run : |
