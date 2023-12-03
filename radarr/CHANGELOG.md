@@ -1,3 +1,6 @@
+### 5.1.3.8246-4 (02-12-2023)
+- Minor bugs fixed
+- Send crond messages to addon logs
 
 ## 5.1.3.8246 (18-11-2023)
 - Update to latest version from linuxserver/docker-radarr
