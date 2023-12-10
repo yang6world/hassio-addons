@@ -6,10 +6,11 @@ mkdir -p /data/workdir
 mkdir -p /data/letsencrypt
 
 # Setup Let's encrypt config
-echo -e "dns_digitalocean_token = $(bashio::config 'dns.digitalocean_token')\n" \
-      "directadmin_url = $(bashio::config 'dns.directadmin_url')\n" \
-      "directadmin_username = $(bashio::config 'dns.directadmin_username')\n" \
-      "directadmin_password = $(bashio::config 'dns.directadmin_password')\n" \
+echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
+      "dns_digitalocean_token = $(bashio::config 'dns.digitalocean_token')\n" \
+      "dns_directadmin_url = $(bashio::config 'dns.directadmin_url')\n" \
+      "dns_directadmin_username = $(bashio::config 'dns.directadmin_username')\n" \
+      "dns_directadmin_password = $(bashio::config 'dns.directadmin_password')\n" \
       "dns_dnsimple_token = $(bashio::config 'dns.dnsimple_token')\n" \
       "dns_dnsmadeeasy_api_key = $(bashio::config 'dns.dnsmadeeasy_api_key')\n" \
       "dns_dnsmadeeasy_secret_key = $(bashio::config 'dns.dnsmadeeasy_secret_key')\n" \
@@ -17,10 +18,13 @@ echo -e "dns_digitalocean_token = $(bashio::config 'dns.digitalocean_token')\n" 
       "dns_gehirn_api_token = $(bashio::config 'dns.gehirn_api_token')\n" \
       "dns_gehirn_api_secret = $(bashio::config 'dns.gehirn_api_secret')\n" \
       "dns_hetzner_api_token = $(bashio::config 'dns.hetzner_api_token')\n" \
+      "dns_infomaniak_token = $(bashio::config 'dns.infomaniak_api_token')\n" \
       "dns_linode_key = $(bashio::config 'dns.linode_key')\n" \
       "dns_linode_version = $(bashio::config 'dns.linode_version')\n" \
       "dns_luadns_email = $(bashio::config 'dns.luadns_email')\n" \
       "dns_luadns_token = $(bashio::config 'dns.luadns_token')\n" \
+      "dns_namecheap_username = $(bashio::config 'dns.namecheap_username')\n" \
+      "dns_namecheap_api_key = $(bashio::config 'dns.namecheap_api_key')\n" \
       "dns_netcup_customer_id = $(bashio::config 'dns.netcup_customer_id')\n" \
       "dns_netcup_api_key = $(bashio::config 'dns.netcup_api_key')\n" \
       "dns_netcup_api_password = $(bashio::config 'dns.netcup_api_password')\n" \

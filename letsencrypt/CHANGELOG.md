@@ -1,5 +1,21 @@
 # Changelog
 
+## 5.0.6
+
+- Add Infomaniak DNS challenge support
+
+## 5.0.5
+
+- Fix DirectAdmin DNS challenge support
+
+## 5.0.4
+
+- Add Namecheap DNS challenge support
+
+## 5.0.3
+
+- Add deSEC DNS challenge support
+
 ## 5.0.2
 
 - Fix DirectAdmin DNS challenge support

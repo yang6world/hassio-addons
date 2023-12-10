@@ -50,6 +50,7 @@ azure_config: ''
 cloudflare_email: ''
 cloudflare_api_key: ''
 cloudflare_api_token: ''
+desec_token: ''
 digitalocean_token: ''
 directadmin_url: ''
 directadmin_username: ''
@@ -64,6 +65,7 @@ google_domains_zone: ''
 hetzner_api_token: ''
 gehirn_api_token: ''
 gehirn_api_secret: ''
+infomaniak_api_token: ''
 linode_key: ''
 linode_version: ''
 luadns_email: ''
@@ -83,6 +85,8 @@ aws_access_key_id: ''
 aws_secret_access_key: ''
 sakuracloud_api_token: ''
 sakuracloud_api_secret: ''
+namecheap_username: ''
+namecheap_api_key: ''
 netcup_customer_id: ''
 netcup_api_key: ''
 netcup_api_password: ''
@@ -236,6 +240,29 @@ on the DNS zone to be used for authentication.
 </details>
 
 <details>
+  <summary>Infomaniak DNS challenge</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - subdomain.home-assistant.io
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-infomaniak
+    infomaniak_api_token: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  ```
+
+  To obtain the DNS API token follow the instructions here:
+
+  <https://manager.infomaniak.com/v3/infomaniak-api>
+
+  Choose "Domain" as the scope.
+
+</details>
+
+<details>
   <summary>route53 DNS challenge</summary>
 
   ```yaml
@@ -353,6 +380,28 @@ on the DNS zone to be used for authentication.
     directadmin_url: 'https://domain.tld:2222/'
     directadmin_username: da_user
     directadmin_password: da_password_or_key
+  ```
+
+</details>
+
+<details>
+  <summary>Namecheap</summary>
+
+  To use this addon with Namecheap, you must first enable API access on your account. See "Enabling API Access" and "Whitelisting IP" [here](https://www.namecheap.com/support/api/intro/) for details and requirements.
+
+  Example configuration:
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - ha.yourdomain.com
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-namecheap
+    namecheap_username: your-namecheap-username
+    namecheap_api_key: 0123456789abcdef0123456789abcdef01234567
   ```
 
 </details>
@@ -524,6 +573,7 @@ You can in addition find the files via the "samba" addon within the "ssl" share.
 ```txt
 dns-azure
 dns-cloudflare
+dns-desec
 dns-digitalocean
 dns-directadmin
 dns-dnsimple
@@ -532,6 +582,7 @@ dns-duckdns
 dns-gehirn
 dns-google
 dns-hetzner
+dns-infomaniak
 dns-linode
 dns-luadns
 dns-njalla
@@ -540,6 +591,7 @@ dns-ovh
 dns-rfc2136
 dns-route53
 dns-sakuracloud
+dns-namecheap
 dns-netcup
 dns-gandi
 dns-transip
