@@ -136,4 +136,4 @@ SOFTWARE.
 [issue]: https://github.com/hassio-addons/addon-mqtt-io/issues
 [reddit]: https://reddit.com/r/homeassistant
 [releases]: https://github.com/hassio-addons/addon-mqtt-io/releases
-[semver]: https://semver.org/spec/v2.0.0.html
+[semver]: http://semver.org/spec/v2.0.0.htm
