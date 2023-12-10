@@ -83,6 +83,7 @@
     "PUID": 0,
     "data_location": "/config/addons_config/jellyfin"
   },
+  "panel_admin": false,
   "panel_icon": "mdi:billiards-rack",
   "ports": {
     "1900/udp": null,
@@ -116,6 +117,6 @@
   "slug": "jellyfin",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "10.8.13",
+  "version": "10.8.13-1",
   "video": true
 }
