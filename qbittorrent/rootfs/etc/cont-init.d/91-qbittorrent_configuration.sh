@@ -6,6 +6,10 @@ set -e
 # INIT   #
 ##########
 
+if [ -f /REBOOT ]; then
+  rm /REBOOT
+fi
+
 # Define preferences line
 CONFIG_LOCATION=/config/qBittorrent/config/
 mkdir -p "$CONFIG_LOCATION"
@@ -57,7 +61,9 @@ if bashio::config.has_value 'SavePath'; then
 fi
 
 # Create default location
-mkdir -p "$DOWNLOADS" || bashio::log.fatal "Error : folder defined in SavePath doesn't exist and can't be created. Check path"
+if [ ! -d "$DOWNLOADS" ]; then 
+    mkdir -p "$DOWNLOADS" || bashio::log.fatal "Error : folder defined in SavePath doesn't exist and can't be created. Check path"
+fi
 chown -R "$PUID:$PGID" "$DOWNLOADS" || bashio::log.fatal "Error, please check default save folder configuration in addon"
 
 ##############
@@ -78,26 +84,6 @@ sed -i -e '/CSRFProtection/d' \
 ################
 
 sed -i "s|6881|59595|g" qBittorrent.conf # Correction if required
-
-################
-# SSL CONFIG   #
-################
-
-# Clean data
-sed -i '/HTTPS/d' qBittorrent.conf
-
-bashio::config.require.ssl
-if bashio::config.true 'ssl'; then
-    bashio::log.info "ssl enabled. If webui don't work, disable ssl or check your certificate paths"
-    #set variables
-    CERTFILE=$(bashio::config 'certfile')
-    KEYFILE=$(bashio::config 'keyfile')
-
-    #Modify configuration
-    sed -i "$LINE i\WebUI\\\HTTPS\\\Enabled=True" qBittorrent.conf
-    sed -i "$LINE i\WebUI\\\HTTPS\\\CertificatePath=/ssl/$CERTFILE" qBittorrent.conf
-    sed -i "$LINE i\WebUI\\\HTTPS\\\KeyPath=/ssl/$KEYFILE" qBittorrent.conf
-fi
 
 ################
 # WHITELIST    #
@@ -140,7 +126,6 @@ bashio::log.info "WEBUI username set to $QBT_USERNAME"
 
 # Set initial password to homeassistant
 cd "$CONFIG_LOCATION"/ || true
-NEEDREBOOT=""
 if ! grep -q "Password_PBKDF2" qBittorrent.conf; then
     function escape_special_characters() {
         local value="$1"
@@ -150,7 +135,6 @@ if ! grep -q "Password_PBKDF2" qBittorrent.conf; then
     PBKDF2="UDxNW6zG8wJHG9PvnGFP4A==:gJZEXLbR2XYNN042G4ygLMvZi2BhHm2m6Soz6GVCrCuVZH6OSkUan7AvUDEiSodHckUm8oNTkx9atQwcUf/JLQ=="
     PBKDF2="$(escape_special_characters "$PBKDF2")"
     sed -i "/\[Preferences\]/a\WebUI\\\Password_PBKDF2=\"@ByteArray($PBKDF2)\"" qBittorrent.conf
-    NEEDREBOOT=true
 fi
 
 ####################
@@ -161,7 +145,7 @@ fi
 
 # Check file size
 if [[ "$ORIGINAL_SIZE" != "$(wc -c "$CONFIG_LOCATION"/qBittorrent.conf)" ]]; then
-    bashio::log.info "Configuration changed, rebooting"
+    bashio::log.warning "Configuration changed, rebooting"
     bashio::addon.restart
 fi
 

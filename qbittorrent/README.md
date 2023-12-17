@@ -1,3 +1,8 @@
+## &#9888; Open Issue : [🐛 [qbittorrent] Problems with network drive (opened 2023-12-10)](https://github.com/alexbelgium/hassio-addons/issues/1125) by [@floralvikings](https://github.com/floralvikings)
+## &#9888; Open Issue : [[qbittorrent] Mullvad vpn : udp4 permission denied (opened 2023-12-11)](https://github.com/alexbelgium/hassio-addons/issues/1127) by [@Stooovie](https://github.com/Stooovie)
+## &#9888; Open Issue : [🐛 [qbittorrent] Unable to get qbitmanage to run (opened 2023-12-13)](https://github.com/alexbelgium/hassio-addons/issues/1131) by [@hacshacdgacs](https://github.com/hacshacdgacs)
+DON'T UPGRADE, I'll REVERT MIDDLE OF NEXT WEEK TO THE PREVIOUS UPSTREAM VERSION
+
 # Home assistant add-on: qbittorrent
 
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
@@ -102,6 +107,20 @@ If you're not using the SSL option, you can skip the -k parameter and use http i
 These lines will expose a `sensor.get_torrent_speed` that updates every 60 seconds and returns 1 if the alternate speed mode is enabled, 0 otherwise, and a `shell_command.toggle_torrent_speed` that you can call as a Service in your automations
 
 ## Common issues
+
+Click to expand :
+
+<details>
+  <summary>### Configure Jackett as qBittorrent engine</summary>
+
+- Install Filebrowser addon
+- Go to /addon_configs/db21ed7f_qbittorrent/data/nova3/engines/
+- Open jackett.json
+- Change 'url': 'http://127.0.0.1:9117' with your HomeAssistant addon url and password
+- Set your API key with one you are given in the Jackett addon webui
+- Save, restart
+
+</details>
 
 <details>
   <summary>### ipv6 issues with openvpn (@happycoo)</summary>
