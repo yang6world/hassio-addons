@@ -13,22 +13,6 @@ Browser-based log utility for Home Assistant.
 Easily monitor your Home Assistant logs in your web browser. Custom filtering
 is available to make it simple to differentiate different types of logs.
 
-## WARNING! THIS IS A BETA VERSION!
-
-This Home Assistant Add-ons repository contains beta releases of add-ons.
-
-- They might stop working at any time.
-- They could have a negative impact on your system.
-
-This repository was created for:
-
-- Anybody willing to test.
-- Anybody interested in trying out upcoming add-ons or add-on features.
-
-If you are more interested in stable releases of our add-ons:
-
-<https://github.com/hassio-addons/repository>
-
 [buymeacoffee-shield]: https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg
 [buymeacoffee]: https://www.buymeacoffee.com/dale3h
 [discord-shield]: https://img.shields.io/discord/478094546522079232.svg
