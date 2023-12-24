@@ -1,3 +1,7 @@
+### 2.23.0_8 (20-12-2023)
+- Minor bugs fixed
+- Update of global scripts
+
 ### 2.23.0_7 (25-11-2023)
 - Symlink addons_config and addons_autoscripts in /config to allow the same behavior as prior to the new HA logic to handle config mountpoints
 - Restore database.db persistence
