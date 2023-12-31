@@ -117,6 +117,9 @@ fi
 cd "$CONFIG_LOCATION"/ || true
 
 WHITELIST="$(bashio::config 'whitelist')"
+# Sanitize blanks after comma
+WHITELIST="${WHITELIST// /}"
+WHITELIST="${WHITELIST//,/,\ }"
 #clean data
 sed -i '/AuthSubnetWhitelist/d' qBittorrent.conf
 
@@ -225,8 +228,8 @@ if bashio::config.has_value 'customUI' && [ ! "$CUSTOMUI" = default ] && [ ! "$C
     sed -i "$LINE i\WebUI\\\RootFolder=$CUSTOMUIDIR" "$CONFIG_LOCATION"/qBittorrent.conf
     # Set ingress ui
     if [[ "$CUSTOMUI" != qbit-matUI ]]; then
-      sed -i "s=/vuetorrent/public/=$CUSTOMUIDIR/public/=g" /etc/nginx/servers/ingress.conf || true
-      sed -i "s=vue.torrent=$CUSTOMUI.torrent=g" /etc/nginx/servers/ingress.conf || true
+        sed -i "s=/vuetorrent/public/=$CUSTOMUIDIR/public/=g" /etc/nginx/servers/ingress.conf || true
+        sed -i "s=vue.torrent=$CUSTOMUI.torrent=g" /etc/nginx/servers/ingress.conf || true
     fi
 fi
 

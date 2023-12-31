@@ -60,9 +60,10 @@
   "image": "ghcr.io/alexbelgium/unpackerr-{arch}",
   "init": false,
   "map": [
-    "config:rw",
-    "share:rw",
     "media:rw",
+    "addon_config:rw",
+    "homeassistant_config:rw",
+    "share:rw",
     "ssl"
   ],
   "name": "Unpackerr",
@@ -79,6 +80,7 @@
   "schema": {
     "PGID": "int",
     "PUID": "int",
+    "TZ": "str?",
     "cifsdomain": "str?",
     "cifspassword": "str?",
     "cifsusername": "str?",
@@ -90,5 +92,5 @@
   "slug": "unpackerr",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "testing-e916f00-9-linux-arm64-2023-09-17"
+  "version": "0.12.0"
 }
