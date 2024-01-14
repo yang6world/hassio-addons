@@ -52,7 +52,7 @@ RUN \
     && echo 'WebUI\LocalHostAuth=false' >> /defaults/qBittorrent.conf \
     \
     # Add vuetorrent
-    && curl -f -s -S -O -J -L "$(curl -f -s https://api.github.com/repos/WDaan/VueTorrent/releases | grep -o "http.*vuetorrent.zip" | head -1)" >/dev/null \
+    && curl -f -s -S -O -J -L "$(curl -f -s -L https://api.github.com/repos/WDaan/VueTorrent/releases | grep -o "http.*vuetorrent.zip" | head -1)" >/dev/null \
     && unzip -o vuetorrent.zip -d / >/dev/null \
     && rm vuetorrent.zip >/dev/null
 
@@ -84,7 +84,7 @@ RUN \
     BUILD_ARCH=$(uname -m) && \
     echo "${BUILD_ARCH}" && \
     BUILD_ARCH=${BUILD_ARCH:-x86} && \
-    if [[ "${BUILD_ARCH}" != *amd64* ]]; then apk add python3-dev; else apk add python3; fi && \
+    if test "${BUILD_ARCH}" != "*amd64*"; then apk add --no-cache python3-dev; else apk add --no-cache python3; fi && \
     ln -sf python3 /usr/bin/python && \
     apk add --no-cache py3-pip gcc musl-dev && \
     pip3 install --break-system-packages --no-cache-dir --ignore-installed --upgrade --requirement /qbit_manage/requirements.txt

@@ -28,14 +28,35 @@ if bashio::config.true 'openvpn_enabled'; then
             bashio::warning "$file not found"
             return 1
         fi
-
+        
+        # Check each lines
         cp "$file" /tmpfile
+        line_number=0
+        while read -r line; do
+            # Increment the line number
+            ((line_number=line_number+1))
 
-        # Loop through each line of the input file
-        while read -r line
-        do
+            # Check if lines starting with auth-user-pass have a valid argument
+            ###################################################################
+            if [[ "$line" == "auth-user-pass"* ]]; then
+                # Extract the second argument
+                file_name="$(echo "$line" | awk -F' ' '{print $2}')"
+                # If second argument is null or -
+                if [ -z "$file_name" ] || [[ "$file_name" == -* ]]; then
+                    # Insert to explain why a comment is made
+                    sed -i "${line_number}i # The following line is commented out as does not contain a valid argument" "$file"
+                    # Increment as new line added
+                    ((line_number=line_number+1))
+                    # Comment out the line
+                    sed -i "${line_number}s/^/# /" "$file"
+                    # Go to next line
+                    continue
+                fi
+            fi
+            
             # Check if the line contains a txt file
-            if [[ ! $line =~ ^"#" ]] && [[ ! $line =~ ^";" ]] && [[ "$line" =~ \.txt ]] || [[ "$line" =~ \.crt ]] || [[ "$line" =~ auth-user-pass ]]; then
+            #######################################
+            if [[ ! $line =~ ^"#" ]] && [[ ! $line =~ ^";" ]] && [[ "$line" =~ \.txt ]] || [[ "$line" =~ \.crt ]] || [[ "$line" == "auth-user-pass"* ]]; then
                 # Extract the txt file name from the line
                 file_name="$(echo "$line" | awk -F' ' '{print $2}')"
                 # Check if the txt file exists
@@ -43,7 +64,7 @@ if bashio::config.true 'openvpn_enabled'; then
                     # Check if the txt file exists in the /config/openvpn/ directory
                     if [ -f "/config/openvpn/${file_name##*/}" ]; then
                         # Append /config/openvpn/ in front of the original txt file in the ovpn file
-                        sed -i "s|$file_name|/config/openvpn/${file_name##*/}|g" "$file"
+                        sed -i "${line_number}s|$file_name|/config/openvpn/${file_name##*/}|" "$file"
                         # Print a success message
                         bashio::log.warning "Appended /config/openvpn/ to ${file_name##*/} in $file"
                     else
@@ -53,7 +74,6 @@ if bashio::config.true 'openvpn_enabled'; then
                 fi
             fi
         done < /tmpfile
-
         rm /tmpfile
 
         # Standardize lf
@@ -87,9 +107,6 @@ if bashio::config.true 'openvpn_enabled'; then
             # If correct type
             if [[ "$openvpn_config" == *".ovpn" ]] || [[ "$openvpn_config" == *".conf" ]]; then
                 echo "... configured ovpn file : using /addon_configs/$HOSTNAME/openvpn/$openvpn_config"
-                # Check path
-                check_path /config/openvpn/"$openvpn_config"
-                # Not correct type
             else
                 bashio::exit.nok "Configured ovpn file : $openvpn_config is set but does not end by .ovpn ; it can't be used!"
             fi
@@ -108,8 +125,6 @@ if bashio::config.true 'openvpn_enabled'; then
         openvpn_config="${VPN_CONFIG##*/}"
         echo "... Openvpn enabled, but openvpn_config option empty. Selecting a random ovpn file : ${openvpn_config}. Other available files :"
         printf '%s\n' "${VPN_CONFIGS[@]}"
-        # Check path
-        check_path /config/openvpn/"${openvpn_config}"
         # If openvpn_enabled set, config not set, and openvpn folder empty
     else
         bashio::exit.nok "openvpn_enabled is set, however, your openvpn folder is empty ! Are you sure you added it in /addon_configs/$HOSTNAME/openvpn using the Filebrowser addon ?"
@@ -117,6 +132,9 @@ if bashio::config.true 'openvpn_enabled'; then
 
     # Send to openvpn script
     sed -i "s|/config/openvpn/config.ovpn|/config/openvpn/$openvpn_config|g" /etc/s6-overlay/s6-rc.d/svc-qbittorrent/run
+    
+    # Check path
+    check_path /config/openvpn/"${openvpn_config}"
 
     # Set credentials
     if bashio::config.has_value "openvpn_username"; then
@@ -133,10 +151,10 @@ if bashio::config.true 'openvpn_enabled'; then
     fi
 
     # Add credentials file
-    file_name="$(sed -n "/^auth-user-pass/p" /config/openvpn/"$openvpn_config" | awk -F' ' '{print $2}')"
-    file_name="${file_name:-null}"
     if grep -q ^auth-user-pass /config/openvpn/"$openvpn_config" ; then
         # Credentials specified are they custom ?
+        file_name="$(sed -n "/^auth-user-pass/p" /config/openvpn/"$openvpn_config" | awk -F' ' '{print $2}')"
+        file_name="${file_name:-null}"
         if [[ "$file_name" != *"/etc/openvpn/credentials"* ]] && [[ "$file_name" != "null" ]]; then
             if [ -f "$file_name" ]; then
                 # If credential specified, exists, and is not the addon default
