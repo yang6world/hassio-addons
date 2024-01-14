@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.2
+
+- Convert error to warning for CPUs not supporting AVX instructions
+
+## 1.0.1
+
+- Handle unsupported CPU configurations
+
 ## 1.0.0
 
 - Upgrade to `wyoming-whisper` 1.0.1

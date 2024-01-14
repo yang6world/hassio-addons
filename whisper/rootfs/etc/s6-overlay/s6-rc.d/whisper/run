@@ -3,6 +3,11 @@
 # ==============================================================================
 # Start Whisper service
 # ==============================================================================
+
+if [ "$(uname -m)" == "x86_64" ] && ! grep -qw 'avx' /proc/cpuinfo; then
+    bashio::log.warning "Your CPU does not support Advanced Vector Extensions (AVX). Whisper will run slower than normal."
+fi
+
 exec python3 -m wyoming_faster_whisper \
     --uri 'tcp://0.0.0.0:10300' \
     --model "$(bashio::config 'model')" \
