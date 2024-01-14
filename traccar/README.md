@@ -28,6 +28,22 @@ so that you can track those as well. AND! With the Home Assistant `traccar`
 integration (introduced in 0.83) the data in Traccar will be sent back into
 your Home Assistant instance as well.
 
+## WARNING! THIS IS A BETA VERSION!
+
+This Home Assistant Add-ons repository contains beta releases of add-ons.
+
+- They might stop working at any time.
+- They could have a negative impact on your system.
+
+This repository was created for:
+
+- Anybody willing to test.
+- Anybody interested in trying out upcoming add-ons or add-on features.
+
+If you are more interested in stable releases of our add-ons:
+
+<https://github.com/hassio-addons/repository>
+
 
 [discord-shield]: https://img.shields.io/discord/478094546522079232.svg
 [discord]: https://discord.me/hassioaddons
@@ -35,11 +51,11 @@ your Home Assistant instance as well.
 [forum]: https://community.home-assistant.io/t/home-assistant-community-add-on-traccar/81407?u=frenck
 [github-sponsors-shield]: https://frenck.dev/wp-content/uploads/2019/12/github_sponsor.png
 [github-sponsors]: https://github.com/sponsors/frenck
-[maintenance-shield]: https://img.shields.io/maintenance/yes/2023.svg
+[maintenance-shield]: https://img.shields.io/maintenance/yes/2024.svg
 [patreon-shield]: https://frenck.dev/wp-content/uploads/2019/12/patreon.png
 [patreon]: https://www.patreon.com/frenck
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-experimental-yellow.svg
-[release-shield]: https://img.shields.io/badge/version-v0.23.1-blue.svg
-[release]: https://github.com/hassio-addons/addon-traccar/tree/v0.23.1
+[release-shield]: https://img.shields.io/badge/version-v0.23.2-blue.svg
+[release]: https://github.com/hassio-addons/addon-traccar/tree/v0.23.2
 [screenshot]: https://github.com/hassio-addons/addon-traccar/raw/main/images/screenshot.png
 [traccar]: https://www.traccar.org

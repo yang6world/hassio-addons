@@ -1,5 +1,5 @@
 ## What’s changed
 
-## 🐛 Bug fixes
+## ⬆️ Dependency updates
 
-- Fix incorrect check for existing files @frenck ([#150](https://github.com/hassio-addons/addon-airsonos/pull/150))
+- ⬆️ Update philippe44/AirConnect to v1.6.3 @renovate ([#159](https://github.com/hassio-addons/addon-airsonos/pull/159))

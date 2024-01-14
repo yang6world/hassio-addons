@@ -1,5 +1,5 @@
 ## What’s changed
 
-## 🐛 Bug fixes
+## ⬆️ Dependency updates
 
-- Fix incorrect check for existing files @frenck ([#193](https://github.com/hassio-addons/addon-aircast/pull/193))
+- ⬆️ Update philippe44/AirConnect to v1.6.3 @renovate ([#199](https://github.com/hassio-addons/addon-aircast/pull/199))
