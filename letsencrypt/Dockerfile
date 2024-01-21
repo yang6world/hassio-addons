@@ -7,11 +7,13 @@ ARG \
     CRYPTOGRAPHY_VERSION \
     CERTBOT_VERSION \
     CERTBOT_DNS_AZURE_VERSION \
+    CERTBOT_DNS_CLOUDNS_VERSION \
     CERTBOT_DNS_DESEC_VERSION \
     CERTBOT_DNS_DIRECTADMIN_VERSION \
     CERTBOT_DNS_DREAMHOST_VERSION \
     CERTBOT_DNS_DUCKDNS_VERSION \
     CERTBOT_DNS_GOOGLE_DOMAINS_VERSION \
+    CERTBOT_DNS_HE_VERSION \
     CERTBOT_DNS_HETZNER_VERSION \
     CERTBOT_DNS_INFOMANIAK_VERSION \
     CERTBOT_DNS_INWX_VERSION \
@@ -41,6 +43,7 @@ RUN \
         certbot==${CERTBOT_VERSION} \
         certbot-dns-azure==${CERTBOT_DNS_AZURE_VERSION} \
         certbot-dns-cloudflare==${CERTBOT_VERSION} \
+        certbot-dns-cloudns==${CERTBOT_DNS_CLOUDNS_VERSION} \
         certbot-dns-desec==${CERTBOT_DNS_DESEC_VERSION} \
         certbot-dns-digitalocean==${CERTBOT_VERSION} \
         certbot-dns-directadmin==${CERTBOT_DNS_DIRECTADMIN_VERSION} \
@@ -67,6 +70,7 @@ RUN \
         certbot-dns-transip==${CERTBOT_DNS_TRANSIP_VERSION} \
         certbot-dns-inwx==${CERTBOT_DNS_INWX_VERSION} \
         certbot-dns-dreamhost==${CERTBOT_DNS_DREAMHOST_VERSION} \
+        certbot-dns-he==${CERTBOT_DNS_HE_VERSION} \
         acme==${ACME_VERSION} \
     && apk del .build-dependencies
 
