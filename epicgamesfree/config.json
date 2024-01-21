@@ -29,6 +29,13 @@
     "/dev/nvme",
     "/dev/nvme0n1p1",
     "/dev/nvme0n1p2",
+    "/dev/nvme0n1p3",
+    "/dev/nvme1n1p1",
+    "/dev/nvme1n1p2",
+    "/dev/nvme1n1p3",
+    "/dev/nvme2n1p1",
+    "/dev/nvme2n1p2",
+    "/dev/nvme3n1p3",
     "/dev/mmcblk",
     "/dev/fuse",
     "/dev/sda1",
@@ -75,6 +82,6 @@
   "slug": "epicgamesfree",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "cf3badfebf949fc60a02bc949d590fe6575b9821-2024-01-05",
+  "version": "bullseye-slim-2024-01-18",
   "webui": "[PROTO:ssl]://[HOST]:[PORT:3000]"
 }

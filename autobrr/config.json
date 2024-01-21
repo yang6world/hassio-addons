@@ -30,6 +30,13 @@
     "/dev/nvme",
     "/dev/nvme0n1p1",
     "/dev/nvme0n1p2",
+    "/dev/nvme0n1p3",
+    "/dev/nvme1n1p1",
+    "/dev/nvme1n1p2",
+    "/dev/nvme1n1p3",
+    "/dev/nvme2n1p1",
+    "/dev/nvme2n1p2",
+    "/dev/nvme3n1p3",
     "/dev/mmcblk",
     "/dev/fuse",
     "/dev/sda1",
@@ -104,5 +111,5 @@
   "slug": "autobrr",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons/tree/master/autobrr",
-  "version": "1.34.1"
+  "version": "1.35.0"
 }

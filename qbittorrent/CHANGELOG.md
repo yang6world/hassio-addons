@@ -1,9 +1,12 @@
+
+## 4.6.3 (20-01-2024)
+- Update to latest version from linuxserver/docker-qbittorrent
 ### 4.6.2_43 (12-01-2024)
 - Fix : openvpn not starting https://github.com/alexbelgium/hassio-addons/issues/1175
 
 ### 4.6.2_42 (12-01-2024)
 - Fix : failure to install custom webUI https://github.com/alexbelgium/hassio-addons/issues/1172 (thanks @akrigator)
-- [qbit_manage] : switch to develop 
+- [qbit_manage] : switch to develop
 
 ### 4.6.2_40 (31-12-2023)
 - Minor bugs fixed
