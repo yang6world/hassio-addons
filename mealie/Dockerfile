@@ -27,14 +27,10 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
     S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0 \
     S6_SERVICES_GRACETIME=0
 
-
-ENV FRONTEND_PORT=9925
-
 # Correct data path
 # hadolint ignore=DL4006
 RUN grep -rl "/app/data" /app | xargs sed -i 's|/app/data|/config/addons_config/mealie_data|g' && \
-    # Sets port to 9925 as default port
-    sed -i "s|yarn start -p 3000|yarn start -p 9925|g" /app/run.sh
+    sed -i "s|change_user$|# change_user|g" /app/run.sh
 
 ##################
 # 3 Install apps #
@@ -110,11 +106,4 @@ LABEL \
 # 6 Healthcheck #
 #################
 
-ENV HEALTH_PORT="" \
-    HEALTH_URL=""
-HEALTHCHECK \
-    --interval=5s \
-    --retries=5 \
-    --start-period=30s \
-    --timeout=25s \
-    CMD python $MEALIE_HOME/mealie/scripts/healthcheck.py || exit 1
+# Use upstream

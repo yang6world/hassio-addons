@@ -17,10 +17,6 @@ if bashio::config.true 'openvpn_enabled'; then
     # Get current ip
     curl -s ipecho.net/plain > /currentip
 
-    # Create symlink for files
-    rm -r /etc/openvpn
-    ln -s /config/openvpn /etc/openvpn
-
     # Function to check for files path
     function check_path () {
 
@@ -63,6 +59,10 @@ if bashio::config.true 'openvpn_enabled'; then
             if [[ ! $line =~ ^"#" ]] && [[ ! $line =~ ^";" ]] && [[ "$line" == *" "*"."* ]] || [[ "$line" == "auth-user-pass"* ]]; then
                 # Extract the txt file name from the line
                 file_name="$(echo "$line" | awk -F' ' '{print $2}')"
+                # if contains only numbers and dots it is likely an ip, don't check it
+                if [[ "$file_name" =~ ^[0-9\.]+$ ]]; then
+                    continue
+                fi
                 # Check if the txt file exists
                 if [[ "$file_name" != *"/etc/openvpn/credentials"* ]] && [ ! -f "$file_name" ]; then
                     # Check if the txt file exists in the /config/openvpn/ directory

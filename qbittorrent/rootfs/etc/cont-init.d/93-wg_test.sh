@@ -2,10 +2,12 @@
 # shellcheck shell=bash
 set -e
 
+if bashio::config.true 'wireguard_enabled'; then
+
 ########################################################
 # DRAFT : Start wireguard if needed
 ########################################################
-    
+
 QBT_CONFIG_FILE="/config/qBittorrent/qBittorrent.conf"
 
 #################
@@ -32,8 +34,6 @@ chmod 755 /config/wireguard/*
 #################
 # CONFIGURE VPN #
 #################
-
-if bashio::config.true 'wireguard_enabled'; then
 
     ############
     # MESSAGES #
@@ -101,7 +101,7 @@ if bashio::config.true 'wireguard_enabled'; then
         echo "8080 webui" >> /etc/iproute2/rt_tables
         if [ -n "$DEFAULT_IPV4_GATEWAY" ]; then
         	# Default
-        	ip rule add fwmark 8080 table webui 
+        	ip rule add fwmark 8080 table webui
         	ip route add default via "$DEFAULT_IPV4_GATEWAY" table webui
         	# Look for local networks first
         	ip rule add fwmark 8080 table main suppress_prefixlength 1
