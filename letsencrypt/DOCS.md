@@ -206,13 +206,29 @@ If your custom ACME server uses a certificate signed by an untrusted certificate
 </details>
 
 <details>
-  <summary>Changing the key type</summary>
+  <summary>Selecting the Key Type</summary>
 
-Starting with Certbot version 2.0.0 (add-on version 5.0.0 and newer), ECDSA keys are now the default. These keys utilize a more secure cryptography algorithm, however, they are not supported everywhere yet. For instance, Tasmota does not support MQTTS with an ECDSA key. If your use case does not support ECDSA keys, you can change them with the `keytype` parameter.
+  By default the ECDSA key type is used. You can choose to use an RSA key for compatibility with systems where ECDSA keys are not supported. ECDSA is widely supported in modern software with security and performance benefits.
 
   ```yaml
-  keytype: rsa
-  ``` 
+  key_type: 'rsa'
+  ```
+
+  When the `key_type` parameter is not set, the add-on will attempt to auto-detect an existing certificate's key type or use `ecdsa` by default.
+
+</details>
+
+<details>
+  <summary>Selecting the ECDSA Elliptic Curve</summary>
+  
+  You can choose from the following ECDSA elliptic curves: `secp256r1`, `secp384r1`
+
+  ```yaml
+  key_type: 'ecdsa'
+  elliptic_curve: 'secp384r1'
+  ```
+
+  When the `elliptic_curve` parameter is not set, ECDSA keys will be generated using the Certbot default. This option must be used with `key_type` set to `'ecdsa'`.
 
 </details>
 
@@ -260,7 +276,7 @@ Starting with Certbot version 2.0.0 (add-on version 5.0.0 and newer), ECDSA keys
     - home-assistant.io
   certfile: fullchain.pem
   keyfile: privkey.pem
-  keytype: rsa
+  key_type: rsa
   challenge: dns
   dns:
     provider: dns-cloudflare
@@ -769,6 +785,31 @@ API Users have full account access.  It is recommended to create an API Sub-user
     he_user: me
     he_pass: ******
   ```
+</details>
+
+<details>
+  <summary>Netcup</summary>
+
+Both the API password and key can be obtained via the following page: https://www.customercontrolpanel.de/daten_aendern.php?sprung=api
+It is important to set the propagation_seconds to >= 630 seconds due to the slow DNS update of Netcup.
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-netcup
+    netcup_customer_id: "userid"
+    netcup_api_key: ****
+    netcup_api_password: ****
+    propagation_seconds: "900"
+  ```
+References:
+* https://helpcenter.netcup.com/de/wiki/general/unsere-api#authentifizierung
+* https://github.com/coldfix/certbot-dns-netcup/issues/28
 </details>
 
 ## Certificate files
