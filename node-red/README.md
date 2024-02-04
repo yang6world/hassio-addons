@@ -21,6 +21,22 @@ runtime in a single click.
 
 ![Node-RED in the Home Assistant Frontend][screenshot]
 
+## WARNING! THIS IS A BETA VERSION!
+
+This Home Assistant Add-ons repository contains beta releases of add-ons.
+
+- They might stop working at any time.
+- They could have a negative impact on your system.
+
+This repository was created for:
+
+- Anybody willing to test.
+- Anybody interested in trying out upcoming add-ons or add-on features.
+
+If you are more interested in stable releases of our add-ons:
+
+<https://github.com/hassio-addons/repository>
+
 [discord-shield]: https://img.shields.io/discord/478094546522079232.svg
 [discord]: https://discord.me/hassioaddons
 [forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg
@@ -32,6 +48,6 @@ runtime in a single click.
 [patreon-shield]: https://frenck.dev/wp-content/uploads/2019/12/patreon.png
 [patreon]: https://www.patreon.com/frenck
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-production%20ready-brightgreen.svg
-[release-shield]: https://img.shields.io/badge/version-v17.0.3-blue.svg
-[release]: https://github.com/hassio-addons/addon-node-red/tree/v17.0.3
+[release-shield]: https://img.shields.io/badge/version-v17.0.4-blue.svg
+[release]: https://github.com/hassio-addons/addon-node-red/tree/v17.0.4
 [screenshot]: https://github.com/hassio-addons/addon-node-red/raw/main/images/screenshot.png
