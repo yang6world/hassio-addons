@@ -6,27 +6,28 @@
   ],
   "backup": "cold",
   "codenotary": "alexandrep.github@gmail.com",
-  "description": "Postgres 15",
+  "description": "Postgres 15 with pgvecto.rs support",
   "environment": {
-    "PGDATA": "/data/database"
+    "PGDATA": "/config/database",
+    "CONFIG_LOCATION": "/config/postgresql.conf"
   },
   "image": "ghcr.io/alexbelgium/postgres-{arch}",
   "map": [
-    "config:rw"
+    "addon_config:rw",
+    "homeassistant_config:rw",
+    "media:rw"
   ],
-  "name": "Postgres",
+  "name": "Postgres 15",
   "options": {
-    "CONFIG_LOCATION": "/config/addons_config/postgres/postgresql.conf",
     "POSTGRES_PASSWORD": "homeassistant"
   },
   "ports": {
     "5432/tcp": 5432
   },
   "ports_description": {
-    "5432/tcp": "Postgres port"
+    "5432/tcp": "Postgres"
   },
   "schema": {
-    "CONFIG_LOCATION": "str",
     "POSTGRES_DB": "str?",
     "POSTGRES_HOST_AUTH_METHOD": "str?",
     "POSTGRES_INITDB_ARGS": "str?",
@@ -36,5 +37,5 @@
   "slug": "postgres",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "15.5-3"
+  "version": "15.5-6"
 }

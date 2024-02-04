@@ -16,7 +16,7 @@
 
 ARG BUILD_FROM
 ARG BUILD_VERSION
-FROM postgres:15-alpine
+FROM $BUILD_FROM
 
 ##################
 # 2 Modify Image #
@@ -30,8 +30,9 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 
 RUN \
     # Correct for access
-    sed -i "s|.*listen_addresses(.*)|listen_addresses = '*'(1)|g" /usr/local/share/postgresql/postgresql.conf.sample && \
-    sed -i "s|.*data_directory(.*)|data_directory = '/data/database'(1)|g" /usr/local/share/postgresql/postgresql.conf.sample
+    for file in /usr/share/postgresql/postgresql.conf.sample /usr/local/share/postgresql/postgresql.conf.sample; do \
+    if [ -f "$file" ]; then sed -i "s|.*listen_addresses(.*)|listen_addresses = '*'(1)|g" "$file" && \
+    sed -i "s|.*data_directory(.*)|data_directory = '/config/database'(1)|g" "$file"; fi; done
 
 ##################
 # 3 Install apps #
@@ -66,7 +67,8 @@ ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templat
 ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint_modif.sh" "/ha_entrypoint_modif.sh"
 RUN chmod 777 /ha_entrypoint.sh /ha_entrypoint_modif.sh && /ha_entrypoint_modif.sh && rm /ha_entrypoint_modif.sh
 
-WORKDIR /data
+RUN chmod 777 /docker-entrypoint-initdb.d/*
+WORKDIR /config
 ENTRYPOINT [ "/usr/bin/env" ]
 CMD [ "/ha_entrypoint.sh" ]
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]

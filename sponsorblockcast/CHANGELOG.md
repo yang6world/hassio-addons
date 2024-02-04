@@ -1,3 +1,9 @@
+
+## 0.7.2 (03-02-2024)
+- Update to latest version from gabe565/CastSponsorSkip
+### 0.7.0-3 (30-01-2024)
+- Feat : add possibility for custom env addition
+
 ### 0.7.0-2 (09-01-2024)
 - Fix : typo in css_categories for intro https://github.com/alexbelgium/hassio-addons/issues/1165
 

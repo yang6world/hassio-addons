@@ -3,8 +3,7 @@
 set -e
 
 # Use new config file
-CONFIG_HOME="$(bashio::config "CONFIG_LOCATION")"
-CONFIG_HOME="$(dirname "$CONFIG_HOME")"
+CONFIG_HOME="/config"
 mkdir -p "$CONFIG_HOME"
 if [ ! -f "$CONFIG_HOME"/postgresql.conf ]; then
     # Copy default config.env
@@ -17,7 +16,7 @@ if [ ! -f "$CONFIG_HOME"/postgresql.conf ]; then
     fi
     bashio::log.warning "A default config.env file was copied in $CONFIG_HOME. Please customize according to https://hub.docker.com/_/postgres and restart the add-on"
 else
-    bashio::log.warning "The config.env file found in $CONFIG_HOME will be used. Please customize according to https://hub.docker.com/_/postgres and restart the add-on"
+    bashio::log.warning "The config.env file found in $CONFIG_HOME will be used (mapped to /addon_configs/xxx-postgres when accessing from Filebrowser). Please customize according to https://hub.docker.com/_/postgres and restart the add-on"
 fi
 
 # Define home
@@ -29,20 +28,23 @@ chmod 777 "$PGDATA"
 # Permissions
 chmod -R 777 "$CONFIG_HOME"
 
-# Copy new file
-cp "$CONFIG_HOME"/postgresql.conf /data/
-
 ##############
 # Launch App #
 ##############
 
 # Go to folder
-cd /data || true
+cd /config || true
 
 echo " "
 bashio::log.info "Starting the app"
 echo " "
 
 # Add docker-entrypoint command
-# shellcheck disable=SC2086
-docker-entrypoint.sh postgres
+if [ "$(bashio::info.arch)" != "armv7" ]; then
+    # Exec vecto modification
+    /./docker-entrypoint-initdb.d/10-vector.sh & \
+    docker-entrypoint.sh postgres -c shared_preload_libraries=vectors.so
+else
+    bashio::log.warning "Your architecture is armv7, pgvecto.rs is disabled as not supported"
+    docker-entrypoint.sh postgres
+fi
