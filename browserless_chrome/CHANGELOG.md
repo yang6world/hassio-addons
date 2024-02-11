@@ -1,3 +1,15 @@
+### 2.2.0-5 (10-02-2024)
+- Due to v2 switch, scripts need to be rewritten. Please check the browserless chrome main site for v1 to v2 switch
+
+### 2.2.0-4 (10-02-2024)
+- Minor bugs fixed
+### 2.2.0-2 (10-02-2024)
+- Minor bugs fixed
+
+## 2.2.0 (10-02-2024)
+- Update to latest version from browserless/chrome
+### 2.1.0-3 (09-02-2024)
+- Minor bugs fixed
 ### 2.1.0-2 (28-01-2024)
 - Minor bugs fixed
 
