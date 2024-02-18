@@ -1,3 +1,4 @@
+## &#9888; Open Request : [✨ [REQUEST] Gitea add Configuration for ALLOWED_DOMAINS (opened 2024-02-13)](https://github.com/alexbelgium/hassio-addons/issues/1242) by [@Torpedro1978](https://github.com/Torpedro1978)
 # Home assistant add-on: Gitea
 
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
@@ -19,6 +20,8 @@ _Thanks to everyone having starred my repo! To star it click on the image below,
 ![downloads evolution](https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/gitea/stats.png)
 
 ## About
+
+[Gitea](https://about.gitea.com/) is a painless self-hosted all-in-one software development service, it includes Git hosting, code review, team collaboration, package registry and CI/CD. It is similar to GitHub, Bitbucket and GitLab.
 
 Various tweaks and configuration options addition.
 This addon is based on the [docker image](https://hub.docker.com/r/gitea/gitea).
