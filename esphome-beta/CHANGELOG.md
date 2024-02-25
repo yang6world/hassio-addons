@@ -1,4 +1,39 @@
-## 2024.2.0b1
+## 2024.2.0
+
+## Full list of changes
+
+### New Components
+
+- feat: add AS5600 component/sensor [esphome#5174](https://github.com/esphome/esphome/pull/5174) by [@ammmze](https://github.com/ammmze) (new-integration)
+- Support for ST7567 display 128x64 (I2C, SPI) [esphome#5952](https://github.com/esphome/esphome/pull/5952) by [@latonita](https://github.com/latonita) (new-integration)
+- BME280 SPI [esphome#5538](https://github.com/esphome/esphome/pull/5538) by [@apbodrov](https://github.com/apbodrov) (new-integration) (breaking-change)
+- Add support for VEML3235 lux sensor [esphome#5959](https://github.com/esphome/esphome/pull/5959) by [@kbx81](https://github.com/kbx81) (new-integration)
+- Add support of Honeywell HumidIcon (I2C HIH series) Temperature & Humidity sensor [esphome#5730](https://github.com/esphome/esphome/pull/5730) by [@Benichou34](https://github.com/Benichou34) (new-integration)
+- Add combination sensor and remove absorbed kalman_combinator component [esphome#5438](https://github.com/esphome/esphome/pull/5438) by [@kahrendt](https://github.com/kahrendt) (new-integration) (breaking-change)
+- Add micro_wake_word component [esphome#6136](https://github.com/esphome/esphome/pull/6136) by [@kahrendt](https://github.com/kahrendt) (new-integration)
+
+### Breaking Changes
+
+- PMSx003 add relevant device and state classes to default config [esphome#5633](https://github.com/esphome/esphome/pull/5633) by [@wheimbigner](https://github.com/wheimbigner) (breaking-change)
+- BME280 SPI [esphome#5538](https://github.com/esphome/esphome/pull/5538) by [@apbodrov](https://github.com/apbodrov) (new-integration) (breaking-change)
+- convert cse7766 to non-polling [esphome#6095](https://github.com/esphome/esphome/pull/6095) by [@ssieb](https://github.com/ssieb) (breaking-change)
+- Add combination sensor and remove absorbed kalman_combinator component [esphome#5438](https://github.com/esphome/esphome/pull/5438) by [@kahrendt](https://github.com/kahrendt) (new-integration) (breaking-change)
+
+### Beta Changes
+
+- AUTO_LOAD `sensor` for `shelly_dimmer` [esphome#6223](https://github.com/esphome/esphome/pull/6223) by [@kbx81](https://github.com/kbx81)
+- Add more debugging logs to microWakeWord [esphome#6238](https://github.com/esphome/esphome/pull/6238) by [@kahrendt](https://github.com/kahrendt)
+- Fix to RF receiver for Drayton Digistat heating controller [esphome#6235](https://github.com/esphome/esphome/pull/6235) by [@marshn](https://github.com/marshn)
+- WRGB Use correct multiplier [esphome#6237](https://github.com/esphome/esphome/pull/6237) by [@mhetzi](https://github.com/mhetzi)
+- Add optional minimum esphome version to microWakeWord manifest [esphome#6240](https://github.com/esphome/esphome/pull/6240) by [@jesserockz](https://github.com/jesserockz)
+- Fix xl9535 pin reads [esphome#6242](https://github.com/esphome/esphome/pull/6242) by [@jesserockz](https://github.com/jesserockz)
+- hold interrupt disable for dallas one-wire [esphome#6244](https://github.com/esphome/esphome/pull/6244) by [@ssieb](https://github.com/ssieb)
+- Fix tm1651 enum [esphome#6248](https://github.com/esphome/esphome/pull/6248) by [@kbx81](https://github.com/kbx81)
+- Clear UART read buffer before sending next command [esphome#6200](https://github.com/esphome/esphome/pull/6200) by [@fototakas](https://github.com/fototakas)
+- Voice Assistant: add on_idle trigger and fix nevermind [esphome#6141](https://github.com/esphome/esphome/pull/6141) by [@synesthesiam](https://github.com/synesthesiam)
+- Tuya Fan component fix to handle enum datapoint type [esphome#6135](https://github.com/esphome/esphome/pull/6135) by [@sibowler](https://github.com/sibowler)
+
+### All changes
 
 - Bump esptool from 4.6.2 to 4.7.0 [esphome#5935](https://github.com/esphome/esphome/pull/5935) by [@dependabot[bot]](https://github.com/apps/dependabot)
 - Bump actions/download-artifact from 3.0.2 to 4.0.0 [esphome#5936](https://github.com/esphome/esphome/pull/5936) by [@dependabot[bot]](https://github.com/apps/dependabot)
@@ -108,4 +143,15 @@
 - update docstrings in cpp_generator.py [esphome#6212](https://github.com/esphome/esphome/pull/6212) by [@nielsnl68](https://github.com/nielsnl68)
 - Fixed group mask logic for WLED Sync fix [esphome#6193](https://github.com/esphome/esphome/pull/6193) by [@ChuckMash](https://github.com/ChuckMash)
 - Add micro_wake_word component [esphome#6136](https://github.com/esphome/esphome/pull/6136) by [@kahrendt](https://github.com/kahrendt) (new-integration)
+- AUTO_LOAD `sensor` for `shelly_dimmer` [esphome#6223](https://github.com/esphome/esphome/pull/6223) by [@kbx81](https://github.com/kbx81)
+- Add more debugging logs to microWakeWord [esphome#6238](https://github.com/esphome/esphome/pull/6238) by [@kahrendt](https://github.com/kahrendt)
+- Fix to RF receiver for Drayton Digistat heating controller [esphome#6235](https://github.com/esphome/esphome/pull/6235) by [@marshn](https://github.com/marshn)
+- WRGB Use correct multiplier [esphome#6237](https://github.com/esphome/esphome/pull/6237) by [@mhetzi](https://github.com/mhetzi)
+- Add optional minimum esphome version to microWakeWord manifest [esphome#6240](https://github.com/esphome/esphome/pull/6240) by [@jesserockz](https://github.com/jesserockz)
+- Fix xl9535 pin reads [esphome#6242](https://github.com/esphome/esphome/pull/6242) by [@jesserockz](https://github.com/jesserockz)
+- hold interrupt disable for dallas one-wire [esphome#6244](https://github.com/esphome/esphome/pull/6244) by [@ssieb](https://github.com/ssieb)
+- Fix tm1651 enum [esphome#6248](https://github.com/esphome/esphome/pull/6248) by [@kbx81](https://github.com/kbx81)
+- Clear UART read buffer before sending next command [esphome#6200](https://github.com/esphome/esphome/pull/6200) by [@fototakas](https://github.com/fototakas)
+- Voice Assistant: add on_idle trigger and fix nevermind [esphome#6141](https://github.com/esphome/esphome/pull/6141) by [@synesthesiam](https://github.com/synesthesiam)
+- Tuya Fan component fix to handle enum datapoint type [esphome#6135](https://github.com/esphome/esphome/pull/6135) by [@sibowler](https://github.com/sibowler)
 
