@@ -1,4 +1,7 @@
+## &#9888; Open Issue : [🐛 [Immich] Immich cant use NAS server, it can only access it in read mode (opened 2024-03-01)](https://github.com/alexbelgium/hassio-addons/issues/1279) by [@stefanuc111](https://github.com/stefanuc111)
 # Home assistant add-on: immich
+
+⚠️ The project is under very active development. Expect bugs and changes. Do not use it as the only way to store your photos and videos! (from the developer)
 
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
 
