@@ -27,7 +27,7 @@
     "8086/tcp": null
   },
   "ports_description": {
-    "8080/tcp": "Web UI port",
+    "8080/tcp": "Web UI Port",
     "8086/tcp": "InfluxDB admin"
   },
   "privileged": [
@@ -48,5 +48,5 @@
   "slug": "scrutiny_fa",
   "udev": true,
   "url": "https://github.com/AnalogJ/scrutiny",
-  "version": "v0.7.3"
+  "version": "v0.8.0"
 }

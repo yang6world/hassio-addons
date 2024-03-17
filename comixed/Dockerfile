@@ -16,7 +16,23 @@
 
 ARG BUILD_FROM
 ARG BUILD_VERSION
-FROM ${BUILD_FROM}
+FROM ${BUILD_FROM} AS builder
+FROM openjdk:17-jdk-slim
+RUN set +u && set +e && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+       openjdk-11-jre \
+       unzip \
+       wget \
+       bash \
+       locales \
+       locales-all && \
+    rm -rf /var/lib/apt/lists/* && \
+    locale-gen "en_US.UTF-8"
+
+COPY --from=builder /app /app
+
+ENV PATH="$JAVA_HOME/bin:${PATH}"
 
 ##################
 # 2 Modify Image #
@@ -46,7 +62,7 @@ ENV PACKAGES="nginx"
 
 # Automatic apps & bashio
 ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_autoapps.sh" "/ha_autoapps.sh"
-RUN chmod 744 /ha_autoapps.sh && /ha_autoapps.sh "$PACKAGES" && rm /ha_autoapps.sh
+RUN chmod 744 /ha_autoapps.sh && /ha_autoapps.sh "$PACKAGES" && rm /ha_autoapps.sh || true
 
 ################
 # 4 Entrypoint #
