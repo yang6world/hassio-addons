@@ -1,8 +1,7 @@
-## 2024.2.2
+## 2024.3.0b2
 
-- CSE7766: Fix energy calculation [esphome#6286](https://github.com/esphome/esphome/pull/6286) by [@puuu](https://github.com/puuu)
-- handling with the negative temperature in the sensor tmp102 [esphome#6316](https://github.com/esphome/esphome/pull/6316) by [@FlyingFeng2021](https://github.com/FlyingFeng2021)
-- fix tmp102 negative calculation [esphome#6320](https://github.com/esphome/esphome/pull/6320) by [@ssieb](https://github.com/ssieb)
-- auto load output for now [esphome#6309](https://github.com/esphome/esphome/pull/6309) by [@ssieb](https://github.com/ssieb)
-- Add wake word phrase to voice assistant start command [esphome#6290](https://github.com/esphome/esphome/pull/6290) by [@jesserockz](https://github.com/jesserockz)
+- SPI: Revert clk_pin to standard output pin schema [esphome#6368](https://github.com/esphome/esphome/pull/6368) by [@clydebarrow](https://github.com/clydebarrow)
+- Allow actions in web_server to be executed via GET method [esphome#5938](https://github.com/esphome/esphome/pull/5938) by [@afarago](https://github.com/afarago)
+- fix servo restore [esphome#6370](https://github.com/esphome/esphome/pull/6370) by [@ssieb](https://github.com/ssieb)
+- Don't try to get IPv6 addresses when disabled [esphome#6366](https://github.com/esphome/esphome/pull/6366) by [@HeMan](https://github.com/HeMan)
 
