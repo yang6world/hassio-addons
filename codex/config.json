@@ -4,7 +4,7 @@
     "amd64"
   ],
   "codenotary": "alexandrep.github@gmail.com",
-  "description": "web based comic archive browser and reader",
+  "description": "Web based comic archive browser and reader",
   "devices": [
     "/dev/dri",
     "/dev/dri/card0",
@@ -105,5 +105,5 @@
   "slug": "codex",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "1.4.3-5"
+  "version": "1.5.5"
 }

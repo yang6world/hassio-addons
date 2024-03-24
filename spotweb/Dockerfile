@@ -83,15 +83,20 @@ RUN apk -U update && \
     && mkdir /app/cache \
     && mkdir /var/tmp/nginx
 
+# Corrects permissions for /app directory
+RUN if [ -d /app ]; then chown -R nginx /app; fi
+
 ##################
 # 3 Install apps #
 ##################
 
-# Add rootfs
+# Copy local files
 COPY rootfs/ /
 
-# Corrects permissions for /app directory
-RUN if [ -d /app ]; then chown -R nginx /app; fi
+# Uses /bin for compatibility purposes
+# hadolint ignore=DL4005
+RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
+    if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
 # Modules
 ARG MODULES="01-custom_script.sh"

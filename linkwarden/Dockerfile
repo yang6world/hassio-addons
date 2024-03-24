@@ -28,25 +28,19 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
     S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0 \
     S6_SERVICES_GRACETIME=0
 
-# Adapt image
+ENV PGDATA=/config/postgres
+# Adapt campaign
+# hadolint ignore=DL3015
 RUN \
-    # Keep data
-    #mv /data /data_linkwarden && \
-    # Reinstall linkwarden
+    # Change data directory
+    mv /data /data_linkwarden && \
     \
-    apt-get update && \
-    apt-get install -y git && \
-    git clone https://github.com/linkwarden/linkwarden.git && \
-    \
-    # Adapt for SQLITE
-    sed -i "s|postgresql|sqlite|g" /linkwarden/prisma/schema.prisma && \
-    \
-    # Reinstall app
-    cd /bitwarden && \
-    yarn && \
-    npx playwright install-deps && \
-    yarn build && \
-    yarn prisma migrate deploy
+    # Install postgres
+    apt-get update && apt-get install vim gnupg2 lsb-release sudo curl -y && \
+    curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc| gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg && \
+    sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' && \
+    apt-get update && apt-get install -y postgresql-16 && \
+    sed -i "/data_directory/c data_directory = '/config/postgres'" /etc/postgresql/*/main/postgresql.conf
 
 ##################
 # 3 Install apps #
@@ -54,6 +48,11 @@ RUN \
 
 # Add rootfs
 COPY rootfs/ /
+
+# Uses /bin for compatibility purposes
+# hadolint ignore=DL4005
+RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
+    if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
 # Modules
 ARG MODULES=""
@@ -81,7 +80,10 @@ ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templat
 ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint_modif.sh" "/ha_entrypoint_modif.sh"
 RUN chmod 777 /ha_entrypoint.sh /ha_entrypoint_modif.sh && /ha_entrypoint_modif.sh && rm /ha_entrypoint_modif.sh
 
-WORKDIR /linkwarden
+# Modify .env location
+RUN sed -i "s|/\.env|/data_linkwarden/\.env|g" /etc/cont-init.d/*.sh
+
+WORKDIR /data_linkwarden
 ENTRYPOINT [ "/usr/bin/env" ]
 CMD [ "/ha_entrypoint.sh" ]
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
