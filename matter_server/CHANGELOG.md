@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.5.1
+
+- Fix logging in case fallback method for determining the primary network interface is used
+
+## 5.5.0
+
+- Bump Python Matter Server to [5.9.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/5.9.0)
+- Enable Ingress for the Python Matter Server built-in web interface
+- Store PAA root certificates in /data to avoid download on every startup (downloads once a day)
+
 ## 5.4.1
 
 - Bump Python Matter Server to [5.8.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/5.8.1)
