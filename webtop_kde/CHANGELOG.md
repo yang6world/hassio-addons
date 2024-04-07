@@ -1,7 +1,14 @@
+## 5c8ffd24-ls153-3 (05-04-2024)
+- Minor bugs fixed
+## 5c8ffd24-ls153-2 (04-04-2024)
+- Minor bugs fixed
+## 5c8ffd24-ls153 (04-04-2024)
+- Addition of other ports ; must be manually activated through the addon options
 
 ## 4.16-r0-ls89-xfce12 (08-09-2023)
 
 - Minor bugs fixed
+
 ## 4.16-r0-ls89-xfce11 (05-09-2023)
 
 - Minor bugs fixed
