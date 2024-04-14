@@ -1,7 +1,6 @@
-## 2024.3.1
+## 2024.4.0b2
 
-- AHT10: Fix bug [esphome#6409](https://github.com/esphome/esphome/pull/6409) by [@clydebarrow](https://github.com/clydebarrow)
-- microWakeWord: Fix model path joining [esphome#6426](https://github.com/esphome/esphome/pull/6426) by [@ebw44](https://github.com/ebw44)
-- Don't compile strptime unless its required [esphome#6424](https://github.com/esphome/esphome/pull/6424) by [@gabest11](https://github.com/gabest11)
-- Fix editor live validation [esphome#6431](https://github.com/esphome/esphome/pull/6431) by [@bdraco](https://github.com/bdraco)
+- Add dooya remote transmitter test [esphome#6508](https://github.com/esphome/esphome/pull/6508) by [@jesserockz](https://github.com/jesserockz)
+- ads1115: remove auto-load and split sensor into platform folder [esphome#5981](https://github.com/esphome/esphome/pull/5981) by [@jesserockz](https://github.com/jesserockz) (new-platform)
+- Bump esphome-dashboard to 20240412.0 [esphome#6517](https://github.com/esphome/esphome/pull/6517) by [@jesserockz](https://github.com/jesserockz)
 
