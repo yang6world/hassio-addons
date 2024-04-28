@@ -1,4 +1,4 @@
-## &#9888; Open Request : [✨ [REQUEST] Baikal - Use alternate image that contains a fix for Home Asistant (opened 2024-02-15)](https://github.com/alexbelgium/hassio-addons/issues/1245) by [@mikedrawback](https://github.com/mikedrawback)
+## &#9888; Open Request : [✨ [REQUEST] Baikal to use addon_configs repo (opened 2024-04-25)](https://github.com/alexbelgium/hassio-addons/issues/1354) by [@JeffersonBledsoe](https://github.com/JeffersonBledsoe)
 # Home assistant add-on: Baikal
 
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
