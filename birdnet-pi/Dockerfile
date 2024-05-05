@@ -25,7 +25,13 @@ ENV DEBIAN_FRONTEND="noninteractive" \
     PGID=1000 \
     HOME="/home/pi" \
     XDG_RUNTIME_DIR="/run/user/1000" \
-    PYTHON_VIRTUAL_ENV="/home/pi/BirdNET-Pi/birdnet/bin/python3"
+    PYTHON_VIRTUAL_ENV="/home/pi/BirdNET-Pi/birdnet/bin/python3" \
+    my_dir=/home/pi/BirdNET-Pi/scripts
+
+# Global LSIO modifications
+ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_lsio.sh" "/ha_lsio.sh"
+ARG CONFIGLOCATION="/config"
+RUN chmod 744 /ha_lsio.sh && if grep -qr "lsio" /etc; then /ha_lsio.sh "$CONFIGLOCATION"; fi && rm /ha_lsio.sh
 
 # hadolint ignore=DL3015,SC2016
 RUN \
@@ -36,8 +42,6 @@ RUN \
     # Correct for systemctl
     curl -f -L -s -S https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py -o /bin/systemctl && \
     chmod a+x /bin/systemctl && \
-    curl -f -L -s -S https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/journalctl3.py -o /bin/journalctl && \
-    chmod a+x /bin/journalctl && \
     \
     # Change user to pi and create /home/pi
     echo "setting users" && \
@@ -87,6 +91,9 @@ RUN \
     if [ -d /app ]; then rm -r /app; fi && \
     ln -s /home/"$USER" /app && \
     chown -R "$USER":"$USER" /home/"$USER" /app && \
+    \
+    # Give access to caddy for files owned by the user, to allow files modification
+    groupmod -o -g 1000 caddy && usermod -o -u 1000 caddy && \
     \
     # Cleanup
     apt-get clean all && \

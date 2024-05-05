@@ -1,6 +1,6 @@
-## &#9888; Open Issue : [🐛 [Nextcloud] latest upstream version does not allow to install apps (opened 2024-04-05)](https://github.com/alexbelgium/hassio-addons/issues/1333) by [@dafunkydan](https://github.com/dafunkydan)
 # Home assistant add-on: Nextcloud
 
+[![Donate][paypal-badge]](https://www.paypal.com/donate/?hosted_button_id=DZFULJZTP3UQA)
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
 
 ![Version](https://img.shields.io/badge/dynamic/json?label=Version&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2Falexbelgium%2Fhassio-addons%2Fmaster%2Fnextcloud%2Fconfig.json)
@@ -12,6 +12,7 @@
 [![Builder](https://img.shields.io/github/actions/workflow/status/alexbelgium/hassio-addons/onpush_builder.yaml?label=Builder)](https://github.com/alexbelgium/hassio-addons/actions/workflows/onpush_builder.yaml)
 
 [donation-badge]: https://img.shields.io/badge/Buy%20me%20a%20coffee-%23d32f2f?logo=buy-me-a-coffee&style=flat&logoColor=white
+[paypal-badge]: https://img.shields.io/badge/Buy%20me%20a%20coffee%20Paypal-%23d32f2f?logo=buy-me-a-coffee&style=flat&logoColor=white
 
 ![Uses elasticsearch][elasticsearch-shield]
 
@@ -79,6 +80,10 @@ env_upload_max_filesize; nextcloud upload size (default is 512M)
 ```
 
 Webui can be found at `<your-ip>:port`.
+
+### Change the temp folder to avoid bloating emmc on HA systems (thanks @senna1992)
+
+See ; https://github.com/alexbelgium/hassio-addons/discussions/1370
 
 ### Use mariadb as the main database (Thanks @amaciuc)
 

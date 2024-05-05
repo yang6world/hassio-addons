@@ -6,6 +6,7 @@
   "audio": true,
   "backup": "cold",
   "codenotary": "alexandrep.github@gmail.com",
+  "description": "realtime acoustic bird classification system",
   "devices": [
     "/dev/dri",
     "/dev/dri/card0",
@@ -58,9 +59,10 @@
     "/dev/nvme1",
     "/dev/nvme2"
   ],
-  "description": "realtime acoustic bird classification system",
   "image": "ghcr.io/alexbelgium/birdnet-pi-{arch}",
   "init": false,
+  "ingress": true,
+  "ingress_stream": true,
   "map": [
     "addon_config:rw",
     "media:rw",
@@ -68,19 +70,25 @@
   ],
   "name": "BirdNET-pi",
   "options": {
+    "BIRDSONGS_FOLDER": "/config/BirdSongs",
+    "BIRDS_ONLINE_INFO": "ebird.org",
     "TZ": "Europe/Paris"
   },
+  "panel_icon": "mdi:bird",
   "ports": {
     "80/tcp": 80
   },
   "ports_description": {
-    "80/tcp": "web ui"
+    "80/tcp": "Web ui"
   },
   "privileged": [
     "SYS_ADMIN",
     "DAC_READ_SEARCH"
   ],
   "schema": {
+    "BIRDSONGS_FOLDER": "str?",
+    "BIRDS_ONLINE_INFO": "list(allaboutbirds.org|ebird.org)",
+    "pi_password": "password",
     "TZ": "str?",
     "cifsdomain": "str?",
     "cifspassword": "str?",
@@ -89,10 +97,10 @@
     "networkdisks": "str?"
   },
   "slug": "birdnet-pi",
+  "tmpfs": true,
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons/tree/master/birdnet-pi",
   "usb": true,
-  "version": "0.13-5",
-  "video": true,
-  "webui": "http://[HOST]:[PORT:80]"
+  "version": "0.13-20",
+  "video": true
 }

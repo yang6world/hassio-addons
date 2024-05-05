@@ -1,5 +1,7 @@
+## &#9888; Open Request : [✨ [birdnet-pi] Ongoing work (opened 2024-05-01)](https://github.com/alexbelgium/hassio-addons/issues/1371) by [@alexbelgium](https://github.com/alexbelgium)
 # Home assistant add-on: birdnet-pi
 
+[![Donate][paypal-badge]](https://www.paypal.com/donate/?hosted_button_id=DZFULJZTP3UQA)
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
 
 ![Version](https://img.shields.io/badge/dynamic/json?label=Version&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2Falexbelgium%2Fhassio-addons%2Fmaster%2Fbirdnet-pi%2Fconfig.json)
@@ -11,6 +13,7 @@
 [![Builder](https://img.shields.io/github/actions/workflow/status/alexbelgium/hassio-addons/onpush_builder.yaml?label=Builder)](https://github.com/alexbelgium/hassio-addons/actions/workflows/onpush_builder.yaml)
 
 [donation-badge]: https://img.shields.io/badge/Buy%20me%20a%20coffee-%23d32f2f?logo=buy-me-a-coffee&style=flat&logoColor=white
+[paypal-badge]: https://img.shields.io/badge/Buy%20me%20a%20coffee%20Paypal-%23d32f2f?logo=buy-me-a-coffee&style=flat&logoColor=white
 
 _Thanks to everyone having starred my repo! To star it click on the image below, then it will be on top right. Thanks!_
 
@@ -22,14 +25,21 @@ _Thanks to everyone having starred my repo! To star it click on the image below,
 
 ---
 
-[birdnet-pi](https://github.com/tphakala/birdnet-pi/tree/main) is an AI solution for continuous avian monitoring and identification developed by @tphakala
+[birdnet-pi](https://github.com/Nachtzuster/BirdNET-Pi) is an AI solution for continuous avian monitoring and identification originally developed by @mcguirepr89 on github (https://github.com/mcguirepr89/BirdNET-Pi), whose work is continued by @Nachtzuster and other developers on an active fork (https://github.com/Nachtzuster/BirdNET-Pi)
 
-This addon is based on their docker image.
+Features of the addon :
+- Robust base image provided by [linuxserver](https://github.com/linuxserver/docker-baseimage-debian)
+- Working docker system thanks to https://github.com/gdraheim/docker-systemctl-replacement
+- Uses HA pulseaudio server
+- Uses HA tmpfs to store temporary files in ram and avoid disk wear
+- Exposes all config files to /config to allow remanence and easy access
+- Allows to modify the location of the stored bird songs (preferably to an external hdd)
+- Supports ingress, to allow secure remote access without exposing ports
 
 ## Configuration
 
 Install, then start the addon a first time
-Webui can be found at <http://homeassistant:8080>.
+Webui can be found at <http://homeassistant:80>.
 
 You'll need a microphone : either use one connected to HA or the audio stream of a rstp camera.
 
@@ -39,6 +49,9 @@ Options can be configured through three ways :
 
 ```yaml
 TZ: Etc/UTC specify a timezone to use, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List
+BIRDSONGS_FOLDER: folder to store birdsongs file # It should be an ssd if you want to avoid clogging of analysis
+BIRDS_ONLINE_INFO: uses either allaboutbird (US birds in english) or ebird (universal and translated) to provide online information
+pi_password: set the user password
 localdisks: sda1 #put the hardware name of your drive to mount separated by commas, or its label. ex. sda1, sdb1, MYNAS...
 networkdisks: "//SERVER/SHARE" # optional, list of smb servers to mount, separated by commas
 cifsusername: "username" # optional, smb username, same for all smb shares
@@ -69,7 +82,8 @@ The installation of this add-on is pretty straightforward and not different in c
 
 ## Integration with HA
 
-Not yet available
+You can use apprise to send notifications with mqtt, then act on those using HomeAssistant
+Further informations : https://wander.ingstar.com/projects/birdnetpi.html
 
 ## Common issues
 

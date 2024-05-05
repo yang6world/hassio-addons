@@ -1,7 +1,8 @@
 ## &#9888; Open Issue : [🐛 [qbittorrent] Since last update no longer starts up  (opened 2024-04-23)](https://github.com/alexbelgium/hassio-addons/issues/1351) by [@jdumeez](https://github.com/jdumeez)
-## &#9888; Open Issue : [🐛 [qBittorrent] OpenVPN password escaping not handled (opened 2024-04-23)](https://github.com/alexbelgium/hassio-addons/issues/1352) by [@BeachyHeadCode](https://github.com/BeachyHeadCode)
+## &#9888; Open Issue : [🐛 [qBittorrent] Torrent downloaded, and theres a path... but no files (opened 2024-04-29)](https://github.com/alexbelgium/hassio-addons/issues/1366) by [@purierca](https://github.com/purierca)
 # Home assistant add-on: qbittorrent
 
+[![Donate][paypal-badge]](https://www.paypal.com/donate/?hosted_button_id=DZFULJZTP3UQA)
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
 
 ![Version](https://img.shields.io/badge/dynamic/json?label=Version&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2Falexbelgium%2Fhassio-addons%2Fmaster%2Fqbittorrent%2Fconfig.json)
@@ -13,6 +14,7 @@
 [![Builder](https://img.shields.io/github/actions/workflow/status/alexbelgium/hassio-addons/onpush_builder.yaml?label=Builder)](https://github.com/alexbelgium/hassio-addons/actions/workflows/onpush_builder.yaml)
 
 [donation-badge]: https://img.shields.io/badge/Buy%20me%20a%20coffee-%23d32f2f?logo=buy-me-a-coffee&style=flat&logoColor=white
+[paypal-badge]: https://img.shields.io/badge/Buy%20me%20a%20coffee%20Paypal-%23d32f2f?logo=buy-me-a-coffee&style=flat&logoColor=white
 
 _Thanks to everyone having starred my repo! To star it click on the image below, then it will be on top right. Thanks!_
 
