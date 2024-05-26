@@ -31,9 +31,13 @@ ENV OPENPROJECT_SECRET_KEY_BASE=addon_secret \
     OPENPROJECT_HOST__NAME=localhost:8080 \
     OPENPROJECT_HTTPS=false \
     OPENPROJECT_DEFAULT__LANGUAGE=en \
-    OPENPROJECT_EDITION=bim
+    OPENPROJECT_EDITION=bim \
+    PGDATA=/data/pg\
+    APP_DATA_PATH=/data/assets
 
 USER root
+
+RUN sed -i "1a /./ha_entrypoint.sh" /app/docker/prod/entrypoint.sh
 
 ##################
 # 3 Install apps #
@@ -61,8 +65,6 @@ ENV PACKAGES=""
 ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_autoapps.sh" "/ha_autoapps.sh"
 RUN chmod 744 /ha_autoapps.sh && /ha_autoapps.sh "$PACKAGES" && rm /ha_autoapps.sh
 
-VOLUME ["/data:/var/openproject/pgdata"]
-
 EXPOSE 8080
 
 ################
@@ -77,7 +79,7 @@ ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templat
 ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint_modif.sh" "/ha_entrypoint_modif.sh"
 RUN chmod 777 /ha_entrypoint.sh /ha_entrypoint_modif.sh && /ha_entrypoint_modif.sh && rm /ha_entrypoint_modif.sh
 
-ENTRYPOINT [ "/ha_entrypoint.sh" ]
+# ENTRYPOINT [ "/ha_entrypoint.sh" ]
 
 ############
 # 5 Labels #
