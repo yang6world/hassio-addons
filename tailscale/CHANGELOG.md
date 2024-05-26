@@ -2,9 +2,13 @@
 
 ## 🐛 Bug fixes
 
-- Tag names must start with a letter after 'tag:' and contain letters, … @noconnor29 ([#342](https://github.com/hassio-addons/addon-tailscale/pull/342))
+- Skip default networks without a gateway to enable UDP GRO for forwarding @lmagyar ([#366](https://github.com/hassio-addons/addon-tailscale/pull/366))
+
+## 🚀 Enhancements
+
+- Stateful filtering is now off by default @lmagyar ([#368](https://github.com/hassio-addons/addon-tailscale/pull/368))
 
 ## ⬆️ Dependency updates
 
-- ⬆️ Update Add-on base image to v15.0.8 @renovate ([#344](https://github.com/hassio-addons/addon-tailscale/pull/344))
-- ⬆️ Update tailscale/tailscale to v1.64.0 @renovate ([#346](https://github.com/hassio-addons/addon-tailscale/pull/346))
+- ⬆️ Update tailscale/tailscale to v1.66.4 @renovate ([#363](https://github.com/hassio-addons/addon-tailscale/pull/363))
+- ⬆️ Update Add-on base image to v15.0.9 @renovate ([#367](https://github.com/hassio-addons/addon-tailscale/pull/367))
