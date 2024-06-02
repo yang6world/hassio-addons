@@ -1,4 +1,11 @@
+## 0.13-48-3 (01-06-2024)
+- New option "Processed_Buffer" : defines the number of last wav files that will be saved in the temporary folder "/tmp/Processed" within the tmpfs (so no disk wear) in case you want to retrieve them. This amount can be adapted from the addon options
+- eBird selection feature is now moved to the BirdNET-Pi settings (thanks @nachtzuster)
+
+## 0.13-47 (30-05-2024)
 - Add weekly report button to views
+- Use optional iframe for Adminer
+- Enable species converter by default (only active if used)
 
 ## 0.13-46 (23-05-2024)
 - Security : enable double layer basic auth with caddy in addition to php when connecting without ingress
