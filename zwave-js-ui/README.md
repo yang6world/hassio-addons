@@ -31,6 +31,22 @@ Some advantages and use-cases:
 
 This add-on uses the [Z-Wave JS UI][zwave-js-ui] software.
 
+## WARNING! THIS IS A BETA VERSION!
+
+This Home Assistant Add-ons repository contains beta releases of add-ons.
+
+- They might stop working at any time.
+- They could have a negative impact on your system.
+
+This repository was created for:
+
+- Anybody willing to test.
+- Anybody interested in trying out upcoming add-ons or add-on features.
+
+If you are more interested in stable releases of our add-ons:
+
+<https://github.com/hassio-addons/repository>
+
 [discord-shield]: https://img.shields.io/discord/478094546522079232.svg
 [discord]: https://discord.me/hassioaddons
 [esphome]: https://esphome.io/components/mqtt.html#on-message-trigger
@@ -43,6 +59,6 @@ This add-on uses the [Z-Wave JS UI][zwave-js-ui] software.
 [patreon-shield]: https://frenck.dev/wp-content/uploads/2019/12/patreon.png
 [patreon]: https://www.patreon.com/frenck
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-production%20ready-brightgreen.svg
-[release-shield]: https://img.shields.io/badge/version-v3.6.0-blue.svg
-[release]: https://github.com/hassio-addons/addon-zwave-js-ui/tree/v3.6.0
+[release-shield]: https://img.shields.io/badge/version-v3.7.2-blue.svg
+[release]: https://github.com/hassio-addons/addon-zwave-js-ui/tree/v3.7.2
 [zwave-js-ui]: https://github.com/zwave-js/zwave-js-ui

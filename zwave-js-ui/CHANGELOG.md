@@ -2,5 +2,4 @@
 
 ## ⬆️ Dependency updates
 
-- ⬆️ Update alpine_3_19/nginx to v1.24.0-r16 @renovate ([#661](https://github.com/hassio-addons/addon-zwave-js-ui/pull/661))
-- ⬆️ Update zwave-js/zwave-js-ui to v9.12.0 @renovate ([#662](https://github.com/hassio-addons/addon-zwave-js-ui/pull/662))
+- ⬆️ Update zwave-js/zwave-js-ui to v9.13.4 @renovate ([#669](https://github.com/hassio-addons/addon-zwave-js-ui/pull/669))
