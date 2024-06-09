@@ -34,7 +34,7 @@ while true; do
        latest="$(cat "$ingest_dir"/analyzing_now.txt)"
        if [[ "$latest" == "$analyzing_now" ]]; then
           echo "$(date) WARNING no change in analyzing_now for 10 iterations, restarting services"
-          "$HOME"/BirdNET-Pi/scripts/restart_services.sh
+          /."$HOME"/BirdNET-Pi/scripts/restart_services.sh
        fi
        counter=10
        analyzing_now=$(cat "$ingest_dir"/analyzing_now.txt)
@@ -51,7 +51,7 @@ while true; do
     if (( wavs > 100 )) && [[ "$state" == "active" ]]; then
         sudo systemctl stop "$srv"
         bashio::log.red "$(date) WARNING stopped $srv service"
-    elif (( wavs <= 100 )) && [[ "$state" == "inactive" ]]; then
+    elif (( wavs <= 100 )) && [[ "$state" != "active" ]]; then
         sudo systemctl start $srv
         bashio::log.yellow "$(date)    INFO started $srv service"
     fi

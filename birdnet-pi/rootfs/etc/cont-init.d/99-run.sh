@@ -24,8 +24,13 @@ fi || (bashio::log.fatal "Error : $TIMEZONE not found. Here is a list of valid t
 
 # Correcting systemctl
 echo "... correcting systemctl"
-curl -f -L -s -S https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py -o /bin/systemctl
+mv /helpers/systemctl3.py /bin/systemctl
 chmod a+x /bin/systemctl
+
+# Correcting systemctl
+echo "... correcting datetimectl"
+mv /helpers/timedatectl /usr/bin/timedatectl
+chmod a+x /usr/bin/timedatectl
 
 # Correct language labels
 export "$(grep "^DATABASE_LANG" /config/birdnet.conf)"
@@ -51,6 +56,13 @@ echo ""
 bashio::log.info "Starting BirdNET-Pi services"
 chmod +x "$HOME"/BirdNET-Pi/scripts/restart_services.sh
 "$HOME"/BirdNET-Pi/scripts/restart_services.sh
+
+if bashio::config.true LIVESTREAM_BOOT_ENABLED; then
+    echo "... starting livestream"
+    sudo systemctl enable icecast2
+    sudo systemctl start icecast2.service
+    sudo systemctl enable --now livestream.service
+fi
 
 # Correct the phpsysinfo for the correct gotty service
 gottyservice="$(pgrep -l "gotty" | awk '{print $NF}' | head -n 1)"
