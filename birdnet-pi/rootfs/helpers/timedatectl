@@ -20,7 +20,7 @@ set_timezone() {
     echo "$new_timezone" | sudo tee /etc/timezone >/dev/null
     sudo ln -sf /usr/share/zoneinfo/"$new_timezone" /etc/localtime
     if [ -f /etc/environment ]; then sudo sed -i "/TZ/c\TZ=$new_timezone" /etc/environment; fi
-    if [ -d /var/run/s6/container_environment ]; then sudo echo "$new_timezone" > /var/run/s6/container_environment/TZ; fi
+    if [ -d /var/run/s6/container_environment ]; then echo "$new_timezone" | sudo tee /var/run/s6/container_environment/TZ > /dev/null; fi
     echo "$new_timezone"
 }
 
@@ -29,12 +29,13 @@ case "$1" in
     "set-ntp")
         case "$2" in
             "false")
+                sudo systemctl stop systemd-timesyncd
                 sudo systemctl disable systemd-timesyncd
                 echo "NTP disabled"
                 ;;
             "true")
-                sudo systemctl enable systemd-timesyncd
                 sudo systemctl start systemd-timesyncd
+                sudo systemctl enable systemd-timesyncd
                 echo "NTP enabled"
                 ;;
             *)
@@ -42,7 +43,7 @@ case "$1" in
                 ;;
         esac
         ;;
-    "show --value --property=Timezone")
+    "show")
         show_timezone
         ;;
     "set-timezone")
@@ -54,7 +55,7 @@ case "$1" in
         utc_time="$(date -u)"
         time_zone="$(show_timezone)"
         # Check if NTP is used
-        if sudo systemctl status systemd-timesyncd | grep -q "active"; then
+        if sudo systemctl status systemd-timesyncd | grep -q " active"; then
             ntp_status="yes"
             ntp_service="active"
         else
