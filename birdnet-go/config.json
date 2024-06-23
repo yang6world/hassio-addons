@@ -80,6 +80,7 @@
     "COMMAND": "realtime"
   },
   "panel_icon": "mdi:bird",
+  "panel_admin": false,
   "ports": {
     "8080/tcp": 8080
   },
@@ -106,5 +107,5 @@
   "slug": "birdnet-go",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons/tree/master/birdnet-go",
-  "version": "0.5.3-3"
+  "version": "0.5.5"
 }

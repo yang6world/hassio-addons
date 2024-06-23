@@ -1,8 +1,8 @@
 {
   "last_update": "22-06-2024",
   "repository": "alexbelgium/hassio-addons",
-  "slug": "autborr",
+  "slug": "birdnet-go",
   "source": "github",
-  "upstream_repo": "autobrr/autobrr",
-  "upstream_version": "1.43.0"
+  "upstream_repo": "Nachtzuster/BirdNET-Pi",
+  "upstream_version": "0.1"
 }
