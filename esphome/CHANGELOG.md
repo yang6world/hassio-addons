@@ -1,6 +1,5 @@
-## 2024.5.5
+## 2024.6.1
 
-- [voice_assistant] Half the microphone ringbuffer size [esphome#6830](https://github.com/esphome/esphome/pull/6830) by [@jesserockz](https://github.com/jesserockz)
-- [i2s_speaker] Add buffer allocation failure checks [esphome#6829](https://github.com/esphome/esphome/pull/6829) by [@jesserockz](https://github.com/jesserockz)
-- [improv_serial] Fix for IDF 4.4.7 [esphome#6855](https://github.com/esphome/esphome/pull/6855) by [@kbx81](https://github.com/kbx81)
+- debug_libretiny - Fix typo [esphome#6942](https://github.com/esphome/esphome/pull/6942) by [@Cossid](https://github.com/Cossid)
+- Bump esphome-dashboard to 20240620.0 [esphome#6944](https://github.com/esphome/esphome/pull/6944) by [@jesserockz](https://github.com/jesserockz)
 

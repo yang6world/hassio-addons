@@ -1,7 +1,5 @@
-## 2024.6.0b2
+## 2024.6.1
 
-- [CI] Fix for sdl [esphome#6892](https://github.com/esphome/esphome/pull/6892) by [@jesserockz](https://github.com/jesserockz)
-- Add operation_speed option to X9C component [esphome#6890](https://github.com/esphome/esphome/pull/6890) by [@oliverhihn](https://github.com/oliverhihn)
-- [host] Execute host program when using run command [esphome#6897](https://github.com/esphome/esphome/pull/6897) by [@jesserockz](https://github.com/jesserockz)
-- Bump esphome-dashboard to 20240613.0 [esphome#6901](https://github.com/esphome/esphome/pull/6901) by [@jesserockz](https://github.com/jesserockz)
+- debug_libretiny - Fix typo [esphome#6942](https://github.com/esphome/esphome/pull/6942) by [@Cossid](https://github.com/Cossid)
+- Bump esphome-dashboard to 20240620.0 [esphome#6944](https://github.com/esphome/esphome/pull/6944) by [@jesserockz](https://github.com/jesserockz)
 
