@@ -1,3 +1,9 @@
+
+## 29.0.3 (29-06-2024)
+- Update to latest version from linuxserver/docker-nextcloud (changelog : https://github.com/linuxserver/docker-nextcloud/releases)
+## 29.0.2-3 (25-06-2024)
+- Fix "cannot enable app"
+
 ## 29.0.2-2 (12-06-2024)
 - Fix https://github.com/alexbelgium/hassio-addons/issues/1429
 
