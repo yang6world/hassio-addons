@@ -55,6 +55,7 @@ dns-gehirn
 dns-google
 dns-hetzner
 dns-infomaniak
+dns-joker
 dns-linode
 dns-luadns
 dns-njalla
@@ -105,6 +106,9 @@ hetzner_api_token: ''
 gehirn_api_token: ''
 gehirn_api_secret: ''
 infomaniak_api_token: ''
+joker_username: ''
+joker_password: ''
+joker_domain: ''
 linode_key: ''
 linode_version: ''
 luadns_email: ''
@@ -398,6 +402,30 @@ To obtain the DNS API token follow the instructions here:
 <https://manager.infomaniak.com/v3/infomaniak-api>
 
 Choose "Domain" as the scope.
+
+</details>
+
+<details>
+  <summary>Joker DNS challenge</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - subdomain.example.com
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-joker
+    joker_username: username
+    joker_password: password
+    joker_domain: example.com
+  ```
+
+You can find further detailed information here:
+
+<https://joker.com/faq/books/jokercom-faq-en/page/lets-encrypt-ssl-certificates>
+<https://github.com/dhull/certbot-dns-joker/blob/master/README.md>
 
 </details>
 
