@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.2
+
+- Fix excluding models files from backup
+
+## 2.1.1
+
+- Exclude `data/models*` files from backup
+
 ## 2.1.0
 
 - Add distil-large-v3 `model` option
