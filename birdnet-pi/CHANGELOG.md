@@ -1,4 +1,9 @@
-## 0.13-60 (29-06-2024)
+## 0.13-63 (06-07-2024)
+- Minor bugs fixed
+## 0.13-62 (05-07-2024)
+- [FEAT] : publish mqtt to homeassistant if a server is found
+
+## 0.13-61 (30-06-2024)
 - [FIX] : safeguard to avoid embedded pulseaudio interference
 
 ## 0.13-58 (27-06-2024)

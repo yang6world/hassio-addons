@@ -84,6 +84,8 @@ RUN \
     sed -i "/git clone/a chown -R 1000:1000 $HOME" /newinstaller.sh && \
     # Remove all instances of sudo from the newinstaller
     sed -i -e "s|== 0|== 7|g" -e "s|sudo -n true|true|g" -e "s|sudo -K|true|g" /newinstaller.sh && \
+    # Add MQTT dependencies
+    echo "dateparser" >> /requirements.txt && \
     \
     # Execute installer
     /./newinstaller.sh && \
@@ -101,18 +103,18 @@ RUN \
     rm -rf /var/lib/apt/lists/*
 
 # Update with my repo if more recent
-WORKDIR /home/pi
-RUN \
-    git clone https://github.com/alexbelgium/BirdNET-Pi BirdNET-additions && \
-    date1="$(cd BirdNET-Pi && git show -s --format=%ct HEAD | xargs -I{} date -d @{} +%Y-%m-%d)" && \
-    timestamp1=$(date -d "$date1" +%s) && \
-    date2=$(cd BirdNET-additions && git show -s --format=%ct HEAD | xargs -I{} date -d @{} +%Y-%m-%d) && \
-    timestamp2=$(date -d "$date2" +%s) && \
-    if [ $timestamp2 -gt $timestamp1 ]; then \
-    	cp -Rf BirdNET-additions/* BirdNET-Pi/ && \
-    	rm -r BirdNET-additions && \
-    	sed -i "/find /d" BirdNET-Pi/scripts/update_birdnet_snippets.sh && \
-    	./BirdNET-Pi/scripts/update_birdnet_snippets.sh; fi
+#WORKDIR /home/pi
+#RUN \
+#    git clone https://github.com/alexbelgium/BirdNET-Pi BirdNET-additions && \
+#    date1="$(cd BirdNET-Pi && git show -s --format=%ct HEAD | xargs -I{} date -d @{} +%Y-%m-%d)" && \
+#    timestamp1=$(date -d "$date1" +%s) && \
+#    date2=$(cd BirdNET-additions && git show -s --format=%ct HEAD | xargs -I{} date -d @{} +%Y-%m-%d) && \
+#    timestamp2=$(date -d "$date2" +%s) && \
+#    if [ $timestamp2 -gt $timestamp1 ]; then \
+#    	cp -Rf BirdNET-additions/* BirdNET-Pi/ && \
+#    	rm -r BirdNET-additions && \
+#    	sed -i "/find /d" BirdNET-Pi/scripts/update_birdnet_snippets.sh && \
+#    	./BirdNET-Pi/scripts/update_birdnet_snippets.sh; fi
 
 ##################
 # 2 Modify Image #
