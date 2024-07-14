@@ -1,6 +1,10 @@
-## 0.13-63 (06-07-2024)
-- Minor bugs fixed
-## 0.13-62 (05-07-2024)
+## 0.13-69 (12-07-2024)
+- [FEAT] : limit a specific number of audio samples per species
+
+## 0.13-68 (10-07-2024)
+- [FIX] : correct mqtt posting, switch to service 
+
+## 0.13-65 (08-07-2024)
 - [FEAT] : publish mqtt to homeassistant if a server is found
 
 ## 0.13-61 (30-06-2024)

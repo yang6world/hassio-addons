@@ -94,6 +94,7 @@
   ],
   "schema": {
     "BIRDSONGS_FOLDER": "str?",
+    "MQTT_DISABLED": "bool?",
     "LIVESTREAM_BOOT_ENABLED": "bool",
     "PROCESSED_FOLDER_ENABLED": "bool?",
     "SPECIES_CONVERTER_ENABLED": "bool?",
@@ -116,6 +117,6 @@
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons/tree/master/birdnet-pi",
   "usb": true,
-  "version": "0.13-63",
+  "version": "0.13-69",
   "video": true
 }

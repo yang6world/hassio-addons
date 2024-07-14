@@ -1,4 +1,3 @@
-## &#9888; Open Issue : [🐛 [birdnet-pi] mqtt add (opened 2024-07-05)](https://github.com/alexbelgium/hassio-addons/issues/1464) by [@alexbelgium](https://github.com/alexbelgium)
 # Home assistant add-on: birdnet-pi
 
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
@@ -54,8 +53,8 @@ Options can be configured through three ways :
 - Addon options
 
 ```yaml
-ANALYSIS_24BITS: analysis in 24bits. The model is however trained in 16bits. Increases resources, and to use only if you have a 24 bits stream
 BIRDSONGS_FOLDER: folder to store birdsongs file # It should be an ssd if you want to avoid clogging of analysis
+MQTT_DISABLED : if true, disables automatic mqtt publishing. Only valid if there is a local broker already available
 LIVESTREAM_BOOT_ENABLED: start livestream from boot, or from settings
 SPECIES_CONVERTER_ENABLED: true/false. if enabled, will create a new setting in the birdnet options where you can specify birds to convert. It will convert on the fly the specie when detected
 PROCESSED_FOLDER_ENABLED : if enabled, you need to set in the birdnet.conf (or the setting of birdnet) the number of last wav files that will be saved in the temporary folder "/tmp/Processed" within the tmpfs (so no disk wear) in case you want to retrieve them. This amount can be adapted from the addon options
@@ -92,9 +91,14 @@ The installation of this add-on is pretty straightforward and not different in c
 ## Integration with HA
 
 ---
+### Apprise
 
 You can use apprise to send notifications with mqtt, then act on those using HomeAssistant
 Further informations : https://wander.ingstar.com/projects/birdnetpi.html
+
+### Automatic mqtt
+
+If mqtt is installed, the addon automatically updates the birdnet topic with each detected species
 
 ## Using ssl
 

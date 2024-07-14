@@ -2,15 +2,16 @@
 # shellcheck shell=bash
 set -e
 
-# Gives mqtt information
-
-if bashio::services.available 'mqtt'; then
+if bashio::services.available 'mqtt' && ! bashio::config.true 'MQTT_DISABLED' ; then
     bashio::log.green "---"
     bashio::log.blue "MQTT addon is active on your system! Birdnet-pi is now automatically configured to send its ouptut to MQTT"
     bashio::log.blue "MQTT user : $(bashio::services "mqtt" "username")"
     bashio::log.blue "MQTT password : $(bashio::services "mqtt" "password")"
     bashio::log.blue "MQTT broker : tcp://$(bashio::services "mqtt" "host"):$(bashio::services "mqtt" "port")"
     bashio::log.green "---"
+    bashio::log.blue "Data will be posted to the topic : 'birdnet'"
+    bashio::log.blue "Json data : {'Date', 'Time', 'ScientificName', 'CommonName', 'Confidence', 'SpeciesCode', 'ClipName', 'url'}"
+    bashio::log.blue "---"
 
     # Apply MQTT settings
     sed -i "s|%%mqtt_server%%|$(bashio::services "mqtt" "host")|g" /helpers/birdnet_to_mqtt.py
@@ -20,9 +21,8 @@ if bashio::services.available 'mqtt'; then
 
     # Copy script
     cp /helpers/birdnet_to_mqtt.py /usr/bin/birdnet_to_mqtt.py
+    cp /helpers/birdnet_to_mqtt.sh /custom-services.d
     chmod 777 /usr/bin/birdnet_to_mqtt.py
-
-    # Start python
-    "$PYTHON_VIRTUAL_ENV" /usr/bin/birdnet_to_mqtt.py & true
+    chmod 777 /custom-services.d/birdnet_to_mqtt.sh
 
 fi
