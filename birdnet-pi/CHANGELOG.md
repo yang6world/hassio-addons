@@ -1,4 +1,10 @@
-- REMOVE : SPECIES_CONVERTER_ENABLED option removed, please instead us "exclude species" and "change detection"
+## 0.13-75 (08-08-2024)
+- Fix : improve symlinks logic
+
+## 0.13-73 (07-08-2024)
+- [REMOVE] : SPECIES_CONVERTER_ENABLED option removed, please instead us "exclude species" and "change detection"
+- [FEAT] : Improve dark mode
+- [FEAT] : Species confirmation
 
 ## 0.13-71 (14-07-2024)
 - [FEAT] : Add manual MQTT options

@@ -61,7 +61,6 @@
   ],
   "image": "ghcr.io/alexbelgium/birdnet-pi-{arch}",
   "ingress": true,
-  "ingress_stream": true,
   "init": false,
   "map": [
     "addon_config:rw",
@@ -120,6 +119,6 @@
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons/tree/master/birdnet-pi",
   "usb": true,
-  "version": "0.13-71",
+  "version": "0.13-75",
   "video": true
 }
