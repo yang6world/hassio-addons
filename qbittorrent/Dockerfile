@@ -16,7 +16,7 @@
 
 ARG BUILD_FROM
 ARG BUILD_VERSION
-ARG BUILD_UPSTREAM="4.6.5"
+ARG BUILD_UPSTREAM="4.6.6"
 FROM ${BUILD_FROM}
 
 ##################
@@ -87,7 +87,7 @@ RUN \
     if test "${BUILD_ARCH}" != "*amd64*"; then apk add --no-cache python3-dev; else apk add --no-cache python3; fi && \
     ln -sf python3 /usr/bin/python && \
     apk add --no-cache py3-pip gcc musl-dev && \
-    pip3 install --break-system-packages --no-cache-dir --ignore-installed --upgrade --requirement /qbit_manage/requirements.txt
+    pip3 install --break-system-packages --no-cache-dir --ignore-installed --upgrade --requirement /qbit_manage/requirements.txt || true
 
 ##################
 # 3 Install apps #

@@ -148,10 +148,9 @@
     "mysql:want"
   ],
   "slug": "nextcloud_ocr",
-  "startup": "application",
   "uart": true,
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons/tree/master/nextcloud",
-  "version": "29.0.4",
+  "version": "29.0.5",
   "webui": "https://[HOST]:[PORT:443]"
 }

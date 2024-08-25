@@ -4,7 +4,7 @@
     "amd64"
   ],
   "codenotary": "alexandrep.github@gmail.com",
-  "description": "bittorrent client with optional vpn",
+  "description": "Bittorrent client with optional vpn",
   "devices": [
     "/dev/net/tun",
     "/dev/dri",
@@ -144,5 +144,5 @@
   "slug": "qbittorrent",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "4.6.5"
+  "version": "4.6.6"
 }
