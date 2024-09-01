@@ -1,4 +1,4 @@
-## &#9888; Open Issue : [🐛 [Nextcloud] FIX for installing on mounted USB (opened 2024-08-16)](https://github.com/alexbelgium/hassio-addons/issues/1531) by [@Arytmia](https://github.com/Arytmia)
+## &#9888; Open Issue : [🐛 [Nextcloud] Installing Collabora Built-in CODE Server (ARM64) Crashes Nextcloud  (opened 2024-08-28)](https://github.com/alexbelgium/hassio-addons/issues/1554) by [@dkahn93](https://github.com/dkahn93)
 # Home assistant add-on: Nextcloud
 
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
