@@ -1,3 +1,8 @@
+## 0.13-88 (14-09-2024)
+- Define cache folder for matplotlib
+- Fix confirmed species
+- Update to latest
+
 ## 0.13-86 (16-08-2024)
 - [MQTT] Fix auto detection @UlrichThiess
 

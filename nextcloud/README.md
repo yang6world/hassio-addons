@@ -1,4 +1,4 @@
-## &#9888; Open Issue : [🐛 [Nextcloud] Installing Collabora Built-in CODE Server (ARM64) Crashes Nextcloud  (opened 2024-08-28)](https://github.com/alexbelgium/hassio-addons/issues/1554) by [@dkahn93](https://github.com/dkahn93)
+## &#9888; Open Issue : [🐛 [Nextcloud] Cant use MariaDB when self hosting it (opened 2024-09-10)](https://github.com/alexbelgium/hassio-addons/issues/1567) by [@zagi988](https://github.com/zagi988)
 # Home assistant add-on: Nextcloud
 
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
