@@ -1,4 +1,35 @@
-## 2024.9.0b1
+## 2024.9.0
+
+## Full list of changes
+
+### New Components
+
+- Add HMAC-MD5 support for authenticating OTA updates [esphome#7200](https://github.com/esphome/esphome/pull/7200) by [@dwmw2](https://github.com/dwmw2) (new-integration)
+- Add support for BL0906 energy meter [esphome#7339](https://github.com/esphome/esphome/pull/7339) by [@tarontop](https://github.com/tarontop) (new-integration)
+- [udp] Implement UDP sensor broadcast [esphome#6865](https://github.com/esphome/esphome/pull/6865) by [@clydebarrow](https://github.com/clydebarrow) (new-integration)
+- CH422G support [esphome#7356](https://github.com/esphome/esphome/pull/7356) by [@jesterret](https://github.com/jesterret) (new-integration)
+- Add StatsD component [esphome#6642](https://github.com/esphome/esphome/pull/6642) by [@Links2004](https://github.com/Links2004) (new-integration)
+- Add support for using BMP280 with SPI [esphome#7053](https://github.com/esphome/esphome/pull/7053) by [@ademuri](https://github.com/ademuri) (new-integration) (breaking-change)
+- LTR-501, LTR-301, LTR-558 Series of Lite-On Light (ALS) and Proximity(PS) sensors [esphome#6262](https://github.com/esphome/esphome/pull/6262) by [@latonita](https://github.com/latonita) (new-integration)
+
+### Breaking Changes
+
+- [ili9xxx] Make `invert_colors` required [esphome#7292](https://github.com/esphome/esphome/pull/7292) by [@gvdhoven](https://github.com/gvdhoven) (breaking-change)
+- Add support for using BMP280 with SPI [esphome#7053](https://github.com/esphome/esphome/pull/7053) by [@ademuri](https://github.com/ademuri) (new-integration) (breaking-change)
+- Move I2S config settings the the base i2sAudio files. Phase 1 [esphome#7183](https://github.com/esphome/esphome/pull/7183) by [@nielsnl68](https://github.com/nielsnl68) (breaking-change)
+- [i2s_audio] Add more options to speakers and microphones [esphome#7306](https://github.com/esphome/esphome/pull/7306) by [@pyos](https://github.com/pyos) (breaking-change)
+
+### Beta Changes
+
+- [voice-assistant] Dont error on ``no_wake_word`` timeout error with streaming wake word [esphome#7435](https://github.com/esphome/esphome/pull/7435) by [@jesserockz](https://github.com/jesserockz)
+- Improve manufacturer data tracing to identify BLE devices a bit easie… [esphome#7332](https://github.com/esphome/esphome/pull/7332) by [@tomer-w](https://github.com/tomer-w)
+- Add sample_bytes to media player supported format [esphome#7451](https://github.com/esphome/esphome/pull/7451) by [@synesthesiam](https://github.com/synesthesiam)
+- [docker] Bump git from 1:2.39.2-1.1 to 1:2.39.5-0+deb12u1 [esphome#7452](https://github.com/esphome/esphome/pull/7452) by [@jesserockz](https://github.com/jesserockz)
+- Add voice assistant configuration messages [esphome#7445](https://github.com/esphome/esphome/pull/7445) by [@synesthesiam](https://github.com/synesthesiam)
+- Dont replace project name spaces with underlines [esphome#7455](https://github.com/esphome/esphome/pull/7455) by [@jesserockz](https://github.com/jesserockz)
+- Add voice assistant methods for configuration [esphome#7459](https://github.com/esphome/esphome/pull/7459) by [@synesthesiam](https://github.com/synesthesiam)
+
+### All changes
 
 - [code-quality] fix performance-unnecessary-value-param [esphome#7274](https://github.com/esphome/esphome/pull/7274) by [@tomaszduda23](https://github.com/tomaszduda23)
 - [code-quality] fix clang-tidy prometheus [esphome#7284](https://github.com/esphome/esphome/pull/7284) by [@tomaszduda23](https://github.com/tomaszduda23)
@@ -85,4 +116,11 @@
 - [uponor_smatrix] Modifies sending algorithm [esphome#7326](https://github.com/esphome/esphome/pull/7326) by [@skasi7](https://github.com/skasi7)
 - User configurable frame buffer. [esphome#7360](https://github.com/esphome/esphome/pull/7360) by [@ajwahab](https://github.com/ajwahab)
 - [Modbus Controller] Added preference to change command retries [esphome#7312](https://github.com/esphome/esphome/pull/7312) by [@0x3333](https://github.com/0x3333)
+- [voice-assistant] Dont error on ``no_wake_word`` timeout error with streaming wake word [esphome#7435](https://github.com/esphome/esphome/pull/7435) by [@jesserockz](https://github.com/jesserockz)
+- Improve manufacturer data tracing to identify BLE devices a bit easie… [esphome#7332](https://github.com/esphome/esphome/pull/7332) by [@tomer-w](https://github.com/tomer-w)
+- Add sample_bytes to media player supported format [esphome#7451](https://github.com/esphome/esphome/pull/7451) by [@synesthesiam](https://github.com/synesthesiam)
+- [docker] Bump git from 1:2.39.2-1.1 to 1:2.39.5-0+deb12u1 [esphome#7452](https://github.com/esphome/esphome/pull/7452) by [@jesserockz](https://github.com/jesserockz)
+- Add voice assistant configuration messages [esphome#7445](https://github.com/esphome/esphome/pull/7445) by [@synesthesiam](https://github.com/synesthesiam)
+- Dont replace project name spaces with underlines [esphome#7455](https://github.com/esphome/esphome/pull/7455) by [@jesserockz](https://github.com/jesserockz)
+- Add voice assistant methods for configuration [esphome#7459](https://github.com/esphome/esphome/pull/7459) by [@synesthesiam](https://github.com/synesthesiam)
 
