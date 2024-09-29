@@ -1,17 +1,154 @@
-## What’s changed
 
-## ⬆️ Dependency updates
+## 4.3.3 (24-08-2024)
+- Update to latest version from linuxserver/docker-sabnzbd (changelog : https://github.com/linuxserver/docker-sabnzbd/releases)
 
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v16.0.1 @renovate ([#25](https://github.com/hassio-addons/addon-sabnzbd/pull/25))
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v16.1.0 @renovate ([#26](https://github.com/hassio-addons/addon-sabnzbd/pull/26))
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v16.1.1 @renovate ([#27](https://github.com/hassio-addons/addon-sabnzbd/pull/27))
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v16.1.2 @renovate ([#28](https://github.com/hassio-addons/addon-sabnzbd/pull/28))
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v16.1.3 @renovate ([#29](https://github.com/hassio-addons/addon-sabnzbd/pull/29))
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v16.2.0 @renovate ([#30](https://github.com/hassio-addons/addon-sabnzbd/pull/30))
-- ⬆️ Update alpine_3_20/py3-setuptools to v70 @renovate ([#32](https://github.com/hassio-addons/addon-sabnzbd/pull/32))
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v16.2.1 @renovate ([#33](https://github.com/hassio-addons/addon-sabnzbd/pull/33))
-- ⬆️ Update alpine_3_20/nginx to v1.26.2-r0 @renovate ([#34](https://github.com/hassio-addons/addon-sabnzbd/pull/34))
-- ⬆️ Update sabnzbd/sabnzbd to v4.3.3 @renovate ([#35](https://github.com/hassio-addons/addon-sabnzbd/pull/35))
-- ⬆️ Update alpine_3_20/python3-dev to v3.12.3-r2 @renovate ([#37](https://github.com/hassio-addons/addon-sabnzbd/pull/37))
-- ⬆️ Update alpine_3_20/python3 to v3.12.3-r2 @renovate ([#36](https://github.com/hassio-addons/addon-sabnzbd/pull/36))
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v16.3.0 @renovate ([#38](https://github.com/hassio-addons/addon-sabnzbd/pull/38))
+## 4.3.2 (01-06-2024)
+- Update to latest version from linuxserver/docker-sabnzbd (changelog : https://github.com/linuxserver/docker-sabnzbd/releases)
+
+## 4.3.1 (11-05-2024)
+- Update to latest version from linuxserver/docker-sabnzbd (changelog : https://github.com/linuxserver/docker-sabnzbd/releases)
+
+## 4.3.0 (04-05-2024)
+- Update to latest version from linuxserver/docker-sabnzbd (changelog : https://github.com/linuxserver/docker-sabnzbd/releases)
+
+## 4.2.3 (16-03-2024)
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 4.2.2 (03-02-2024)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 4.2.1 (06-01-2024)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 4.1.0 (30-09-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 4.0.3 (26-08-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 4.0.3-ls123 (26-08-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 4.0.3-ls122 (19-08-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 4.0.3-ls120 (12-08-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 4.0.3-ls119 (05-08-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 4.0.3-ls118 (29-07-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 4.0.3-ls117 (22-07-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 4.0.3-ls116 (15-07-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 4.0.2-ls115 (08-07-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 4.0.2-ls114 (01-07-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 4.0.2-ls113 (24-06-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 4.0.2-ls112 (17-06-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 4.0.2-ls111 (10-06-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 4.0.1-ls110 (03-06-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 4.0.1-ls109 (27-05-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 4.0.1-ls108 (19-05-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+- armv7 support removed
+
+## 4.0.1-ls106 (13-05-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+- Feat : cifsdomain added
+
+## 4.0.1-ls105 (06-05-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 4.0.0-ls104 (29-04-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 3.7.2-ls102 (21-04-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 3.7.2-ls101 (08-04-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 3.7.2-ls100 (31-03-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 3.7.2-ls99 (25-03-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 3.7.2-ls98 (24-03-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 3.7.2-ls97 (18-03-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 3.7.2-ls95 (11-03-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 3.7.2-ls93 (04-03-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 3.7.2-ls92 (25-02-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 3.7.2-ls91 (19-02-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 3.7.2-ls90 (11-02-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+
+## 3.7.1-ls89 (04-02-2023)
+
+- Update to latest version from linuxserver/docker-sabnzbd
+- Initial release (latest builds)
