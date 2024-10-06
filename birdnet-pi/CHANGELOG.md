@@ -1,3 +1,10 @@
+## 0.13-97 (05-10-2024)
+- [SERVER] Fix timezone. Use by priority : TZ defined in addon options, TZ defined in BirdNET-options, or automatic TZ
+- [UI] New species are highlighted on top of overview page
+
+## 0.13-95 (02-10-2024)
+- [UI/Feat] Add toggle switches for purge and confirmed species
+
 ## 0.13-90 (25-09-2024)
 - [UI] Sort species by max detections
 - [UI] Consistent layout between overview and todays pages
@@ -12,7 +19,7 @@
 - [MQTT] Fix auto detection @UlrichThiess
 
 ## 0.13-83 (14-08-2024)
-- [MQTT] Change logic as a hook in birdnet_analysis instead of a service 
+- [MQTT] Change logic as a hook in birdnet_analysis instead of a service
 - [DEFAULT] disable by default autopublishing of MQTT
 
 ## 0.13-79 (13-08-2024)
