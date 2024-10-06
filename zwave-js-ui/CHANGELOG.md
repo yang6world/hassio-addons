@@ -2,4 +2,4 @@
 
 ## ⬆️ Dependency updates
 
-- ⬆️ Update zwave-js/zwave-js-ui to v9.21.0 @renovate ([#710](https://github.com/hassio-addons/addon-zwave-js-ui/pull/710))
+- ⬆️ Update ghcr.io/hassio-addons/base-nodejs Docker tag to v0.2.5 @renovate ([#712](https://github.com/hassio-addons/addon-zwave-js-ui/pull/712))
