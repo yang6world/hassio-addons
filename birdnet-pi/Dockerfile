@@ -102,7 +102,10 @@ RUN \
     \
     # Cleanup
     apt-get clean all && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    \
+    # Install resampy
+    $PYTHON_VIRTUAL_ENV /usr/bin/pip3 install resampy
 
 # Add PR
 #RUN \
@@ -161,7 +164,7 @@ ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templat
 RUN chmod 744 /ha_automodules.sh && /ha_automodules.sh "$MODULES" && rm /ha_automodules.sh
 
 # Manual apps
-ENV PACKAGES="alsa-utils libasound2-plugins mosquitto-clients rsync"
+ENV PACKAGES="alsa-utils libasound2-plugins mosquitto-clients"
 
 # Automatic apps & bashio
 ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_autoapps.sh" "/ha_autoapps.sh"

@@ -1,3 +1,6 @@
+## 1.5.5 (08-10-2024)
+- Info : https://hub.docker.com/r/abesnier/guacamole
+
 ## TEST3 (18-03-2024)
 - Minor bugs fixed
 ## TEST2 (18-03-2024)

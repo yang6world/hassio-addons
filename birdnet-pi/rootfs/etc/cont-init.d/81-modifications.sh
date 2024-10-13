@@ -70,7 +70,14 @@ chmod a+x /bin/systemctl
 # Correct timedatectl path
 echo "updating timedatectl path"
 mv /helpers/timedatectl /usr/bin/timedatectl
+chown pi:pi /usr/bin/timedatectl
 chmod a+x /usr/bin/timedatectl
+
+# Correct timezone showing in config.php
+sed -i -e '/<option disabled selected>/s/selected//' \
+       -e '/\$current_timezone = trim(shell_exec("timedatectl show --value --property=Timezone"));/d' \
+       -e "/\$date = new DateTime('now');/i \$current_timezone = trim(shell_exec(\"timedatectl show --value --property=Timezone\"));" \
+       -e "/\$date = new DateTime('now');/i date_default_timezone_set(\$current_timezone);" "$HOME/BirdNET-Pi/scripts/config.php"
 
 # Correct language labels according to birdnet.conf
 echo "... adapting labels according to birdnet.conf"

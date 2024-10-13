@@ -27,17 +27,52 @@ My recommendation :
     - Minimum confidence : 0,7
     - Sigmoid sensitivity : 1,25 _(I've tried 1,00 but it gave much more false positives ; as decreasing this value increases sensitivity)_
 
-# Set RTSP server
+# Set RTSP server (https://github.com/mcguirepr89/BirdNET-Pi/discussions/1006#discussioncomment-6747450)
 ### On your desktop
 Download imager
 Install raspbian lite 64
 
-### With ssh
-sudo apt-get update
-sudo apt-get apt-get dist-upgrade
+### With ssh, install requisite softwares
+```
+# Update
+
+sudo apt-get update -y
+sudo apt-get dist-upgrade -y
+
+# Disable useless services
+sudo systemctl disable hciuart
+sudo systemctl disable bluetooth
+sudo systemctl disable triggerhappy
+sudo systemctl disable avahi-daemon
+sudo systemctl disable dphys-swapfile
+
+# Install RTSP server
+sudo apt-get install -y micro ffmpeg lsof
+sudo -s cd /root && wget -c https://github.com/bluenviron/mediamtx/releases/download/v1.9.1/mediamtx_v1.9.1_linux_arm64v8.tar.gz -O - | sudo tar -xz
+```
+
+### Modify config.txt
+
+sudo nano /boot/firmware/config.txt
+```
+# Enable audio and USB optimizations
+dtparam=audio=off          # Disable the default onboard audio to prevent conflicts
+dtoverlay=disable-bt        # Disable onboard Bluetooth to reduce USB bandwidth usage
+dtoverlay=disable-wifi      # Disable onboard wifi
+# Limit Ethernet to 100 Mbps (disable Gigabit Ethernet)
+dtparam=eth_max_speed=100
+# USB optimizations
+dwc_otg.fiq_fix_enable=1    # Enable FIQ (Fast Interrupt) handling for improved USB performance
+max_usb_current=1           # Increase the available USB current (required if Scarlett is powered over USB)
+# Additional audio settings (for low-latency operation)
+avoid_pwm_pll=1             # Use a more stable PLL for the audio clock
+# Optional: HDMI and other settings can be turned off if not needed
+hdmi_blanking=1             # Disable HDMI (save power and reduce interference)
+```
 
 ### Optional : install Focusrite driver
-apt-get install make linux-headers-$(uname -r)`)
+```
+sudo apt-get install make linux-headers-$(uname -r)
 curl -LO https://github.com/geoffreybennett/scarlett-gen2/releases/download/v6.9-v1.3/snd-usb-audio-kmod-6.6-v1.3.tar.gz
 tar -xzf snd-usb-audio-kmod-6.6-v1.3.tar.gz
 cd snd-usb-audio-kmod-6.6-v1.3
@@ -48,18 +83,16 @@ sudo make -j4 -C $KSRCDIR M=$(pwd) INSTALL_MOD_DIR=updates/snd-usb-audio modules
 sudo depmod
 sudo reboot
 dmesg | grep -A 5 -B 5 -i focusrite
+```
 
-### Install RTSP server
-wget https://github.com/geoffreybennett/scarlett-gen2/releases/download/v6.9-v1.3/snd-usb-audio-kmod-6.6-v1.3.tar.gz
-
-sudo apt-get install -y micro ffmpeg lsof
-sudo -s cd /root && wget -c https://github.com/bluenviron/mediamtx/releases/download/v1.8.3/mediamtx_v1.8.3_linux_arm64v8.tar.gz -O - | sudo tar -xz
-
-### List audio devices
+### Find right device
+```
+# List audio devices
 arecord -l
 
-### Check audio device parameters. Example :
+# Check audio device parameters. Example :
 arecord -D hw:1,0 --dump-hw-params
+```
 
 ### Add startup script
 sudo nano startmic.sh
@@ -72,8 +105,79 @@ sudo ethtool -s eth0 speed 100 duplex full autoneg on
 ./mediamtx & true
 # Create rtsp feed
 sleep 5
-ffmpeg -nostdin -f alsa -acodec pcm_s24le -ac 2 -ar 48000 -i hw:1,0 -f rtsp -acodec pcm_s16le rtsp://localhost:8554/birdmic -rtsp_transport tcp || true & true
+# Using hw
+ffmpeg -nostdin -f alsa -acodec pcm_s16le -ac 2 -ar 48000 -i hw:0,0 -f rtsp -acodec pcm_s16le rtsp://localhost:8554/birdmic -rtsp_transport tcp || true & true
+# Using plughw
+#ffmpeg -nostdin -f alsa -acodec pcm_s32le -ac 2 -ar 48000 -i plughw:1,0 -f rtsp -acodec pcm_s16be rtsp://localhost:8554/birdmic -rtsp_transport tcp -buffer_size 512k || true & true
+# Using plughw with high, lowpass, and limit to avoid clipping
+#ffmpeg -nostdin -f alsa -acodec pcm_s32le -ac 2 -ar 48000 -i plughw:0,0 -af "highpass=f=100, lowpass=f=15000, alimiter=limit=1.0:attack=5:release=50" -f rtsp -acodec pcm_s16be rtsp://localhost:8554/birdmic -rtsp_transport tcp -buffer_size 512k || true & true
 
 # Set microphone volume
 sleep 5
-amixer -c 1 sset Mic 71%
+MICROPHONE_NAME="Line In 1 Gain" # for Focusrite Scarlett 2i2
+amixer -c 0 sset "$MICROPHONE_NAME" 60%
+
+```
+
+Startup automatically
+```
+chmod +x startmic.sh
+crontab -e # select nano as your editor
+```
+Paste in `@reboot $HOME/startmic.sh` then save and exit nano.
+Reboot the Pi and test again with VLC to make sure the RTSP stream is live.
+
+### Configuration for Focusrite Scarlett 2i2
+
+```
+#!/bin/bash
+
+# Set PCM controls for capture
+amixer -c 0 cset numid=31 'Analogue 1'  # 'PCM 01' - Set to 'Analogue 1'
+amixer -c 0 cset numid=32 'Analogue 1'  # 'PCM 02' - Set to 'Analogue 1'
+amixer -c 0 cset numid=33 'Off'         # 'PCM 03' - Disabled
+amixer -c 0 cset numid=34 'Off'         # 'PCM 04' - Disabled
+
+# Set DSP Input controls (Unused, set to Off)
+amixer -c 0 cset numid=29 'Off'         # 'DSP Input 1'
+amixer -c 0 cset numid=30 'Off'         # 'DSP Input 2'
+
+# Configure Line In 1 as main input for mono setup
+amixer -c 0 cset numid=8 'Off'          # 'Line In 1 Air' - Keep 'Off'
+amixer -c 0 cset numid=14 off           # 'Line In 1 Autogain' - Disabled
+amixer -c 0 cset numid=13 80%            # 'Line In 1 Gain' - Set gain to 21
+amixer -c 0 cset numid=6 'Line'         # 'Line In 1 Level' - Set level to 'Line'
+amixer -c 0 cset numid=21 on           # 'Line In 1 Safe' - Enabled to avoid clipping / noise impact ?
+
+# Disable Line In 2 to minimize interference (if not used)
+amixer -c 0 cset numid=9 'Off'          # 'Line In 2 Air'
+amixer -c 0 cset numid=17 off           # 'Line In 2 Autogain' - Disabled
+amixer -c 0 cset numid=16 0             # 'Line In 2 Gain' - Set gain to 0 (mute)
+amixer -c 0 cset numid=7 'Line'         # 'Line In 2 Level' - Set to 'Line'
+amixer -c 0 cset numid=22 off           # 'Line In 2 Safe' - Disabled
+
+# Set Line In 1-2 controls
+amixer -c 0 cset numid=12 off           # 'Line In 1-2 Link' - No need to link for mono
+amixer -c 0 cset numid=10 on            # 'Line In 1-2 Phantom Power' - Enabled for condenser mics
+
+# Set Analogue Outputs to use the same mix for both channels (Mono setup)
+amixer -c 0 cset numid=23 'Mix A'       # 'Analogue Output 01' - Set to 'Mix A'
+amixer -c 0 cset numid=24 'Mix A'       # 'Analogue Output 02' - Same mix as Output 01
+
+# Set Direct Monitor to off to prevent feedback
+amixer -c 0 cset numid=53 'Off'         # 'Direct Monitor'
+
+# Set Input Select to Input 1
+amixer -c 0 cset numid=11 'Input 1'     # 'Input Select'
+
+# Optimize Monitor Mix settings for mono output
+amixer -c 0 cset numid=54 153           # 'Monitor 1 Mix A Input 01' - Set to 153 (around -3.50 dB)
+amixer -c 0 cset numid=55 153           # 'Monitor 1 Mix A Input 02' - Set to 153 for balanced output
+amixer -c 0 cset numid=56 0             # 'Monitor 1 Mix A Input 03' - Mute unused channels
+amixer -c 0 cset numid=57 0             # 'Monitor 1 Mix A Input 04'
+
+# Set Sync Status to Locked
+amixer -c 0 cset numid=52 'Locked'      # 'Sync Status'
+
+echo "Mono optimization applied. Only using primary input and balanced outputs."
+```

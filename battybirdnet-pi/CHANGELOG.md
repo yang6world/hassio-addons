@@ -1,3 +1,17 @@
+## 0.94 (12-10-2024)
+- Minor bugs fixed
+## 0.93 (12-10-2024)
+- Minor bugs fixed
+## 0.92 (12-10-2024)
+- Minor bugs fixed
+## 0.91 (12-10-2024)
+- Minor bugs fixed
+## 0.9 (11-10-2024)
+- Minor bugs fixed
+## 0.8 (11-10-2024)
+- Minor bugs fixed
+## 0.7 (09-10-2024)
+- Minor bugs fixed
 ## 0.6 (02-09-2024)
 - Minor bugs fixed
 ## 0.3 (30-08-2024)
