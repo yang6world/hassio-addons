@@ -1,4 +1,37 @@
-## 2024.10.0b1
+## 2024.10.0
+
+## Full list of changes
+
+### New Components
+
+- Add OpenTherm component (part 1: communication layer and hub) [esphome#6645](https://github.com/esphome/esphome/pull/6645) by [@olegtarasov](https://github.com/olegtarasov) (new-integration)
+- Add tca9555 GPIO driver [esphome#7146](https://github.com/esphome/esphome/pull/7146) by [@mobrembski](https://github.com/mobrembski) (new-integration)
+- Add support for Sharp GP2Y1010AU0F PM2.5 sensor [esphome#6007](https://github.com/esphome/esphome/pull/6007) by [@zry98](https://github.com/zry98) (new-integration)
+- [audio_dac] [aic3204] Add new component + platform [esphome#7505](https://github.com/esphome/esphome/pull/7505) by [@kbx81](https://github.com/kbx81) (new-integration)
+- Feature/add seeed grove gmxxx multichannel gas support [esphome#4304](https://github.com/esphome/esphome/pull/4304) by [@YorkshireIoT](https://github.com/YorkshireIoT) (new-integration)
+- Add Initial TE-M3200 pressure sensor support [esphome#6862](https://github.com/esphome/esphome/pull/6862) by [@bakerkj](https://github.com/bakerkj) (new-integration)
+- Add Initial NPI-19 pressure sensor support [esphome#7181](https://github.com/esphome/esphome/pull/7181) by [@bakerkj](https://github.com/bakerkj) (new-integration)
+- nau7802: new component [esphome#6291](https://github.com/esphome/esphome/pull/6291) by [@cujomalainey](https://github.com/cujomalainey) (new-integration)
+
+### New Platforms
+
+- Haier climate integration update [esphome#7416](https://github.com/esphome/esphome/pull/7416) by [@paveldn](https://github.com/paveldn) (breaking-change) (new-platform)
+
+### Breaking Changes
+
+- Haier climate integration update [esphome#7416](https://github.com/esphome/esphome/pull/7416) by [@paveldn](https://github.com/paveldn) (breaking-change) (new-platform)
+- [ch422g] Add support for pins 8-11; make input work. [esphome#7467](https://github.com/esphome/esphome/pull/7467) by [@clydebarrow](https://github.com/clydebarrow) (breaking-change)
+- CSE7766 needs even parity [esphome#7549](https://github.com/esphome/esphome/pull/7549) by [@ssieb](https://github.com/ssieb) (breaking-change)
+- [web_server] v3 entity grouping [esphome#6833](https://github.com/esphome/esphome/pull/6833) by [@RFDarter](https://github.com/RFDarter) (breaking-change)
+
+### Beta Changes
+
+- fix uart settings check [esphome#7573](https://github.com/esphome/esphome/pull/7573) by [@ssieb](https://github.com/ssieb)
+- [web_server] Event component grouping [esphome#7586](https://github.com/esphome/esphome/pull/7586) by [@RFDarter](https://github.com/RFDarter)
+- [touchscreen] Fix coordinates when using rotation [esphome#7591](https://github.com/esphome/esphome/pull/7591) by [@clydebarrow](https://github.com/clydebarrow)
+- Fix update sequence when update is set to false (#5225) [esphome#7407](https://github.com/esphome/esphome/pull/7407) by [@edge90](https://github.com/edge90)
+
+### All changes
 
 - Bump peter-evans/create-pull-request from 7.0.0 to 7.0.2 [esphome#7437](https://github.com/esphome/esphome/pull/7437) by [@dependabot[bot]](https://github.com/apps/dependabot)
 - Bump recommended ESP-IDF to 4.4.8 [esphome#7349](https://github.com/esphome/esphome/pull/7349) by [@bdraco](https://github.com/bdraco)
@@ -78,4 +111,9 @@
 - Bump actions/upload-artifact from 4.4.1 to 4.4.2 [esphome#7569](https://github.com/esphome/esphome/pull/7569) by [@dependabot[bot]](https://github.com/apps/dependabot)
 - Bump actions/cache from 4.1.0 to 4.1.1 [esphome#7570](https://github.com/esphome/esphome/pull/7570) by [@dependabot[bot]](https://github.com/apps/dependabot)
 - Bump actions/cache from 4.1.0 to 4.1.1 in /.github/actions/restore-python [esphome#7571](https://github.com/esphome/esphome/pull/7571) by [@dependabot[bot]](https://github.com/apps/dependabot)
+- fix uart settings check [esphome#7573](https://github.com/esphome/esphome/pull/7573) by [@ssieb](https://github.com/ssieb)
+- [CI] failures when installing using apt-get. [esphome#7593](https://github.com/esphome/esphome/pull/7593) by [@clydebarrow](https://github.com/clydebarrow)
+- [web_server] Event component grouping [esphome#7586](https://github.com/esphome/esphome/pull/7586) by [@RFDarter](https://github.com/RFDarter)
+- [touchscreen] Fix coordinates when using rotation [esphome#7591](https://github.com/esphome/esphome/pull/7591) by [@clydebarrow](https://github.com/clydebarrow)
+- Fix update sequence when update is set to false (#5225) [esphome#7407](https://github.com/esphome/esphome/pull/7407) by [@edge90](https://github.com/edge90)
 
