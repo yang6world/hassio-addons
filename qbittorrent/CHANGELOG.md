@@ -1,3 +1,5 @@
+## 5.0.0-3 (13-10-2024)
+- Solve qbittorrent-nox error
 
 ## 5.0.0 (05-10-2024)
 - Update to latest version from linuxserver/docker-qbittorrent (changelog : https://github.com/linuxserver/docker-qbittorrent/releases)
