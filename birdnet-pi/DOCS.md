@@ -48,13 +48,6 @@ Inspired by : https://github.com/mcguirepr89/BirdNET-Pi/discussions/1006#discuss
 sudo apt-get update -y
 sudo apt-get dist-upgrade -y
 
-# Disable useless services
-sudo systemctl disable hciuart
-sudo systemctl disable bluetooth
-sudo systemctl disable triggerhappy
-sudo systemctl disable avahi-daemon
-sudo systemctl disable dphys-swapfile
-
 # Install RTSP server
 sudo apt-get install -y micro ffmpeg lsof
 sudo -s cd /root && wget -c https://github.com/bluenviron/mediamtx/releases/download/v1.9.1/mediamtx_v1.9.1_linux_arm64v8.tar.gz -O - | sudo tar -xz
@@ -84,38 +77,14 @@ echo "Starting birdmic"
 # Disable gigabit ethernet
 sudo ethtool -s eth0 speed 100 duplex full autoneg on
 
-# Run GStreamer RTSP server if installed
-if command -v gst-launch-1.0 &>/dev/null; then
-    ./rtsp_audio_server.py & sleep 2 >/tmp/log_rtsp 2>/tmp/log_rtsp_error &
-    gst_pid=$!
-else
-    echo "GStreamer not found, skipping to ffmpeg fallback"
-    gst_pid=0
-fi
-
-# Wait for a moment to let GStreamer initialize
+# Start mediamtx first and give it a moment to initialize
+./mediamtx & 
 sleep 5
-
-# Check if the RTSP stream can be accessed (i.e., the feed can be read)
-if ! ffmpeg -rtsp_transport tcp -i rtsp://localhost:8554/birdmic -t 1 -f null - > /dev/null 2>&1; then
-    echo "GStreamer RTSP stream is not accessible, switching to ffmpeg"
     
-    # Kill the GStreamer process if it's still running
-    if [ "$gst_pid" -ne 0 ]; then
-        kill "$gst_pid"
-    fi
-    
-    # Start mediamtx first and give it a moment to initialize
-    ./mediamtx & 
-    sleep 5
-    
-    # Run ffmpeg as fallback
-    ffmpeg -nostdin -use_wallclock_as_timestamps 1 -fflags +genpts -f alsa -acodec pcm_s16be -ac 2 -ar 96000 \
-        -i plughw:0,0 -ac 2 -f rtsp -acodec pcm_s16be rtsp://localhost:8554/birdmic -rtsp_transport tcp \
-        -buffer_size 512k 2>/tmp/rtsp_error &
-else
-    echo "GStreamer RTSP stream is running successfully"
-fi
+# Run ffmpeg
+ffmpeg -nostdin -use_wallclock_as_timestamps 1 -fflags +genpts -f alsa -acodec pcm_s16be -ac 2 -ar 96000 \
+-i plughw:0,0 -ac 2 -f rtsp -acodec pcm_s16be rtsp://localhost:8554/birdmic -rtsp_transport tcp \
+-buffer_size 512k 2>/tmp/rtsp_error &
 
 # Set microphone volume
 sleep 5
@@ -126,11 +95,11 @@ sleep 60
 
 # Run focusrite and autogain scripts if present
 if [ -f "$HOME/focusrite.sh" ]; then
-    "$HOME/focusrite.sh" >/tmp/log_focusrite 2>/tmp/log_focusrite_error &
+    sudo python3 -u "$HOME/focusrite.sh" >/tmp/log_focusrite 2>/tmp/log_focusrite_error &
 fi
 
 if [ -f "$HOME/autogain.py" ]; then
-    "$HOME/autogain.py" >/tmp/log_autogain 2>/tmp/log_autogain_error &
+    sudo python3 -u "$HOME/autogain.py" >/tmp/log_autogain 2>/tmp/log_autogain_error &
 fi
 ```
 
@@ -277,7 +246,9 @@ Reboot the Pi and test again with VLC to make sure the RTSP stream is live.
 </details>
 
 <details>
-<summary>Optional : optimize config.txt</summary>
+<summary>Optional : disable unecessary elements</summary>
+
+- Optimize config.txt
 
 sudo nano /boot/firmware/config.txt
 ```
@@ -294,6 +265,49 @@ max_usb_current=1           # Increase the available USB current (required if Sc
 avoid_pwm_pll=1             # Use a more stable PLL for the audio clock
 # Optional: HDMI and other settings can be turned off if not needed
 hdmi_blanking=1             # Disable HDMI (save power and reduce interference)
+```
+
+- Disable useless services
+
+```
+
+# Disable useless services
+sudo systemctl disable hciuart
+sudo systemctl disable bluetooth
+sudo systemctl disable triggerhappy
+sudo systemctl disable avahi-daemon
+sudo systemctl disable dphys-swapfile
+sudo systemctl disable hciuart.service
+
+# Disable bluetooth
+for element in bluetooth btbcm hci_uart btintel btrtl btusb; do
+    sudo sed -i "/$element/d" /etc/modprobe.d/raspi-blacklist.conf
+    echo "blacklist $element" | sudo tee -a /etc/modprobe.d/raspi-blacklist.conf
+done
+
+# Disable Video (Including V4L2) on Your Raspberry Pi
+for element in bcm2835_v4l2 bcm2835_codec bcm2835_isp videobuf2_vmalloc videobuf2_memops videobuf2_v4l2 videobuf2_common videodev; do
+    sudo sed -i "/$element/d" /etc/modprobe.d/raspi-blacklist.conf
+    echo "blacklist $element" | sudo tee -a /etc/modprobe.d/raspi-blacklist.conf
+done
+
+# Disable WiFi Power Management
+sudo iw dev wlan0 set power_save off
+for element in brcmfmac brcmutil; do
+    sudo sed -i "/$element/d" /etc/modprobe.d/raspi-blacklist.conf
+    echo "blacklist $element" | sudo tee -a /etc/modprobe.d/raspi-blacklist.conf
+done
+
+# Disable USB Power Management
+echo 'on' | sudo tee /sys/bus/usb/devices/usb*/power/control
+
+# Preventing the Raspberry Pi from Entering Power-Saving Mode
+sudo apt update
+sudo apt install -y cpufrequtils
+echo 'GOVERNOR="performance"' | sudo tee /etc/default/cpufrequtils
+sudo systemctl disable ondemand
+sudo systemctl stop ondemand
+
 ```
 
 </details>
@@ -397,8 +411,8 @@ Microphone Gain Adjustment Script with THD and Overload Detection
 
 This script captures audio from an RTSP stream, processes it to calculate the RMS
 within the 2000-8000 Hz frequency band, detects clipping, calculates Total Harmonic
-Distortion (THD), and adjusts the microphone gain based on predefined noise thresholds,
-trends, and distortion metrics.
+Distortion (THD) over the full frequency range, and adjusts the microphone gain based 
+on predefined noise thresholds, trends, and distortion metrics.
 
 Dependencies:
 - numpy
@@ -407,7 +421,16 @@ Dependencies:
 - amixer (for microphone gain control)
 
 Author: OpenAI ChatGPT
-Date: 2024-04-27 (Updated)
+Date: 2024-10-28 (Updated)
+
+Changelog:
+- 2024-10-27: Increased sampling rate to 48,000 Hz.
+- 2024-10-27: Extended THD calculation over the full frequency range.
+- 2024-10-27: Added gain stabilization delay to reduce frequent adjustments.
+- 2024-10-27: Improved RTSP stream resilience with retry logic.
+- 2024-10-27: Enhanced debug output with logging levels.
+- 2024-10-28: Added summary log mode for simplified output.
+- 2024-10-28: Removed gain stabilization delay for immediate gain adjustments.
 """
 
 import subprocess
@@ -419,104 +442,112 @@ import re
 # ---------------------------- Configuration ----------------------------
 
 # Microphone Settings
-MICROPHONE_NAME = "Line In 1 Gain"  # Adjust to match your microphone's control name
-MIN_GAIN_DB = 20                    # Minimum gain in dB
-MAX_GAIN_DB = 45                    # Maximum gain in dB
-DECREASE_GAIN_STEP_DB = 1           # Gain decrease step in dB
-INCREASE_GAIN_STEP_DB = 5           # Gain increase step in dB
-CLIPPING_REDUCTION_DB = 3           # Reduction in dB if clipping is detected
+MICROPHONE_NAME = "Line In 1 Gain"
+MIN_GAIN_DB = 20
+MAX_GAIN_DB = 40
+DECREASE_GAIN_STEP_DB = 1
+INCREASE_GAIN_STEP_DB = 5
+CLIPPING_REDUCTION_DB = 3
 
 # Noise Thresholds
-NOISE_THRESHOLD_HIGH = 0.001        # Upper threshold for noise RMS amplitude
-NOISE_THRESHOLD_LOW = 0.00035       # Lower threshold for noise RMS amplitude
+NOISE_THRESHOLD_HIGH = 0.001
+NOISE_THRESHOLD_LOW = 0.00035
 
 # Trend Detection
-TREND_COUNT_THRESHOLD = 3           # Number of consecutive trends needed to adjust gain
+TREND_COUNT_THRESHOLD = 3
+
+# Sampling Rate
+SAMPLING_RATE = 44100
 
 # RTSP Stream URL
-RTSP_URL = "rtsp://192.168.178.124:8554/birdmic"  # Replace with your RTSP stream URL
+RTSP_URL = "rtsp://192.168.178.124:8554/birdmic"
 
-# Debug Mode (1 for enabled, 0 for disabled)
-DEBUG = 1
+# Debug and Summary Modes
+DEBUG = 1            # Debug Mode (1 for enabled, 0 for disabled)
+SUMMARY_MODE = True  # Summary Mode (True for summary output only)
 
 # Microphone Characteristics
-MIC_SENSITIVITY_DB = -28  # dB (0 dB = 1V/Pa)
-MIC_CLIPPING_SPL = 120    # dB SPL at 1 kHz
+MIC_SENSITIVITY_DB = -28
+MIC_CLIPPING_SPL = 120
 
-# Calibration Constants (These may need to be adjusted based on actual calibration)
-REFERENCE_PRESSURE = 20e-6  # 20 µPa, standard reference for SPL
+# Calibration Constants
+REFERENCE_PRESSURE = 20e-6
 
 # THD Settings
-THD_FUNDAMENTAL_THRESHOLD_DB = 60  # Minimum SPL to consider THD calculation
-MAX_THD_PERCENTAGE = 5.0           # Maximum acceptable THD percentage
+THD_FUNDAMENTAL_THRESHOLD_DB = 60
+MAX_THD_PERCENTAGE = 5.0
 
 # -----------------------------------------------------------------------
 
 
-def debug_print(msg):
+def debug_print(msg, level="info"):
     """
-    Prints debug messages if DEBUG mode is enabled.
-
+    Prints debug messages with logging levels if DEBUG mode is enabled.
     :param msg: The debug message to print.
+    :param level: Logging level - "info", "warning", "error".
     """
     if DEBUG:
         current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-        print(f"[{current_time}] [DEBUG] {msg}")
+        print(f"[{current_time}] [{level.upper()}] {msg}")
+
+
+def summary_log(current_gain, clipping, rms_amplitude, thd_percentage):
+    """
+    Outputs a summary log with date, time, current gain, clipping status, background noise, and THD.
+    :param current_gain: Current microphone gain in dB.
+    :param clipping: Clipping status (yes/no).
+    :param rms_amplitude: Background noise RMS amplitude.
+    :param thd_percentage: THD in percentage.
+    """
+    if SUMMARY_MODE:
+        current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        clipping_status = "Yes" if clipping else "No"
+        print(f"[{current_time}] [SUMMARY] Gain: {current_gain:.1f} dB | Clipping: {clipping_status} | "
+              f"Noise: {rms_amplitude:.5f} | THD: {thd_percentage:.2f}%")
 
 
 def get_gain_db(mic_name):
     """
     Retrieves the current gain setting of the specified microphone using amixer.
-
-    :param mic_name: The name of the microphone control in amixer.
-    :return: The current gain in dB as a float, or None if retrieval fails.
     """
     cmd = ['amixer', 'sget', mic_name]
     try:
         output = subprocess.check_output(cmd, stderr=subprocess.STDOUT).decode()
-        # Regex to find patterns like [30.00dB]
         match = re.search(r'\[(-?\d+(\.\d+)?)dB\]', output)
         if match:
             gain_db = float(match.group(1))
-            debug_print(f"Retrieved gain: {gain_db} dB")
+            debug_print(f"Retrieved gain: {gain_db} dB", "info")
             return gain_db
         else:
-            debug_print("No gain information found in amixer output.")
+            debug_print("No gain information found in amixer output.", "warning")
             return None
     except subprocess.CalledProcessError as e:
-        debug_print(f"amixer sget failed: {e}")
+        debug_print(f"amixer sget failed: {e}", "error")
         return None
 
 
 def set_gain_db(mic_name, gain_db):
     """
     Sets the gain of the specified microphone using amixer.
-
-    :param mic_name: The name of the microphone control in amixer.
-    :param gain_db: The desired gain in dB.
-    :return: True if the gain was set successfully, False otherwise.
     """
+    gain_db_int = int(gain_db)
+    if gain_db_int > MAX_GAIN_DB:
+        debug_print(f"Requested gain {gain_db_int} dB exceeds MAX_GAIN_DB {MAX_GAIN_DB} dB. Skipping.", "warning")
+        return False  # Do not exceed max gain
     cmd = ['amixer', 'sset', mic_name, f'{gain_db}dB']
     try:
-        subprocess.check_call(cmd, stderr=subprocess.STDOUT)
-        debug_print(f"Set gain to: {gain_db} dB")
+        subprocess.check_call(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+        debug_print(f"Set gain to: {gain_db} dB", "info")
         return True
     except subprocess.CalledProcessError as e:
-        debug_print(f"amixer sset failed: {e}")
+        debug_print(f"amixer sset failed: {e}", "error")
         return False
 
 
-def find_fundamental_frequency(fft_freqs, fft_magnitude, min_freq=1000, max_freq=8000):
+def find_fundamental_frequency(fft_freqs, fft_magnitude, min_freq=2000, max_freq=8000):
     """
     Dynamically finds the fundamental frequency within a specified range.
-
-    :param fft_freqs: Array of frequency bins from FFT.
-    :param fft_magnitude: Magnitude spectrum from FFT.
-    :param min_freq: Minimum frequency to search for the fundamental.
-    :param max_freq: Maximum frequency to search for the fundamental.
-    :return: Fundamental frequency in Hz and its amplitude.
     """
-    # Limit search to the specified frequency range
     idx_min = np.searchsorted(fft_freqs, min_freq)
     idx_max = np.searchsorted(fft_freqs, max_freq)
     if idx_max <= idx_min:
@@ -524,105 +555,69 @@ def find_fundamental_frequency(fft_freqs, fft_magnitude, min_freq=1000, max_freq
 
     search_magnitude = fft_magnitude[idx_min:idx_max]
     search_freqs = fft_freqs[idx_min:idx_max]
-
-    # Find peaks in the magnitude spectrum
     peaks, properties = find_peaks(search_magnitude, height=np.max(search_magnitude) * 0.1)
     if len(peaks) == 0:
         return None, 0
 
-    # Identify the peak with the highest magnitude
-    peak_heights = properties['peak_heights']
-    max_peak_idx = np.argmax(peak_heights)
+    max_peak_idx = np.argmax(properties['peak_heights'])
     fundamental_freq = search_freqs[peaks[max_peak_idx]]
     fundamental_amplitude = search_magnitude[peaks[max_peak_idx]]
 
-    debug_print(f"Detected fundamental frequency: {fundamental_freq:.2f} Hz with amplitude {fundamental_amplitude:.4f}")
+    debug_print(f"Detected fundamental frequency: {fundamental_freq:.2f} Hz with amplitude {fundamental_amplitude:.4f}", "info")
     return fundamental_freq, fundamental_amplitude
 
 
 def thd_calculation(audio, sampling_rate, num_harmonics=5):
     """
     Calculates Total Harmonic Distortion (THD) for the audio signal.
-
-    :param audio: The audio signal as a numpy array.
-    :param sampling_rate: Sampling rate of the audio signal.
-    :param num_harmonics: Number of harmonics to include in THD calculation.
-    :return: THD value in percentage.
     """
-    # FFT analysis
     fft_vals = np.fft.rfft(audio)
     fft_freqs = np.fft.rfftfreq(len(audio), 1 / sampling_rate)
     fft_magnitude = np.abs(fft_vals)
-
-    # Dynamically find the fundamental frequency
     fundamental_freq, fundamental_amplitude = find_fundamental_frequency(fft_freqs, fft_magnitude)
 
     if fundamental_freq is None or fundamental_amplitude < 1e-6:
-        debug_print("Fundamental frequency not detected or amplitude too low. Skipping THD calculation.")
+        debug_print("Fundamental frequency not detected or amplitude too low. Skipping THD calculation.", "warning")
         return 0.0
 
-    # Calculate harmonic amplitudes
     harmonic_amplitudes = []
     for n in range(2, num_harmonics + 1):
         harmonic_freq = n * fundamental_freq
         if harmonic_freq > sampling_rate / 2:
-            break  # Skip harmonics beyond Nyquist frequency
-
-        # Find the closest frequency bin
+            break
         harmonic_idx = np.argmin(np.abs(fft_freqs - harmonic_freq))
         harmonic_amp = fft_magnitude[harmonic_idx]
         harmonic_amplitudes.append(harmonic_amp)
-        debug_print(f"Harmonic {n} frequency: {harmonic_freq:.2f} Hz, amplitude: {harmonic_amp:.4f}")
+        debug_print(f"Harmonic {n} frequency: {harmonic_freq:.2f} Hz, amplitude: {harmonic_amp:.4f}", "info")
 
-    # Calculate THD
     harmonic_sum = np.sqrt(np.sum(np.square(harmonic_amplitudes)))
-    if fundamental_amplitude == 0:
-        thd = 0.0
-    else:
-        thd = (harmonic_sum / fundamental_amplitude) * 100  # THD in percentage
-
-    debug_print(f"THD Calculation: {thd:.2f}%")
+    thd = (harmonic_sum / fundamental_amplitude) * 100 if fundamental_amplitude > 0 else 0.0
+    debug_print(f"THD Calculation: {thd:.2f}%", "info")
     return thd
 
 
 def calculate_spl(audio, mic_sensitivity_db):
     """
     Calculates the Sound Pressure Level (SPL) from the audio signal.
-
-    :param audio: The audio signal as a numpy array.
-    :param mic_sensitivity_db: Microphone sensitivity in dB (0 dB = 1V/Pa).
-    :return: SPL in dB.
     """
-    # Calculate RMS amplitude
     rms_amplitude = np.sqrt(np.mean(audio ** 2))
     if rms_amplitude == 0:
-        debug_print("RMS amplitude is zero. SPL cannot be calculated.")
+        debug_print("RMS amplitude is zero. SPL cannot be calculated.", "warning")
         return -np.inf
 
-    # Convert RMS amplitude to voltage
-    # Assuming audio is normalized between -1 and 1, representing the actual voltage would require calibration
-    # For demonstration, we'll proceed with the given sensitivity
-
-    # Convert voltage to pressure (Pa)
-    mic_sensitivity_linear = 10 ** (mic_sensitivity_db / 20)  # V/Pa
-    pressure = rms_amplitude / mic_sensitivity_linear  # Pa
-
-    # Calculate SPL
+    mic_sensitivity_linear = 10 ** (mic_sensitivity_db / 20)
+    pressure = rms_amplitude / mic_sensitivity_linear
     spl = 20 * np.log10(pressure / REFERENCE_PRESSURE)
-    debug_print(f"Calculated SPL: {spl:.2f} dB")
+    debug_print(f"Calculated SPL: {spl:.2f} dB", "info")
     return spl
 
 
 def detect_microphone_overload(spl, mic_clipping_spl):
     """
     Detects if the calculated SPL is approaching the microphone's clipping SPL.
-
-    :param spl: The calculated SPL.
-    :param mic_clipping_spl: The microphone's clipping SPL.
-    :return: True if overload is detected, False otherwise.
     """
-    if spl >= mic_clipping_spl - 3:  # Consider overload if within 3 dB of clipping SPL
-        debug_print("Microphone overload detected.")
+    if spl >= mic_clipping_spl - 3:
+        debug_print("Microphone overload detected.", "warning")
         return True
     return False
 
@@ -630,83 +625,59 @@ def detect_microphone_overload(spl, mic_clipping_spl):
 def calculate_noise_rms_and_thd(rtsp_url, bandpass_sos, sampling_rate, num_bins=5):
     """
     Captures audio from an RTSP stream, calculates RMS, THD, and SPL, and detects microphone overload.
-
-    :param rtsp_url: The RTSP stream URL.
-    :param bandpass_sos: Precomputed bandpass filter coefficients (Second-Order Sections).
-    :param sampling_rate: Sampling rate of the audio signal.
-    :param num_bins: Number of segments to divide the audio into.
-    :return: Tuple containing the RMS amplitude, THD percentage, SPL value, and overload status.
     """
     cmd = [
-        'ffmpeg',
-        '-loglevel', 'error',
-        '-rtsp_transport', 'tcp',
-        '-i', rtsp_url,
-        '-vn',
-        '-f', 's16le',
-        '-acodec', 'pcm_s16le',
-        '-ar', str(sampling_rate),
-        '-ac', '1',
-        '-t', '5',
-        '-'
+        'ffmpeg', '-loglevel', 'error', '-rtsp_transport', 'tcp', '-i', rtsp_url,
+        '-vn', '-f', 's16le', '-acodec', 'pcm_s16le', '-ar', str(sampling_rate), '-ac', '1', '-t', '5', '-'
     ]
 
-    try:
-        debug_print(f"Starting audio capture from {rtsp_url}")
-        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        stdout, stderr = process.communicate()
+    retries = 3
+    for attempt in range(retries):
+        try:
+            debug_print(f"Attempt {attempt + 1} to capture audio from {rtsp_url}", "info")
+            process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            stdout, stderr = process.communicate()
 
-        if process.returncode != 0:
-            debug_print(f"ffmpeg failed with error: {stderr.decode()}")
-            return None, None, None, False
+            if process.returncode != 0:
+                debug_print(f"ffmpeg failed with error: {stderr.decode()}", "error")
+                time.sleep(5)
+                continue
 
-        # Convert raw PCM data to numpy array
-        audio = np.frombuffer(stdout, dtype=np.int16).astype(np.float32) / 32768.0
-        debug_print(f"Captured {len(audio)} samples from audio stream.")
+            audio = np.frombuffer(stdout, dtype=np.int16).astype(np.float32) / 32768.0
+            debug_print(f"Captured {len(audio)} samples from audio stream.", "info")
+            if len(audio) == 0:
+                debug_print("No audio data captured.", "warning")
+                time.sleep(5)
+                continue
 
-        if len(audio) == 0:
-            debug_print("No audio data captured.")
-            return None, None, None, False
+            filtered_audio = sosfilt(bandpass_sos, audio)
+            rms_amplitude = np.sqrt(np.mean(filtered_audio ** 2))
+            thd_percentage = thd_calculation(filtered_audio, sampling_rate)
+            spl = calculate_spl(filtered_audio, MIC_SENSITIVITY_DB)
+            overload = detect_microphone_overload(spl, MIC_CLIPPING_SPL)
 
-        # Apply bandpass filter
-        filtered_audio = sosfilt(bandpass_sos, audio)
-        debug_print("Applied bandpass filter to audio data.")
+            return rms_amplitude, thd_percentage, spl, overload
 
-        # Calculate RMS
-        rms_amplitude = np.sqrt(np.mean(filtered_audio ** 2))
+        except Exception as e:
+            debug_print(f"Exception during audio processing: {e}", "error")
+            time.sleep(5)  # Small delay before retrying
 
-        # Calculate THD
-        thd_percentage = thd_calculation(filtered_audio, sampling_rate)
-
-        # Calculate SPL
-        spl = calculate_spl(filtered_audio, MIC_SENSITIVITY_DB)
-
-        # Detect microphone overload
-        overload = detect_microphone_overload(spl, MIC_CLIPPING_SPL)
-
-        return rms_amplitude, thd_percentage, spl, overload
-
-    except Exception as e:
-        debug_print(f"Exception during audio processing: {e}")
-        return None, None, None, False
+    return None, None, None, False
 
 
 def main():
     """
     Main loop that continuously monitors background noise, detects clipping, calculates THD,
-    and adjusts microphone gain accordingly.
+    and adjusts microphone gain with retry logic for RTSP stream resilience.
     """
     TREND_COUNT = 0
     PREVIOUS_TREND = 0
 
-    # Precompute the bandpass filter coefficients
-    LOWCUT = 2000    # Lower frequency bound in Hz
-    HIGHCUT = 8000   # Upper frequency bound in Hz
-    FILTER_ORDER = 5  # Order of the Butterworth filter
-    SAMPLING_RATE = 32000  # Sampling rate in Hz
-
+    # Precompute bandpass filter coefficients with updated SAMPLING_RATE
+    LOWCUT = 2000
+    HIGHCUT = 8000
+    FILTER_ORDER = 5
     sos = butter(FILTER_ORDER, [LOWCUT, HIGHCUT], btype='band', fs=SAMPLING_RATE, output='sos')
-    debug_print("Precomputed Butterworth bandpass filter coefficients.")
 
     # Set the microphone gain to the maximum gain at the start
     success = set_gain_db(MICROPHONE_NAME, MAX_GAIN_DB)
@@ -724,46 +695,34 @@ def main():
             time.sleep(60)
             continue
 
-        # Print the final converted RMS amplitude
-        print(f"Converted RMS Amplitude: {rms:.6f}")
-        debug_print(f"Current background noise (RMS amplitude): {rms:.6f}")
-
-        # Detect clipping and reduce gain if needed
+        # Adjust gain if overload detected
         if overload:
             current_gain_db = get_gain_db(MICROPHONE_NAME)
             if current_gain_db is not None:
-                NEW_GAIN_DB = current_gain_db - CLIPPING_REDUCTION_DB
-                if NEW_GAIN_DB < MIN_GAIN_DB:
-                    NEW_GAIN_DB = MIN_GAIN_DB
-                success = set_gain_db(MICROPHONE_NAME, NEW_GAIN_DB)
-                if success:
+                NEW_GAIN_DB = max(current_gain_db - CLIPPING_REDUCTION_DB, MIN_GAIN_DB)
+                if set_gain_db(MICROPHONE_NAME, NEW_GAIN_DB):
                     print(f"Clipping detected. Reduced gain to {NEW_GAIN_DB} dB")
-                    debug_print(f"Gain reduced to {NEW_GAIN_DB} dB due to clipping.")
-                else:
-                    print("Failed to reduce gain due to clipping.")
+                    debug_print(f"Gain reduced to {NEW_GAIN_DB} dB due to clipping.", "warning")
+            # No stabilization delay; continue to next iteration
             # Skip trend adjustment in case of clipping
+            summary_log(current_gain_db if current_gain_db else MIN_GAIN_DB, True, rms, thd)
             time.sleep(60)
             continue
 
-        # Handle THD if SPL is above a reasonable threshold
+        # Handle THD if SPL is above threshold
         if spl >= THD_FUNDAMENTAL_THRESHOLD_DB:
             if thd > MAX_THD_PERCENTAGE:
-                debug_print(f"High THD detected: {thd:.2f}%")
+                debug_print(f"High THD detected: {thd:.2f}%", "warning")
                 current_gain_db = get_gain_db(MICROPHONE_NAME)
                 if current_gain_db is not None:
-                    NEW_GAIN_DB = current_gain_db - DECREASE_GAIN_STEP_DB
-                    if NEW_GAIN_DB < MIN_GAIN_DB:
-                        NEW_GAIN_DB = MIN_GAIN_DB
-                    success = set_gain_db(MICROPHONE_NAME, NEW_GAIN_DB)
-                    if success:
+                    NEW_GAIN_DB = max(current_gain_db - DECREASE_GAIN_STEP_DB, MIN_GAIN_DB)
+                    if set_gain_db(MICROPHONE_NAME, NEW_GAIN_DB):
                         print(f"High THD detected. Decreased gain to {NEW_GAIN_DB} dB")
-                        debug_print(f"Gain decreased to {NEW_GAIN_DB} dB due to high THD.")
-                    else:
-                        print("Failed to adjust gain based on THD.")
+                        debug_print(f"Gain decreased to {NEW_GAIN_DB} dB due to high THD.", "info")
             else:
-                debug_print("THD within acceptable limits.")
+                debug_print("THD within acceptable limits.", "info")
         else:
-            debug_print("SPL below THD calculation threshold. Skipping THD check.")
+            debug_print("SPL below THD calculation threshold. Skipping THD check.", "info")
 
         # Determine the noise trend
         if rms > NOISE_THRESHOLD_HIGH:
@@ -773,7 +732,7 @@ def main():
         else:
             CURRENT_TREND = 0
 
-        debug_print(f"Current trend: {CURRENT_TREND}")
+        debug_print(f"Current trend: {CURRENT_TREND}", "info")
 
         if CURRENT_TREND != 0:
             if CURRENT_TREND == PREVIOUS_TREND:
@@ -784,7 +743,7 @@ def main():
         else:
             TREND_COUNT = 0
 
-        debug_print(f"Trend count: {TREND_COUNT}")
+        debug_print(f"Trend count: {TREND_COUNT}", "info")
 
         current_gain_db = get_gain_db(MICROPHONE_NAME)
 
@@ -793,34 +752,29 @@ def main():
             time.sleep(60)
             continue
 
-        debug_print(f"Current gain: {current_gain_db} dB")
+        debug_print(f"Current gain: {current_gain_db} dB", "info")
 
+        # Output summary log for the current state
+        summary_log(current_gain_db, overload, rms, thd)
+
+        # Adjust gain based on noise trend if threshold count is reached
         if TREND_COUNT >= TREND_COUNT_THRESHOLD:
-            if CURRENT_TREND == 1:
+            if CURRENT_TREND == 1 and int(current_gain_db) > MIN_GAIN_DB:
                 # Decrease gain by DECREASE_GAIN_STEP_DB dB
-                NEW_GAIN_DB = current_gain_db - DECREASE_GAIN_STEP_DB
-                if NEW_GAIN_DB < MIN_GAIN_DB:
-                    NEW_GAIN_DB = MIN_GAIN_DB
-                success = set_gain_db(MICROPHONE_NAME, NEW_GAIN_DB)
-                if success:
+                NEW_GAIN_DB = max(current_gain_db - DECREASE_GAIN_STEP_DB, MIN_GAIN_DB)
+                if set_gain_db(MICROPHONE_NAME, NEW_GAIN_DB):
                     print(f"Background noise high. Decreased gain to {NEW_GAIN_DB} dB")
-                    debug_print(f"Gain decreased to {NEW_GAIN_DB} dB due to high noise.")
-                else:
-                    print("Failed to decrease gain.")
-            elif CURRENT_TREND == -1:
+                    debug_print(f"Gain decreased to {NEW_GAIN_DB} dB due to high noise.", "info")
+                TREND_COUNT = 0
+            elif CURRENT_TREND == -1 and int(current_gain_db) < MAX_GAIN_DB:
                 # Increase gain by INCREASE_GAIN_STEP_DB dB
-                NEW_GAIN_DB = current_gain_db + INCREASE_GAIN_STEP_DB
-                if NEW_GAIN_DB > MAX_GAIN_DB:
-                    NEW_GAIN_DB = MAX_GAIN_DB
-                success = set_gain_db(MICROPHONE_NAME, NEW_GAIN_DB)
-                if success:
+                NEW_GAIN_DB = min(current_gain_db + INCREASE_GAIN_STEP_DB, MAX_GAIN_DB)
+                if set_gain_db(MICROPHONE_NAME, NEW_GAIN_DB):
                     print(f"Background noise low. Increased gain to {NEW_GAIN_DB} dB")
-                    debug_print(f"Gain increased to {NEW_GAIN_DB} dB due to low noise.")
-                else:
-                    print("Failed to increase gain.")
-            TREND_COUNT = 0
+                    debug_print(f"Gain increased to {NEW_GAIN_DB} dB due to low noise.", "info")
+                TREND_COUNT = 0
         else:
-            debug_print("No gain adjustment needed based on noise trend.")
+            debug_print("No gain adjustment needed based on noise trend.", "info")
 
         # Sleep for 1 minute before the next iteration
         time.sleep(60)

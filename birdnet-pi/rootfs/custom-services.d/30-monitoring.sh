@@ -12,9 +12,10 @@ log_info() { echo -e "\033[34m$1\033[0m"; }
 
 # Read configuration
 set +u
+# shellcheck disable=SC1091
 source /etc/birdnet/birdnet.conf
 
-echo "$(log_green "Starting service: throttlerecording")"
+log_green "Starting service: throttlerecording"
 touch "$HOME/BirdSongs/StreamData/analyzing_now.txt"
 
 # Set constants
@@ -69,7 +70,7 @@ while true; do
     fi
 
     # Check recorder state and queue length
-    wav_count=$(find "$ingest_dir" -maxdepth 1 -name '*.wav' | wc -l)
+    wav_count=$(find -L "$ingest_dir" -maxdepth 1 -name '*.wav' | wc -l)
     service_state=$(systemctl is-active "$srv")
     analysis_state=$(systemctl is-active "$srv2")
 
@@ -89,8 +90,8 @@ while true; do
 
     # Check service states
     for service in "$srv" "$srv2"; do
-        state_var="${service}_state"
-        if [[ "${state_var:-}" != "active" ]]; then
+        state="$(systemctl is-active "$service")"
+        if [[ "$state" != "active" ]]; then
             log_yellow "$(date) INFO: Restarting $service service"
             sudo systemctl restart "$service"
         fi

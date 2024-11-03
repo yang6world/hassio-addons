@@ -1,3 +1,15 @@
+## 0.13-106 (30-10-2024)
+- Implement interactive plot
+
+## 0.13-103 (30-10-2024)
+- Fix : recording service always restarting
+
+## 0.13-102 (29-10-2024)
+- Improve logging
+
+## 0.13-101 (29-10-2024)
+- Update upstream
+
 ## 0.13-98 (07-10-2024)
 - [SERVER] Fix timezone not correctly shown in config options
 
