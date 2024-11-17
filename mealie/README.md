@@ -1,4 +1,6 @@
 ## &#9888; Open Issue : [🐛 [Mealie] Mealie not recognising login details (opened 2024-09-20)](https://github.com/alexbelgium/hassio-addons/issues/1580) by [@Valve90210](https://github.com/Valve90210)
+## &#9888; Open Issue : [🐛 [Mealie] Recipes gon (opened 2024-11-10)](https://github.com/alexbelgium/hassio-addons/issues/1628) by [@skank01](https://github.com/skank01)
+## &#9888; Open Issue : [🐛 [mealie] Addon OIDC redirects no longer work in 2.2.0 (opened 2024-11-16)](https://github.com/alexbelgium/hassio-addons/issues/1636) by [@BlackHoleFox](https://github.com/BlackHoleFox)
 # Hass.io Add-ons: Mealie
 
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
@@ -32,9 +34,9 @@ This addon is based on the [docker image](https://hub.docker.com/r/hkotel/mealie
 ## Configuration
 
 - Start the addon. Wait a while and check the log for any errors.
-- Open yourdomain.com:9925 (where ":9925" is the port configured in the addon).
+- Open yourdomain.com:9090 (where ":9090" is the port configured in the addon).
 - Default
-  - Username: changeme@email.com
+  - Username: changeme@example.com
   - Password: MyPassword
 
 Options can be configured through two ways :
