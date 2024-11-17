@@ -2,4 +2,4 @@
 
 ## ⬆️ Dependency updates
 
-- ⬆️ Update grafana/grafana-image-renderer to v3.11.6 @renovate ([#422](https://github.com/hassio-addons/addon-grafana/pull/422))
+- ⬆️ Update Add-on base image to v7.6.0 @renovate ([#431](https://github.com/hassio-addons/addon-grafana/pull/431))
