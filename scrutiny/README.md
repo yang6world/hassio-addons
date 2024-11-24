@@ -1,4 +1,4 @@
-## &#9888; Open Request : [✨ [REQUEST] SCRUTINY Time updates (opened 2024-09-30)](https://github.com/alexbelgium/hassio-addons/issues/1590) by [@hiagocosta](https://github.com/hiagocosta)
+## &#9888; Open Issue : [🐛 [Scrutiny FA] USB SSD doesnt shows (opened 2024-11-17)](https://github.com/alexbelgium/hassio-addons/issues/1640) by [@chertvl](https://github.com/chertvl)
 # Home assistant add-on: Scrutiny
 
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
