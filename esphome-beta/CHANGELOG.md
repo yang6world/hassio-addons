@@ -1,9 +1,10 @@
-## 2024.11.0b2
+## 2024.11.1
 
-- Fix temperature and humidity for bme680 with bsec2 [esphome#7728](https://github.com/esphome/esphome/pull/7728) by [@luar123](https://github.com/luar123)
-- [i2s_audio] Bugfix: Adjust I2S speaker setup priority [esphome#7759](https://github.com/esphome/esphome/pull/7759) by [@kahrendt](https://github.com/kahrendt)
-- Update UNIT_VOLT_AMPS_REACTIVE = "var" (Currently 'VAR') [esphome#7643](https://github.com/esphome/esphome/pull/7643) by [@Roving-Ronin](https://github.com/Roving-Ronin) (breaking-change)
-- Fix reactive power unit of measurement from VAR to var [esphome#7757](https://github.com/esphome/esphome/pull/7757) by [@felipecrs](https://github.com/felipecrs)
-- Disable bluetooth proxy during update [esphome#7695](https://github.com/esphome/esphome/pull/7695) by [@jzucker2](https://github.com/jzucker2)
-- ld2420: fix typo in log message [esphome#7758](https://github.com/esphome/esphome/pull/7758) by [@bfabio](https://github.com/bfabio)
+- [http_request] Fix within context with parameters. (Bugfix) [esphome#7790](https://github.com/esphome/esphome/pull/7790) by [@clydebarrow](https://github.com/clydebarrow)
+- [rtttl] Clamp gain between 0 and 1 [esphome#7793](https://github.com/esphome/esphome/pull/7793) by [@jesserockz](https://github.com/jesserockz)
+- [speaker] Add missing auto-load for ``audio`` [esphome#7794](https://github.com/esphome/esphome/pull/7794) by [@jesserockz](https://github.com/jesserockz)
+- [qspi_dbi] Fix garbled graphics on RM690B0 [esphome#7795](https://github.com/esphome/esphome/pull/7795) by [@manuelkasper](https://github.com/manuelkasper)
+- Check for min_version earlier in validation [esphome#7797](https://github.com/esphome/esphome/pull/7797) by [@spuder](https://github.com/spuder)
+- Fix for OTA mode not activating in safe_mode when OTA section has an on_xxxx action  [esphome#7796](https://github.com/esphome/esphome/pull/7796) by [@Dilbert66](https://github.com/Dilbert66)
+- Ensure storage I/O for ignored devices runs in the executor [esphome#7792](https://github.com/esphome/esphome/pull/7792) by [@bdraco](https://github.com/bdraco)
 
