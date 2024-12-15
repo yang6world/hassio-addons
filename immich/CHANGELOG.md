@@ -1,3 +1,12 @@
+
+## 1.122.3 (14-12-2024)
+- Update to latest version from imagegenius/docker-immich (changelog : https://github.com/imagegenius/docker-immich/releases)
+## 1.122.1-4 (10-12-2024)
+- Fix compatibility with postgres 15 addon
+
+## 1.122.1-3 (08-12-2024)
+- Fix healthcheck (thanks @red-avtovo)
+
 ## 1.122.1-2 (08-12-2024)
 - Minor bugs fixed
 
