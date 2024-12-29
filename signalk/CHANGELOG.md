@@ -1,3 +1,9 @@
+## 2.12.0-5 (24-12-2024)
+- Minor bugs fixed
+## 2.12.0-4 (24-12-2024)
+- Minor bugs fixed
+## 2.12.0-3 (24-12-2024)
+- Minor bugs fixed
 ## 2.12.0-2 (25-11-2024)
 - Possible fix for tty connection
 
