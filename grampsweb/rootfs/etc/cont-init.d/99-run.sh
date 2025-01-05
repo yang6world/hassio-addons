@@ -5,19 +5,21 @@ set -e
 #################
 # Set structure #
 #################
-for folders in config users indexdir database secret media cache thumbnail_cache grampsdb; do
+for folders in config users indexdir secret media cache thumbnail_cache persist; do
     mkdir -p /config/"$folders"
     if [ -d /app/"$folders" ] && [ "$(ls -A /app/"$folders")" ]; then
-        cp -rf /app/"$folders"/* /config/"$folders"
+        cp -rn /app/"$folders"/* /config/"$folders"
     fi
     rm -rf /app/"$folders"
     ln -sf /config/"$folders" /app/"$folders"
 done
 
-if [ -d /root/.gramps/grampsdb ] && [ "$(ls -A /root/.gramps/grampsdb)" ]; then
-    cp -rf /root/.gramps/grampsdb/* /config/grampsdb
-    rm -rf /root/.gramps/grampsdb
-    ln -sf /config/grampsdb /root/.gramps/grampsdb
+# Expose database and plugins
+if [ -d /root/.gramps ] && [ "$(ls -A /root/.gramps)" ]; then
+    mkdir -p /config/gramps
+    cp -rf /root/.gramps/* /config/gramps
+    rm -rf /root/.gramps
+    ln -sf /config/gramps /root/.gramps
 fi
 
 #####################
@@ -26,8 +28,7 @@ fi
 # Check if the secret key is defined in addon options
 if bashio::config.has_value "GRAMPSWEB_SECRET_KEY"; then
     bashio::log.warning "Using the secret key defined in the addon options."
-    export SECRET_KEY="$(bashio::config "GRAMPSWEB_SECRET_KEY")"
-    export GRAMPSWEB_SECRET_KEY="$SECRET_KEY"
+    export GRAMPSWEB_SECRET_KEY="$(bashio::config "GRAMPSWEB_SECRET_KEY")"
 else
     # Check if the secret file exists; if not, create a new one
     if [ ! -s /config/secret/secret ]; then
@@ -38,16 +39,15 @@ else
     fi
     bashio::log.warning "Using existing secret key from /config/secret/secret."
     bashio::log.warning "Secret key saved to addon options."
-    export SECRET_KEY="$(cat /config/secret/secret)"
-    bashio::addon.option "GRAMPSWEB_SECRET_KEY" "$SECRET_KEY"
-    export GRAMPSWEB_SECRET_KEY="$SECRET_KEY"
+    export GRAMPSWEB_SECRET_KEY="$(cat /config/secret/secret)"
+    bashio::addon.option "GRAMPSWEB_SECRET_KEY" "$GRAMPSWEB_SECRET_KEY"
 fi
 
 ##################
 # Starting Redis #
 ##################
 echo "Starting Redis..."
-redis-server &
+redis-server --dbfilename redis.rdb --dir /config &
 REDIS_PID=$!
 
 ###############

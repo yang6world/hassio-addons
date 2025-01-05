@@ -1,3 +1,6 @@
+## 25-4 (29-12-2024)
+- Fixed https://github.com/alexbelgium/hassio-addons/issues/1687
+
 ## 25-3 (28-12-2024)
 - avx2 support added by @tphakala
 
