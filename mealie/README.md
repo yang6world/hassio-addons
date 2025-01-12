@@ -1,3 +1,4 @@
+## &#9888; Open Issue : [🐛 [Mealie] Profile pictures do not show in ingress (opened 2025-01-11)](https://github.com/alexbelgium/hassio-addons/issues/1714) by [@IceBotYT](https://github.com/IceBotYT)
 # Hass.io Add-ons: Mealie
 
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)

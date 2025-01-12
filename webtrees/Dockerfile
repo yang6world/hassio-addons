@@ -27,17 +27,27 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
     S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0 \
     S6_SERVICES_GRACETIME=0
 
+ENV APACHE_RUN_USER=www-data \
+    APACHE_RUN_GROUP=www-data \
+    APACHE_PID_FILE=/var/run/apache2/apache2$SUFFIX.pid \
+    APACHE_RUN_DIR=/var/run/apache2$SUFFIX \
+    APACHE_LOCK_DIR=/var/lock/apache2$SUFFIX \
+    APACHE_LOG_DIR=/var/log/apache2$SUFFIX \
+    LANG=C \
+    APACHE_CONFDIR=/etc/apache2 \
+    APACHE_ENVVARS=/etc/apache2/envvars
 
 # Global variables
-ENV WEBTREES_HOME="/data/webtrees"
+ENV WEBTREES_HOME="/var2/www/webtrees"
 WORKDIR $WEBTREES_HOME
 # hadolint ignore=DL4006
 RUN \
     # Change data location
-    grep -rl "/var/www/webtrees" /etc | xargs sed -i 's|/var/www/webtrees|/data/webtrees|g' \
-    && sed -i 's|/var/www/webtrees|/data/webtrees|g' /docker-entrypoint.py
-# Add end script
-# && sed -i '$ d' /docker-entrypoint.py
+    grep -rl "/var/www/webtrees" /etc | xargs sed -i 's|/var/www/webtrees|/var2/www/webtrees|g' \
+    && sed -i 's|/var/www/webtrees|/var2/www/webtrees|g' /docker-entrypoint.py \
+    && mkdir -p /var2 \
+    && cp -rf /var/* /var2/ \
+    && chown -R www-data:www-data /var2/www/webtrees
 
 ##################
 # 3 Install apps #
@@ -79,7 +89,6 @@ ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templat
 ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint_modif.sh" "/ha_entrypoint_modif.sh"
 RUN chmod 777 /ha_entrypoint.sh /ha_entrypoint_modif.sh && /ha_entrypoint_modif.sh && rm /ha_entrypoint_modif.sh
 
-
 ENTRYPOINT [ "/usr/bin/env" ]
 CMD [ "/ha_entrypoint.sh" ]
 
@@ -117,6 +126,22 @@ LABEL \
 # 6 Healthcheck #
 #################
 
+# Avoid spamming logs
+# hadolint ignore=SC2016
+RUN \
+    # Handle Apache configuration
+    if [ -d /etc/apache2/sites-available ]; then \
+        for file in /etc/apache2/sites-*/*.conf; do \
+            sed -i '/<VirtualHost/a \ \n    # Match requests with the custom User-Agent "HealthCheck" \n    SetEnvIf User-Agent "HealthCheck" dontlog \n    # Exclude matching requests from access logs \n    CustomLog ${APACHE_LOG_DIR}/access.log combined env=!dontlog' "$file"; \
+        done; \
+    fi && \
+    \
+    # Handle Nginx configuration
+    if [ -f /etc/nginx/nginx.conf ]; then \
+        awk '/http \{/{print; print "map $http_user_agent $dontlog {\n  default 0;\n  \"~*HealthCheck\" 1;\n}\naccess_log /var/log/nginx/access.log combined if=$dontlog;"; next}1' /etc/nginx/nginx.conf > /etc/nginx/nginx.conf.new && \
+        mv /etc/nginx/nginx.conf.new /etc/nginx/nginx.conf; \
+    fi
+
 ENV HEALTH_PORT="80" \
     HEALTH_URL=""
 HEALTHCHECK \
@@ -124,5 +149,5 @@ HEALTHCHECK \
     --retries=5 \
     --start-period=30s \
     --timeout=25s \
-    CMD curl --fail "http://127.0.0.1:${HEALTH_PORT}${HEALTH_URL}" &>/dev/null || \
-    curl --fail "http://127.0.0.1:443" &>/dev/null || exit 1
+    CMD curl -A "HealthCheck: Docker/1.0" -s -f "http://127.0.0.1:${HEALTH_PORT}${HEALTH_URL}" &>/dev/null || \
+    curl -A "HealthCheck: Docker/1.0" -s -f "http://127.0.0.1:443" &>/dev/null || exit 1

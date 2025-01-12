@@ -1,4 +1,11 @@
-- Install tensorflow if avx2 not available
+## 2025.01-7 (09-01-2025)
+- Minor bugs fixed
+## 2025.01-6 (09-01-2025)
+- Fix mqtt autodetect script
+
+## 2025.01-4 (08-01-2025)
+- Older CPU support : install tensorflow if avx2 not available
+- Align to upstream
 
 ## 0.13-106 (30-10-2024)
 - Implement interactive plot
