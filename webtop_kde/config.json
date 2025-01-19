@@ -66,8 +66,8 @@
     "/dev/nvme2"
   ],
   "environment": {
-    "FM_HOME": "/share/webtop_kde",
-    "HOME": "/share/webtop_kde",
+    "FM_HOME": "/config/data",
+    "HOME": "/config/data",
     "PGID": "0",
     "PUID": "0",
     "START_DOCKER": "false",
@@ -75,21 +75,22 @@
     "shm_size": "1gb"
   },
   "host_dbus": true,
-  "image": "ghcr.io/alexbelgium/webtop_kde-{arch}",
+  "image": "ghcr.io/alexbelgium/webtop-{arch}",
   "ingress": true,
   "init": false,
   "map": [
-    "config:rw",
+    "addon_config:rw",
     "media:rw",
     "share:rw",
     "ssl"
   ],
-  "name": "Webtop LSIO",
+  "name": "Webtop KDE",
   "options": {
     "DNS_server": "8.8.8.8",
     "PGID": 0,
     "PUID": 0,
-    "additional_apps": "engrampa,libreoffice"
+    "additional_apps": "engrampa,libreoffice",
+    "data_location": "/config/data"
   },
   "panel_admin": false,
   "panel_icon": "mdi:monitor",
@@ -137,10 +138,10 @@
     "localdisks": "str?",
     "networkdisks": "str?"
   },
-  "slug": "webtop-kde",
+  "slug": "webtop",
   "tmpfs": true,
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "ubuntu-xfce-33543f91-ls159",
+  "version": "0.2",
   "video": true
 }

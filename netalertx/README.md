@@ -1,3 +1,4 @@
+## &#9888; Open Issue : [🐛 [netalertx] Dropdown fields not populated in ingress mode (opened 2025-01-17)](https://github.com/alexbelgium/hassio-addons/issues/1724) by [@jokob-sk](https://github.com/jokob-sk)
 # Home assistant add-on: NetAlertX
 
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
@@ -6,6 +7,7 @@
 ![Version](https://img.shields.io/badge/dynamic/json?label=Version&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2Falexbelgium%2Fhassio-addons%2Fmaster%2Fnetalertx%2Fconfig.json)
 ![Ingress](https://img.shields.io/badge/dynamic/json?label=Ingress&query=%24.ingress&url=https%3A%2F%2Fraw.githubusercontent.com%2Falexbelgium%2Fhassio-addons%2Fmaster%2Fnetalertx%2Fconfig.json)
 ![Arch](https://img.shields.io/badge/dynamic/json?color=success&label=Arch&query=%24.arch&url=https%3A%2F%2Fraw.githubusercontent.com%2Falexbelgium%2Fhassio-addons%2Fmaster%2Fnetalertx%2Fconfig.json)
+![mqtt](https://img.shields.io/badge/Service-MQTT-green.svg?logo=chromecast&logoColor=white)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/9c6cf10bdbba45ecb202d7f579b5be0e)](https://www.codacy.com/gh/alexbelgium/hassio-addons/dashboard?utm_source=github.com&utm_medium=referral&utm_content=alexbelgium/hassio-addons&utm_campaign=Badge_Grade)
 [![GitHub Super-Linter](https://img.shields.io/github/actions/workflow/status/alexbelgium/hassio-addons/weekly-supelinter.yaml?label=Lint%20code%20base)](https://github.com/alexbelgium/hassio-addons/actions/workflows/weekly-supelinter.yaml)
@@ -45,7 +47,9 @@ comparison to installing any other Hass.io add-on.
 1. Read how to get devices into your [Home Assistant instance via the MQTT plugin](https://github.com/jokob-sk/NetAlertX/blob/main/docs/HOME_ASSISTANT.md)
 1. Back everything up by following the [Backups documentation](https://github.com/jokob-sk/NetAlertX/blob/main/docs/BACKUPS.md).
 
-Webui can be found at <http://homeassistant:20211>.
+Webui can be found at <http://homeassistant:20211> or using HA ingress
+
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/fd74af43-091a-4f38-9879-037ca64cfab9" />
 
 ```yaml
 PGID: user
