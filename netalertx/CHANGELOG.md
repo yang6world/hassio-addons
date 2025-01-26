@@ -1,4 +1,7 @@
-- Ingress removed as not compatible with special characters
+
+## 25.1.19 (25-01-2025)
+- Update to latest version from jokob-sk/NetAlertX (changelog : https://github.com/jokob-sk/NetAlertX/releases)
+- Update to latest version from jokob-sk/NetAlertX (changelog : https://github.com/jokob-sk/NetAlertX/releases/tag/v24.1.19)
 
 ## 25.1.14 (16-01-2025)
 - Improve ingress parameters

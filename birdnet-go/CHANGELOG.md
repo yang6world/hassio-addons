@@ -1,6 +1,12 @@
+## 0.6.0-nightly-20250124 (25-01-2025)
+- Minor bugs fixed
+## 0.6.0-4 (21-01-2025)
+- Fix sounds play
+- Correct sqlite for //
 
 ## 0.6.0 (18-01-2025)
 - Update to latest version from tphakala/birdnet-go (changelog : https://github.com/tphakala/birdnet-go/releases)
+
 ## 20250103-10 (17-01-2025)
 - BREAKING CHANGE : improve implementation of addon options such as Birdsongs folder. Please check the log at first start if anything is different than you expected
 - WARNING : your files will move to the new Birdsongs folder in case of change
