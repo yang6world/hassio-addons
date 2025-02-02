@@ -23,6 +23,7 @@ srv="birdnet_recording"
 srv2="birdnet_analysis"
 ingest_dir="$RECS_DIR/StreamData"
 counter=10
+
 # Ensure directories and permissions
 mkdir -p "$ingest_dir"
 chown -R pi:pi "$ingest_dir"
@@ -30,6 +31,7 @@ chmod -R 755 "$ingest_dir"
 
 # Function to send notifications using Apprise
 apprisealert() {
+    local issue_message="$1"
     local notification=""
     local stopped_service="<br><b>Stopped services:</b> "
 
@@ -42,16 +44,21 @@ apprisealert() {
     done
 
     # Build notification message
+    notification+="<b>Issue:</b> $issue_message"
     notification+="$stopped_service"
-    notification+="<br><b>Additional information</b>: "
+    notification+="<br><b>Additional information:</b>"
     notification+="<br><b>Since:</b> ${LASTCHECK:-unknown}"
     notification+="<br><b>System:</b> ${SITE_NAME:-$(hostname)}"
     notification+="<br>Available disk space: $(df -h "$HOME/BirdSongs" | awk 'NR==2 {print $4}')"
     [[ -n "$BIRDNETPI_URL" ]] && notification+="<br><a href=\"$BIRDNETPI_URL\">Access your BirdNET-Pi</a>"
 
     # Send notification
-    TITLE="BirdNET-Analyzer stopped"
-    "$HOME/BirdNET-Pi/birdnet/bin/apprise" -vv -t "$TITLE" -b "$notification" --input-format=html --config="$HOME/BirdNET-Pi/apprise.txt"
+    TITLE="BirdNET-Analyzer Alert"
+    if [[ -f "$HOME/BirdNET-Pi/birdnet/bin/apprise" && -s "$HOME/BirdNET-Pi/apprise.txt" ]]; then
+        "$HOME/BirdNET-Pi/birdnet/bin/apprise" -vv -t "$TITLE" -b "$notification" --input-format=html --config="$HOME/BirdNET-Pi/apprise.txt"
+    else
+        log_red "Apprise not configured or missing!"
+    fi
 }
 
 # Main loop
@@ -62,7 +69,8 @@ while true; do
     if ((counter <= 0)); then
         current_file="$(cat "$ingest_dir/analyzing_now.txt")"
         if [[ "$current_file" == "$analyzing_now" ]]; then
-            log_yellow "$(date) WARNING: no change in analyzing_now for 10 iterations, restarting services"
+            log_yellow "$(date) WARNING: No change in analyzing_now for 10 iterations, restarting services"
+            apprisealert "No change in analyzing_now for 10 iterations"
             "$HOME/BirdNET-Pi/scripts/restart_services.sh"
         fi
         counter=10
@@ -79,11 +87,13 @@ while true; do
     # Pause recorder if queue is too large
     if ((wav_count > 50)); then
         log_red "$(date) WARNING: Too many files in queue, pausing $srv and restarting $srv2"
+        apprisealert "Too many files in queue (>50)"
         sudo systemctl stop "$srv"
         sudo systemctl restart "$srv2"
-        sleep 30
+        sleep 60
     elif ((wav_count > 30)); then
         log_red "$(date) WARNING: Too many files in queue, restarting $srv2"
+        apprisealert "Queue growing large (>30)"
         sudo systemctl restart "$srv2"
         sleep 30
     fi
@@ -93,14 +103,10 @@ while true; do
         state="$(systemctl is-active "$service")"
         if [[ "$state" != "active" ]]; then
             log_yellow "$(date) INFO: Restarting $service service"
+            apprisealert "$service is not active, restarting"
             sudo systemctl restart "$service"
         fi
     done
-
-    # Send alert if needed
-    if ((wav_count > 30)) && [[ -s "$HOME/BirdNET-Pi/apprise.txt" ]]; then
-        apprisealert
-    fi
 
     ((counter--))
 done

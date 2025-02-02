@@ -89,8 +89,8 @@
     "PGID": 0,
     "PUID": 0,
     "additional_apps": "engrampa,libreoffice",
-    "data_location": "/config/data",
     "certfile": "fullchain.pem",
+    "data_location": "/config/data",
     "keyfile": "privkey.pem",
     "use_own_certs": true
   },
@@ -103,7 +103,7 @@
     "23/tcp": null,
     "25/tcp": null,
     "3000/tcp": null,
-    "3001/tcp": 3000,
+    "3001/tcp": null,
     "3002/tcp": null,
     "53/tcp": null,
     "80/tcp": null
@@ -147,6 +147,6 @@
   "tmpfs": true,
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "4.16-r0-ls94",
+  "version": "4.16-r0-ls94-9",
   "video": true
 }
