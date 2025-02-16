@@ -52,9 +52,7 @@ ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templat
 RUN chmod 744 /ha_automodules.sh && /ha_automodules.sh "$MODULES" && rm /ha_automodules.sh
 
 # Manual apps
-ENV PACKAGES="jq \
-    curl \
-    cifs-utils"
+ENV PACKAGES=""
 
 # Automatic apps & bashio
 ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_autoapps.sh" "/ha_autoapps.sh"
@@ -72,7 +70,6 @@ ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templat
 ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint_modif.sh" "/ha_entrypoint_modif.sh"
 RUN chmod 777 /ha_entrypoint.sh /ha_entrypoint_modif.sh && /ha_entrypoint_modif.sh && rm /ha_entrypoint_modif.sh
 
-#
 #WORKDIR /
 #ENTRYPOINT [ "/usr/bin/env" ]
 #CMD [ "/ha_entrypoint.sh" ]
@@ -89,6 +86,7 @@ ARG BUILD_NAME
 ARG BUILD_REF
 ARG BUILD_REPOSITORY
 ARG BUILD_VERSION
+ENV BUILD_VERSION="${BUILD_VERSION}"
 LABEL \
     io.hass.name="${BUILD_NAME}" \
     io.hass.description="${BUILD_DESCRIPTION}" \
