@@ -2,6 +2,7 @@
    netbios name = {{ env "HOSTNAME" }}
    workgroup = {{ .workgroup }}
    server string = Samba Home Assistant
+   local master = {{ .local_master | ternary "yes" "no" }}
 
    security = user
    ntlm auth = yes
@@ -25,8 +26,10 @@
    mangled names = no
    dos charset = CP850
    unix charset = UTF-8
-
+   
+   {{ if .apple_compatibility_mode }}
    vfs objects = catia fruit streams_xattr
+   {{ end }}
 
 {{ if (has "config" .enabled_shares) }}
 [config]

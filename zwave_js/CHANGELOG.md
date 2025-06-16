@@ -1,5 +1,196 @@
 # Changelog
 
+## 0.15.0
+
+### Features
+
+- Z-Wave JS: Add options to set powerlevel within legal limits on region change during startup
+- Z-Wave JS: Allow the application to disable support for specific CCs
+- Z-Wave JS: Support OTW updates for the controller via the firmware update service
+- Z-Wave JS: Update Notification definitions to 2024B-3 specs
+- Z-Wave JS: Add static methods to query Door Lock CC capabilities
+- Z-Wave JS: The hardware watchdog no longer gets enabled by default, since this is now handled by recent firmwares. The corresponding driver option and preset have been deprecated.
+
+### Bug fixes
+
+- Z-Wave JS: When the serialport closes unexpectedly, try to reopen it first before throwing an error
+- Z-Wave JS: Work around missing protocol version file in NVM backed up from SDK 7.23.0 and .1
+- Z-Wave JS: The default region is no longer considered to be Europe for firmware updates
+- Z-Wave JS: Make the device ID check during OTA updates actually do something
+- Z-Wave JS: Fixed a regression from v15 where Z-Wave JS would immediately soft-reset the controller instead of retrying after an ACK timeout
+- Z-Wave JS: Fixed a type error after OTW firmware upgrade
+- Z-Wave JS: Prevent the interview of battery-powered devices to stop after the first stage when re-interviewing after a firmware update
+- Z-Wave JS: Omit empty fields from TX reports, ignore missing RSSI in routing statistics
+- Z-Wave JS: Use local time for logging to file
+
+### Config file changes
+
+- Add/update several Simon iO devices
+- Add Enbrighten (Jasco) 58446 / ZWA4013 Fan Control
+- Add Aeotec ZWA046 Home Energy Meter 8
+- Add PE653 endpoints for VSP speeds and P5043ME pool/spa mode
+- Add ZVIDAR WM25C
+- Add MCO Home MH-S314-7102
+- Add McoHome thermostats MH4936, MH5-2D and MH5-4A
+- Update Inovelli VZW31-SN to FW 1.04
+- Add param 29 (load sense) to HomePro ZDP100
+- Add Yale YDM3109A Smart Lock
+
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.6.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.6.0)
+- [Z-Wave JS 15.5.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.5.0)
+- [Z-Wave JS 15.4.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.4.2)
+- [Z-Wave JS 15.4.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.4.1)
+- [Z-Wave JS 15.4.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.4.0)
+
+## 0.14.0
+
+### Breaking changes
+
+- Version 0.14.0 of the add-on requires version 2025.5.0 or higher of Home Assistant Core.
+
+### Features
+
+- Add radio frequency region option to the add-on.
+
+## 0.13.1
+
+### Bug fixes
+
+- Z-Wave JS Server: Fix to reuse the driver's ConfigManager instance instead of creating a new one
+- Z-Wave JS: Fixed a regression from v15 where command delivery verification wouldn't work on S2-capable devices without Supervision
+- Z-Wave JS: Fixed an issue where some CCs could be missing when Z-Wave JS was bundled
+
+### Config file changes
+
+- Disallow manual entry for param 3 on Zooz ZSE70
+
+### Detailed changelogs
+
+- [Z-Wave JS Server 3.0.2](https://github.com/zwave-js/zwave-js-server/releases/tag/3.0.2)
+- [Z-Wave JS 15.3.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.3.2)
+- [Z-Wave JS 15.3.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.3.1)
+
+## 0.13.0
+
+### Bug fixes
+
+- Z-Wave JS: Fixed an issue where incorrect device info for the controller was exposed until restarting after migration from different hardware
+- Z-Wave JS Server: Support omitting optional data while restoring NVM backups
+
+### Config file changes
+
+- Add Ness Smart Plug ZA-216001
+- Add fingerprint for FortrezZ LLC SSA1/SSA2
+
+### Detailed changelogs
+
+- [Z-Wave JS Server 3.0.1](https://github.com/zwave-js/zwave-js-server/releases/tag/3.0.1)
+- [Z-Wave JS 15.3.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.3.0)
+- [Z-Wave JS 15.2.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.2.1)
+- [Z-Wave JS 15.2.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.2.0)
+
+## 0.12.1
+
+### Bug fixes
+
+- Z-Wave JS: Fixed an issue where some controllers could lock up when retrying a command to an unresponsive node
+- Z-Wave JS: Several fixes for legacy Multi Channel devices
+
+### Config file changes
+
+- Add fingerprint for FortrezZ LLC SSA1/SSA2
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.1.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.1.3)
+- [Z-Wave JS 15.1.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.1.2)
+- [Z-Wave JS 15.1.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.1.1)
+
+## 0.12.0
+
+### Features
+
+- Z-Wave JS: Add support for proprietary controller functionality
+
+### Bug fixes
+
+- Z-Wave JS: Fixed two issues that could cause commands to fail with "transmit queue full" errors
+
+### Config file changes
+
+- Add ZWA-2
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.1.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.1.0)
+- [Z-Wave JS 15.0.6](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.0.6)
+
+## 0.11.0
+
+### Breaking changes
+
+- Version 0.11.0 of the add-on requires version 2021.3.0 or higher of Home Assistant Core.
+
+### Features
+
+- Z-Wave JS / Z-Wave JS Server: Add API to query supported notification events of a device
+- Z-Wave JS Server: Support for zwave-js v15
+
+### Bug fixes
+
+- Z-Wave JS: Improved spec compliance
+- Z-Wave JS: Fixed an issue where multi-stage firmware updates would fail after the first stage
+- Z-Wave JS: Fixes an issue where no firmware updates would show as available when the controller region is set to EU_LR
+
+### Config file changes
+
+- Add alarmType 132 mapping for Yale YRD4x0 locks
+- Add fingerprint for ZVIDAR Z-TRV-V01
+- Add missing parameters to Qubino Smart Plug 16A
+- Add missing parameters for the MCO MH-C221 shutter
+- Correct Fibaro FGMS001 association groups
+- Add multi-click detection parameter to Zooz ZEN51/52
+- Add Shelly Door/Window Sensor, Wave Plug S, Wave PRO Dimmer 1PM/2PM
+- Add SmartWings WB04V
+- Add new parameters for Zooz ZEN72 firmware 3.40 and 3.50
+- Add new Zooz ZEN32 parameter 27
+- Update New One N4002 to correct parameters and other information
+- Update Zooz ZSE44 based on latest docs
+- Add SmartWings WM25L Smart Motor
+- Update Zooz ZEN04 to firmware 2.30
+- Update Zooz ZEN30 to Firmware v4.20
+- Update Zooz ZEN20 to firmware 4.20
+- Update Zooz ZEN17 800LR to firmware 2.0
+- Update to TKB Home TZ88
+- Add missing and new parameters for Zooz ZEN15
+- Add fingerprint to Yale YRL210
+- Add Springs Window Fashions CRBZ motorized blinds
+- Add Jasco ZWN4015 In-Wall Smart Switch
+- Add config parameters to Schlage PIR Motion Sensor
+- Add Lockly Secure Plus
+- Update Zooz ZEN74 to firmware 2.10
+- Preserve endpoints for Namron 16A thermostats
+- Allow setting arbitrary Motion Sensitivity for ZSE70
+- Update config file for 500 series controllers
+
+### Detailed changelogs
+
+- [Z-Wave JS Server 3.0.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.0.0)
+- [Z-Wave JS 15.0.5](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.0.5)
+- [Z-Wave JS 15.0.4](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.0.4)
+- [Z-Wave JS 15.0.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.0.3)
+- [Z-Wave JS 15.0.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.0.2)
+- [Z-Wave JS 15.0.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.0.1)
+- [Z-Wave JS 15.0.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.0.0)
+- [Z-Wave JS 14.3.13](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.3.13)
+- [Z-Wave JS 14.3.12](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.3.12)
+- [Z-Wave JS 14.3.11](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.3.11)
+- [Z-Wave JS 14.3.10](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.3.10)
+- [Z-Wave JS 14.3.9](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.3.9)
+
 ## 0.10.0
 
 ### Features

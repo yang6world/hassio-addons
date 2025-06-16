@@ -1,5 +1,68 @@
 # Changelog
 
+## 5.4.9
+
+- Fix pending issue in 5.4.8 with trust store when using a custom ACME server
+
+## 5.4.8
+
+- Further improve root certificate handling when using a custom ACME server
+
+## 5.4.7
+
+- Fix root certificate format when using custom ACME server
+
+## 5.4.6
+
+- Fix custom ACME server for DNS challenge (fixes #1769)
+
+## 5.4.5
+
+- Update certbot-dns-directadmin to 1.0.15
+
+## 5.4.4
+
+- Update certbot to 3.3.0
+- Update acme to 3.3.0
+- Update cryptography to 44.0.2
+
+## 5.4.3
+
+- Update certbot-dns-websupport to 3.0.0
+- Re-enable certbot-dns-websupport
+
+## 5.4.2
+
+- Update certbot-dns-dynu to 0.0.8
+- Update certbot-dns-gandi to 1.6.1
+  (incl. switch back to a renamed updated original version)
+
+## 5.4.1
+
+- Fix TransIP global_key handling
+
+## 5.4.0
+
+- Add additional arguments to certbot (dry-run, test-cert, verbose)
+- Switch gandi-dns to a maintained version (certbot-plugin-gandi-modern)
+- Refactor scripts
+- Improve documentation
+- Refactor configuration and align with documentation
+
+## 5.3.3
+
+- Re-enabled certbot-dns-mijn-host
+
+## 5.3.2
+
+- Update certbot to 3.2.0
+- Update acme to 3.2.0
+- Update certbot-dns-inwx to 3.0.2
+
+## 5.3.1
+
+- Add Eurodns DNS support
+
 ## 5.3.0
 
 - Disabled certbot-dns-mijn-host (Breaking change)

@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.6.0
+
+- Upgrade to Debian bookworm
+- Add support for HuggingFace transformers Whisper models
+
+## 2.5.0
+
+- Added configuration mapping to access local models.
+- Updated documentation about `custom_model` usage.
+
 ## 2.4.0
 
 - Add "auto" for model and beam size (0) to select values based on CPU

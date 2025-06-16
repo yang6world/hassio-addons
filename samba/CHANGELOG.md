@@ -1,4 +1,13 @@
 # Changelog
+
+## 12.5.1
+
+- Add configurations option to disable Apple devices interoperability. Disabling this setting might be required for file systems that do not support extended attributes such as exFAT.
+
+## 12.5.0
+
+- Add the ability to enable and disable trying to become a local master browser on a subnet
+
 ## 12.4.0
 
 - Add the ability to enable and disable specific shares, improving user control over folder access
