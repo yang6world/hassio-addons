@@ -19,12 +19,28 @@ who watched it, when and where they watched it, and how it was watched.
 All statistics are presented in a nice and clean interface with many tables and
 graphs, which makes it easy to brag about your server to everyone else.
 
+## WARNING! THIS IS A BETA VERSION!
+
+This Home Assistant Add-ons repository contains beta releases of add-ons.
+
+- They might stop working at any time.
+- They could have a negative impact on your system.
+
+This repository was created for:
+
+- Anybody willing to test.
+- Anybody interested in trying out upcoming add-ons or add-on features.
+
+If you are more interested in stable releases of our add-ons:
+
+<https://github.com/hassio-addons/repository>
+
 [discord-shield]: https://img.shields.io/discord/330944238910963714.svg
 [discord]: https://discord.gg/c5DvZ4e
 [forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg
 [forum]: https://community.home-assistant.io/t/home-assistant-community-add-on-tautulli/68745
-[maintenance-shield]: https://img.shields.io/maintenance/yes/2024.svg
+[maintenance-shield]: https://img.shields.io/maintenance/yes/2025.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-production%20ready-brightgreen.svg
-[release-shield]: https://img.shields.io/badge/version-v4.2.0-blue.svg
-[release]: https://github.com/hassio-addons/addon-tautulli/tree/v4.2.0
+[release-shield]: https://img.shields.io/badge/version-v4.2.1-blue.svg
+[release]: https://github.com/hassio-addons/addon-tautulli/tree/v4.2.1
 [screenshot]: https://github.com/hassio-addons/addon-tautulli/raw/main/images/screenshot.png
