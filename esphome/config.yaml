@@ -2,7 +2,6 @@
 url: https://esphome.io/
 arch:
 - amd64
-- armv7
 - aarch64
 hassio_api: true
 auth_api: true
@@ -33,8 +32,8 @@ init: false
 startup: services
 name: ESPHome Device Builder
 panel_title: ESPHome Builder
-version: 2024.12.4
+version: 2025.5.2
 slug: esphome
 description: Build your own smart home devices using ESPHome, no programming experience
-  required.
+  required
 image: ghcr.io/esphome/esphome-hassio
