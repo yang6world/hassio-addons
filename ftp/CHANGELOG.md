@@ -2,8 +2,6 @@
 
 ## ⬆️ Dependency updates
 
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v17.2.2 @[renovate[bot]](https://github.com/apps/renovate) ([#235](https://github.com/hassio-addons/addon-ftp/pull/235))
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v17.2.3 @[renovate[bot]](https://github.com/apps/renovate) ([#236](https://github.com/hassio-addons/addon-ftp/pull/236))
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v17.2.4 @[renovate[bot]](https://github.com/apps/renovate) ([#237](https://github.com/hassio-addons/addon-ftp/pull/237))
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v17.2.5 @[renovate[bot]](https://github.com/apps/renovate) ([#239](https://github.com/hassio-addons/addon-ftp/pull/239))
-- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v18 @[renovate[bot]](https://github.com/apps/renovate) ([#240](https://github.com/hassio-addons/addon-ftp/pull/240))
+- ⬆️ Update alpine_3_22/openssl to v3.5.1-r0 @[renovate[bot]](https://github.com/apps/renovate) ([#242](https://github.com/hassio-addons/addon-ftp/pull/242))
+- ⬆️: migrate renovate config @[renovate[bot]](https://github.com/apps/renovate) ([#244](https://github.com/hassio-addons/addon-ftp/pull/244))
+- ⬆️ Update ghcr.io/hassio-addons/base Docker tag to v18.0.2 @[renovate[bot]](https://github.com/apps/renovate) ([#243](https://github.com/hassio-addons/addon-ftp/pull/243))
