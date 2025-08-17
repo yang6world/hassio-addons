@@ -1,9 +1,10 @@
-## 2025.7.5
+## 2025.8.0b2
 
-[**Read release announcement**](https://beta.esphome.io/changelog/2025.7.0)
+[**Read release announcement**](https://beta.esphome.io/changelog/2025.8.0)
 
-- [lvgl] Bugfix for tileview [esphome#9938](https://github.com/esphome/esphome/pull/9938) by [@clydebarrow](https://github.com/clydebarrow)
-- [api] Fix OTA progress updates not being sent when main loop is blocked [esphome#10049](https://github.com/esphome/esphome/pull/10049) by [@bdraco](https://github.com/bdraco)
-- [font] Catch file load exception [esphome#10058](https://github.com/esphome/esphome/pull/10058) by [@clydebarrow](https://github.com/clydebarrow)
-- [i2s_audio] Use high-pass filter for dc offset correction [esphome#10005](https://github.com/esphome/esphome/pull/10005) by [@doobry](https://github.com/doobry)
+- [entity] Allow ``device_id`` to be blank on entities [esphome#10217](https://github.com/esphome/esphome/pull/10217) by [@jesserockz](https://github.com/jesserockz) (new-feature)
+- [espnow] Set state to enabled before adding initial peers [esphome#10225](https://github.com/esphome/esphome/pull/10225) by [@jesserockz](https://github.com/jesserockz)
+- [psram] allow disabling [esphome#10224](https://github.com/esphome/esphome/pull/10224) by [@ssieb](https://github.com/ssieb)
+- Bump aioesphomeapi from 38.2.1 to 39.0.0 [esphome#10222](https://github.com/esphome/esphome/pull/10222) by [@dependabot[bot]](https://github.com/apps/dependabot)
+- Bump esphome-dashboard from 20250514.0 to 20250814.0 [esphome#10227](https://github.com/esphome/esphome/pull/10227) by [@dependabot[bot]](https://github.com/apps/dependabot)
 
