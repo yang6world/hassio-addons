@@ -29,6 +29,22 @@ Be sure to add the NUT integration after starting the add-on.
 For more information on how to configure the NUT Sensor in Home Assistant
 see the [NUT integration documentation][nut-ha-docs].
 
+## WARNING! THIS IS A BETA VERSION!
+
+This Home Assistant Add-ons repository contains beta releases of add-ons.
+
+- They might stop working at any time.
+- They could have a negative impact on your system.
+
+This repository was created for:
+
+- Anybody willing to test.
+- Anybody interested in trying out upcoming add-ons or add-on features.
+
+If you are more interested in stable releases of our add-ons:
+
+<https://github.com/hassio-addons/repository>
+
 
 [buymeacoffee-shield]: https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg
 [buymeacoffee]: https://www.buymeacoffee.com/dale3h
@@ -42,5 +58,5 @@ see the [NUT integration documentation][nut-ha-docs].
 [nut-features]: https://networkupstools.org/features.html
 [nut-ha-docs]: https://www.home-assistant.io/integrations/nut/
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-experimental-yellow.svg
-[release-shield]: https://img.shields.io/badge/version-v0.14.1-blue.svg
-[release]: https://github.com/hassio-addons/addon-nut/tree/v0.14.1
+[release-shield]: https://img.shields.io/badge/version-v0.15.0-blue.svg
+[release]: https://github.com/hassio-addons/addon-nut/tree/v0.15.0
