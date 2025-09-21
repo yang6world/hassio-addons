@@ -22,6 +22,22 @@ embedded devices, cloud resources, and apps any way they want anywhere they go.
 It transforms the entire world into a single data center, to which you
 can now add your Home Assistant instance using this add-on.
 
+## WARNING! THIS IS A BETA VERSION!
+
+This Home Assistant Add-ons repository contains beta releases of add-ons.
+
+- They might stop working at any time.
+- They could have a negative impact on your system.
+
+This repository was created for:
+
+- Anybody willing to test.
+- Anybody interested in trying out upcoming add-ons or add-on features.
+
+If you are more interested in stable releases of our add-ons:
+
+<https://github.com/hassio-addons/repository>
+
 [discord-shield]: https://img.shields.io/discord/478094546522079232.svg
 [discord]: https://discord.me/hassioaddons
 [forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg
@@ -32,5 +48,5 @@ can now add your Home Assistant instance using this add-on.
 [patreon-shield]: https://frenck.dev/wp-content/uploads/2019/12/patreon.png
 [patreon]: https://www.patreon.com/frenck
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-experimental-yellow.svg
-[release-shield]: https://img.shields.io/badge/version-v0.22.1-blue.svg
-[release]: https://github.com/hassio-addons/addon-zerotier/tree/v0.22.1
+[release-shield]: https://img.shields.io/badge/version-v0.23.0-blue.svg
+[release]: https://github.com/hassio-addons/addon-zerotier/tree/v0.23.0
