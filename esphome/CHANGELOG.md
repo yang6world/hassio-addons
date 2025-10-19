@@ -1,8 +1,11 @@
-## 2025.9.3
+## 2025.10.1
 
-[**Read release announcement**](https://esphome.io/changelog/2025.9.0)
+[**Read release announcement**](https://esphome.io/changelog/2025.10.0)
 
-- [api] Prevent API from overriding noise encryption keys set in YAML [esphome#10927](https://github.com/esphome/esphome/pull/10927) by [@bdraco](https://github.com/bdraco)
-- [sim800l] Fixed ignoring incoming calls. [esphome#10865](https://github.com/esphome/esphome/pull/10865) by [@vmakeev](https://github.com/vmakeev)
-- [voice_assistant] Fix wakeword string being reset while referenced [esphome#10945](https://github.com/esphome/esphome/pull/10945) by [@abmantis](https://github.com/abmantis)
+- [mipi_spi] Rotation fixes [esphome#11226](https://github.com/esphome/esphome/pull/11226) by [@clydebarrow](https://github.com/clydebarrow) (new-feature)
+- [ota] Fix MQTT resolution when static IP appears first in device list [esphome#11272](https://github.com/esphome/esphome/pull/11272) by [@bdraco](https://github.com/bdraco)
+- [ota.esphome] Handle blank password the same as no password defined [esphome#11271](https://github.com/esphome/esphome/pull/11271) by [@jesserockz](https://github.com/jesserockz)
+- [tests] Fix OTA password test assertions after merge collision [esphome#11275](https://github.com/esphome/esphome/pull/11275) by [@bdraco](https://github.com/bdraco)
+- [wifi] Fix enterprise wifi [esphome#11276](https://github.com/esphome/esphome/pull/11276) by [@swoboda1337](https://github.com/swoboda1337)
+- [substitutions] Fix AttributeError when using packages with substitutions [esphome#11274](https://github.com/esphome/esphome/pull/11274) by [@bdraco](https://github.com/bdraco)
 
