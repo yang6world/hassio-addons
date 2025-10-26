@@ -1,11 +1,8 @@
-## 2025.10.1
+## 2025.10.3
 
 [**Read release announcement**](https://beta.esphome.io/changelog/2025.10.0)
 
-- [mipi_spi] Rotation fixes [esphome#11226](https://github.com/esphome/esphome/pull/11226) by [@clydebarrow](https://github.com/clydebarrow) (new-feature)
-- [ota] Fix MQTT resolution when static IP appears first in device list [esphome#11272](https://github.com/esphome/esphome/pull/11272) by [@bdraco](https://github.com/bdraco)
-- [ota.esphome] Handle blank password the same as no password defined [esphome#11271](https://github.com/esphome/esphome/pull/11271) by [@jesserockz](https://github.com/jesserockz)
-- [tests] Fix OTA password test assertions after merge collision [esphome#11275](https://github.com/esphome/esphome/pull/11275) by [@bdraco](https://github.com/bdraco)
-- [wifi] Fix enterprise wifi [esphome#11276](https://github.com/esphome/esphome/pull/11276) by [@swoboda1337](https://github.com/swoboda1337)
-- [substitutions] Fix AttributeError when using packages with substitutions [esphome#11274](https://github.com/esphome/esphome/pull/11274) by [@bdraco](https://github.com/bdraco)
+- [hdc1080] Make HDC1080_CMD_CONFIGURATION failure a warning (and log it) [esphome#11355](https://github.com/esphome/esphome/pull/11355) by [@pzich](https://github.com/pzich)
+- [uart] Make rx pin respect pullup and pulldown settings [esphome#9248](https://github.com/esphome/esphome/pull/9248) by [@asergunov](https://github.com/asergunov)
+- [core] handle mixed IP and DNS addresses correctly in resolve_ip_address [esphome#11503](https://github.com/esphome/esphome/pull/11503) by [@Links2004](https://github.com/Links2004)
 
