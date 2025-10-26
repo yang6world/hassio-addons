@@ -15,6 +15,22 @@ storing information.
 
 ![Bookstack screenshot][screenshot]
 
+## WARNING! THIS IS A BETA VERSION!
+
+This Home Assistant Add-ons repository contains beta releases of add-ons.
+
+- They might stop working at any time.
+- They could have a negative impact on your system.
+
+This repository was created for:
+
+- Anybody willing to test.
+- Anybody interested in trying out upcoming add-ons or add-on features.
+
+If you are more interested in stable releases of our add-ons:
+
+<https://github.com/hassio-addons/repository>
+
 [buymeacoffee-shield]: https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg
 [buymeacoffee]: https://www.buymeacoffee.com/sinclairpaul
 [discord-shield]: https://img.shields.io/discord/478094546522079232.svg
@@ -23,6 +39,6 @@ storing information.
 [forum]: https://community.home-assistant.io/?u=frenck
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2025.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-production%20ready-brightgreen.svg
-[release-shield]: https://img.shields.io/badge/version-v3.2.1-blue.svg
-[release]: https://github.com/hassio-addons/addon-bookstack/tree/v3.2.1
+[release-shield]: https://img.shields.io/badge/version-v4.0.0-blue.svg
+[release]: https://github.com/hassio-addons/addon-bookstack/tree/v4.0.0
 [screenshot]: https://github.com/hassio-addons/addon-bookstack/raw/main/images/screenshot.png
