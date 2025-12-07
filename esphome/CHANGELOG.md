@@ -1,13 +1,12 @@
-## 2025.11.2
+## 2025.11.4
 
 [**Read release announcement**](https://esphome.io/changelog/2025.11.0)
 
-- [nextion] Do not set alternative baud rate when not specified or `<= 0` [esphome#12097](https://github.com/esphome/esphome/pull/12097) by [@edwardtfn](https://github.com/edwardtfn)
-- [esp32] Fix platformio flash size print [esphome#12099](https://github.com/esphome/esphome/pull/12099) by [@swoboda1337](https://github.com/swoboda1337)
-- [script] Fix script.wait hanging when triggered from on_boot [esphome#12102](https://github.com/esphome/esphome/pull/12102) by [@bdraco](https://github.com/bdraco)
-- [lvgl] Allow multiple widgets per grid cell [esphome#12091](https://github.com/esphome/esphome/pull/12091) by [@clydebarrow](https://github.com/clydebarrow) (new-feature)
-- [lvgl] Fix position of errors in widget config [esphome#12111](https://github.com/esphome/esphome/pull/12111) by [@clydebarrow](https://github.com/clydebarrow)
-- [esp32] Fix hosted update when there is no wifi [esphome#12123](https://github.com/esphome/esphome/pull/12123) by [@swoboda1337](https://github.com/swoboda1337)
-- [wifi] Restore blocking setup until connected for RP2040 [esphome#12142](https://github.com/esphome/esphome/pull/12142) by [@clydebarrow](https://github.com/clydebarrow)
-- [scheduler] Fix use-after-move crash in heap operations [esphome#12124](https://github.com/esphome/esphome/pull/12124) by [@bdraco](https://github.com/bdraco)
+- [esp32] Add build flag to suppress noexecstack message [esphome#12272](https://github.com/esphome/esphome/pull/12272) by [@clydebarrow](https://github.com/clydebarrow)
+- [ld2420] Add missing USE_SELECT ifdefs [esphome#12275](https://github.com/esphome/esphome/pull/12275) by [@swoboda1337](https://github.com/swoboda1337)
+- [config] Provide path for `has_at_most_one_of` messages [esphome#12277](https://github.com/esphome/esphome/pull/12277) by [@clydebarrow](https://github.com/clydebarrow)
+- [es8311] Remove MIN and MAX from mic_gain enum options [esphome#12281](https://github.com/esphome/esphome/pull/12281) by [@swoboda1337](https://github.com/swoboda1337)
+- [esp32_hosted] Fix build and bump IDF component version to 2.7.0 [esphome#12282](https://github.com/esphome/esphome/pull/12282) by [@swoboda1337](https://github.com/swoboda1337)
+- [CI] Trigger generic version notifier job on release [esphome#12292](https://github.com/esphome/esphome/pull/12292) by [@jesserockz](https://github.com/jesserockz)
+- [scheduler] Fix use-after-free when cancelling timeouts from non-main-loop threads [esphome#12288](https://github.com/esphome/esphome/pull/12288) by [@bdraco](https://github.com/bdraco)
 
