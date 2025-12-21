@@ -1,9 +1,11 @@
-## 2025.12.0b2
+## 2025.12.1
 
 [**Read release announcement**](https://beta.esphome.io/changelog/2025.12.0)
 
-- [light] Add zero-copy support for API effect commands [esphome#12384](https://github.com/esphome/esphome/pull/12384) by [@bdraco](https://github.com/bdraco)
-- [api] Fix potential buffer overflow in noise PSK base64 decode [esphome#12395](https://github.com/esphome/esphome/pull/12395) by [@bdraco](https://github.com/bdraco)
-- [esp8266] Eliminate up to 16ms socket latency [esphome#12397](https://github.com/esphome/esphome/pull/12397) by [@bdraco](https://github.com/bdraco)
-- [http_request] Skip update check when network not connected [esphome#12418](https://github.com/esphome/esphome/pull/12418) by [@swoboda1337](https://github.com/swoboda1337)
+- [cc1101] Fix default frequencies [esphome#12539](https://github.com/esphome/esphome/pull/12539) by [@anna-oake](https://github.com/anna-oake)
+- [pm1006] Fix "never" update interval detection [esphome#12529](https://github.com/esphome/esphome/pull/12529) by [@jackwilsdon](https://github.com/jackwilsdon)
+- [bme68x_bsec2_i2c] Add MULTI_CONF to fix multiple sensors [esphome#12535](https://github.com/esphome/esphome/pull/12535) by [@swoboda1337](https://github.com/swoboda1337)
+- [esp32_camera] Fix I2C driver conflict with other components [esphome#12533](https://github.com/esphome/esphome/pull/12533) by [@swoboda1337](https://github.com/swoboda1337)
+- [template.alarm_control_panel] Fix compile without binary_sensor [esphome#12548](https://github.com/esphome/esphome/pull/12548) by [@swoboda1337](https://github.com/swoboda1337)
+- [esp32_ble, esp32_ble_tracker] Fix crash, error messages when `ble.disable` called during boot [esphome#12560](https://github.com/esphome/esphome/pull/12560) by [@kbx81](https://github.com/kbx81)
 

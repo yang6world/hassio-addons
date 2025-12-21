@@ -1,11 +1,11 @@
-## 2025.11.5
+## 2025.12.1
 
-[**Read release announcement**](https://esphome.io/changelog/2025.11.0)
+[**Read release announcement**](https://esphome.io/changelog/2025.12.0)
 
-- [binary_sensor] Fix reporting of 'unknown' [esphome#12296](https://github.com/esphome/esphome/pull/12296) by [@clydebarrow](https://github.com/clydebarrow)
-- [lvgl] Number saves value on interactive change [esphome#12315](https://github.com/esphome/esphome/pull/12315) by [@clydebarrow](https://github.com/clydebarrow)
-- [scheduler] Fix missing lock when recycling items in defer queue processing [esphome#12343](https://github.com/esphome/esphome/pull/12343) by [@bdraco](https://github.com/bdraco)
-- [wifi] Fix scan timeout loop when scan returns zero networks [esphome#12354](https://github.com/esphome/esphome/pull/12354) by [@bdraco](https://github.com/bdraco)
-- [libretiny] Fix WiFi scan timeout loop when scan fails [esphome#12356](https://github.com/esphome/esphome/pull/12356) by [@bdraco](https://github.com/bdraco)
-- [mqtt] Fix logger method case sensitivity error [esphome#12379](https://github.com/esphome/esphome/pull/12379) by [@swoboda1337](https://github.com/swoboda1337)
+- [cc1101] Fix default frequencies [esphome#12539](https://github.com/esphome/esphome/pull/12539) by [@anna-oake](https://github.com/anna-oake)
+- [pm1006] Fix "never" update interval detection [esphome#12529](https://github.com/esphome/esphome/pull/12529) by [@jackwilsdon](https://github.com/jackwilsdon)
+- [bme68x_bsec2_i2c] Add MULTI_CONF to fix multiple sensors [esphome#12535](https://github.com/esphome/esphome/pull/12535) by [@swoboda1337](https://github.com/swoboda1337)
+- [esp32_camera] Fix I2C driver conflict with other components [esphome#12533](https://github.com/esphome/esphome/pull/12533) by [@swoboda1337](https://github.com/swoboda1337)
+- [template.alarm_control_panel] Fix compile without binary_sensor [esphome#12548](https://github.com/esphome/esphome/pull/12548) by [@swoboda1337](https://github.com/swoboda1337)
+- [esp32_ble, esp32_ble_tracker] Fix crash, error messages when `ble.disable` called during boot [esphome#12560](https://github.com/esphome/esphome/pull/12560) by [@kbx81](https://github.com/kbx81)
 
