@@ -29,22 +29,6 @@ email, bank, and other important accounts. USE A PASSWORD MANAGER!
 
 ![Bitwarden Preview][screenshot]
 
-## WARNING! THIS IS A BETA VERSION!
-
-This Home Assistant Apps repository contains beta releases of apps.
-
-- They might stop working at any time.
-- They could have a negative impact on your system.
-
-This repository was created for:
-
-- Anybody willing to test.
-- Anybody interested in trying out upcoming apps or app features.
-
-If you are more interested in stable releases of our apps:
-
-<https://github.com/hassio-addons/repository>
-
 [discord-shield]: https://img.shields.io/discord/478094546522079232.svg
 [discord]: https://discord.me/hassioaddons
 [forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg
